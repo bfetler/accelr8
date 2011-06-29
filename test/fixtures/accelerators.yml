@@ -1,0 +1,43 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  city: MyString
+  state: MyString
+  country: MyString
+  season: MyString
+  firstname: MyString
+  lastname: MyString
+  email: MyString
+  website: MyString
+  duedate: 2011-06-28
+  startdate: 2011-06-28
+  enddate: 2011-06-28
+  length: 1
+  description: MyString
+  offer: MyString
+  equity: MyString
+  acceptlate: MyString
+  acceptapp: MyString
+  acceptemail: MyString
+
+two:
+  name: MyString
+  city: MyString
+  state: MyString
+  country: MyString
+  season: MyString
+  firstname: MyString
+  lastname: MyString
+  email: MyString
+  website: MyString
+  duedate: 2011-06-28
+  startdate: 2011-06-28
+  enddate: 2011-06-28
+  length: 1
+  description: MyString
+  offer: MyString
+  equity: MyString
+  acceptlate: MyString
+  acceptapp: MyString
+  acceptemail: MyString

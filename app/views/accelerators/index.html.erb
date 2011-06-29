@@ -1,0 +1,47 @@
+<h2>Accelerator List</h2>
+
+<table>
+  <tr>
+    <th class="index">Name</th>
+    <th class="index">Location</th>
+    <th class="index">Start Date</th>
+    <th class="index">Length</th>
+    <th class="index">Application<br/>Due Date</th>
+    <th class="index">Web Site</th>
+    <th class="index">Description</th>
+    <th class="index"></th>
+  </tr>
+
+<% @accelerators.each do |accelerator| %>
+  <tr>
+    <td class="index">
+      <% if (accelerator.season.nil? || accelerator.season.empty?) %>
+        <%= accelerator.name %>
+      <% else %>
+        <%= accelerator.name + " (" + accelerator.season + ")" %>
+      <% end %>
+    </td>
+    <td class="index">
+      <% if (accelerator.country.nil? || accelerator.country.empty?) %>
+        <%= accelerator.city + ", " + accelerator.state %>
+      <% else %>
+        <%= accelerator.city + ", " + accelerator.state + ", " + accelerator.country %>
+      <% end %>
+    </td>
+    <td class="index"><%= accelerator.startdate %></td>
+    <td class="index"><span class="nowrap"><%= accelerator.length %> weeks</span></td>
+    <td class="index"><%= accelerator.duedate %></td>
+    <td class="index"><%= link_to accelerator.website, accelerator.website %></td>
+    <td class="index"><%= accelerator.description %></td>
+    <td class="index"><%= link_to 'Show Details', accelerator, :class => "nowrap" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Accelerator', new_accelerator_path %>
+<br/> <br/>
+<%= link_to 'Home', root_path %> <!-- | -->
+<%#= link_to 'Questionnaires', questionnaires_path %> <!-- | -->
+<%#= link_to 'Registration List', registrations_path %>

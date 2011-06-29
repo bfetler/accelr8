@@ -1,0 +1,8 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
+tmp/*
+tmp/
+doc/api
+doc/app

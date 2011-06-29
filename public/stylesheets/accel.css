@@ -1,0 +1,16 @@
+.required
+{
+#   color:#4444FF;
+    color:red;
+    font-weight:bold;
+    font-size:130%;
+    font-style:italic;
+}
+td.index, th.index
+{
+  padding:3px;
+}
+.nowrap
+{
+  white-space:nowrap;
+}

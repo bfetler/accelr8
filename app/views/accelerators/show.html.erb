@@ -1,0 +1,88 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Accelerator Details</h2>
+
+<p>
+  <% if (@accelerator.season.nil? || @accelerator.season.empty?) %>
+    <b>Name:</b> <%= @accelerator.name %>
+  <% else %>
+    <b>Name:</b> <%= @accelerator.name + ", " %>
+    <b> Season:</b> <%= @accelerator.season %>
+  <% end %>
+</p>
+
+<p>
+  <b>Web Site:</b>
+  <%= link_to @accelerator.website, @accelerator.website %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <% if (@accelerator.country.nil? || @accelerator.country.empty?) %>
+    <%= @accelerator.city + ", " + @accelerator.state %>
+  <% else %>
+    <%= @accelerator.city + ", " + @accelerator.state + ", " + @accelerator.country %>
+  <% end %>
+</p>
+
+<p>
+  <b>Contact: Name:</b>
+  <%= @accelerator.firstname + " " + @accelerator.lastname + ", " %>
+  <b>Email:</b>
+  <%= @accelerator.email  %>
+</p>
+
+<p>
+  <b>Start Date:</b>
+  <%= @accelerator.startdate %>
+  <b> Length:</b>
+  <%= @accelerator.length %> weeks
+</p>
+
+<p>
+  <b>Application Due Date:</b>
+  <%= @accelerator.duedate %>
+</p>
+
+<p>
+  <b>We will accept late applications: </b>
+  <% if (@accelerator.acceptlate.nil? || @accelerator.acceptlate.empty?) %>
+     No
+  <% else %>
+    <%= @accelerator.acceptlate %>
+  <% end %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @accelerator.description %>
+</p>
+
+<p>
+  <b>Offer:<span> What we offer to founders: </span></b>
+  <%= @accelerator.offer %>
+</p>
+
+<p>
+  <b>Equity:<span> What we require of founders: </span></b>
+  <%= @accelerator.equity %>
+</p>
+
+<p>
+  <b>Acceptance:<span> We will accept emailed applications from Founders Hookup: </span></b>
+  <% if (@accelerator.acceptapp.nil? || @accelerator.acceptapp.empty?) %>
+     No
+  <% else %>
+    <%= @accelerator.acceptapp %>
+  <% end %>
+</p>
+
+<p>
+  <b>Application Email Address (if different from contact email):</b>
+  <%= @accelerator.acceptemail %>
+</p>
+
+
+<%= link_to 'Show List', accelerators_path %> |
+<%= link_to 'Edit', edit_accelerator_path(@accelerator) %> |
+<%= link_to 'Delete', accelerator_path(@accelerator), :confirm => 'Are you sure?', :method => :delete %>

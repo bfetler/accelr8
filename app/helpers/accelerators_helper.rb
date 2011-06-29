@@ -1,0 +1,2 @@
+module AcceleratorsHelper
+end
