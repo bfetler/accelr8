@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  companyname: MyString
+  firstname: MyString
+  lastname: MyString
+  email: MyString
+  website: MyString
+  webvideo: MyString
+  description: MyString
+  team: MyString
+  businessplan: MyString
+  competition: MyString
+  other: MyString
+  invest: MyString
+  willcode: 1
+
+two:
+  companyname: MyString
+  firstname: MyString
+  lastname: MyString
+  email: MyString
+  website: MyString
+  webvideo: MyString
+  description: MyString
+  team: MyString
+  businessplan: MyString
+  competition: MyString
+  other: MyString
+  invest: MyString
+  willcode: 1

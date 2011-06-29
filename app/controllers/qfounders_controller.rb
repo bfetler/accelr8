@@ -1,0 +1,2 @@
+class QfoundersController < ApplicationController
+end

@@ -1,4 +1,8 @@
 Accelr8::Application.routes.draw do
+  resources :questionnaires do
+    resources :qfounders
+  end
+
   resources :accelerators
 
   # The priority is based upon order of creation:

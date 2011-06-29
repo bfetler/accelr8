@@ -1,0 +1,116 @@
+
+<% @questionnaire.qfounders.build %> <!-- makes a qfounder -->
+<% if @questionnaire.new_record? %>
+  <% @questionnaire.qfounders.build %> <!-- makes two more qfounders -->
+  <% @questionnaire.qfounders.build %>
+<% end %>
+<%= form_for @questionnaire do |f| %>
+  <% if @questionnaire.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@questionnaire.errors.count, "error") %> prohibited this questionnaire from being saved:</h2>
+
+      <ul>
+      <% @questionnaire.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+    <tr>
+      <td><b>Company or Project Name:</b><span class="required">*</span></td>
+      <td colspan=4><%= f.text_field :companyname, :size => 44 %></td>
+      <td><%= f.label :website, "Website (if any)" %></td>
+      <td><%= f.text_field :website %></td>
+    </tr>
+    <tr>
+      <td><b>Primary Contact:</b><span class="required">*</span></td>
+      <td><%= f.label :firstname, "First name" %></td>
+      <td><%= f.text_field :firstname, :size => 12 %></td>
+      <td><%= f.label :lastname, "Last name" %></td>
+      <td><%= f.text_field :lastname, :size => 12 %></td>
+      <td><%= f.label :email %></td>
+      <td><%= f.text_field :email %></td>
+    </tr>
+  </table>
+
+  <br/>
+  <%= render :partial => 'qfounders/form', :locals => {:form => f} %>
+  <table>
+    <tr>
+      <td><b>
+        <%= f.label :team, "Can you tell us about the founders team background?" %>
+      </b></td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.text_area :team, :rows => 6, :cols => 80 %>
+      </td>
+    </tr>
+    <tr>
+      <td><b>
+        <%= f.label :description, "Please describe your company or project in 2-3 sentences." %><span class="required">*</span>
+      </b></td>
+      <td/>
+    </tr>
+    <tr>
+      <td>
+        <%= f.text_area :description, :rows => 6, :cols => 80 %>
+      </td>
+      <td/>
+      <td>
+        <b><%= f.label :webvideo, "You may also submit a web video " %>
+        <br/>describing your company or project.</b>
+        <br/>
+        <%= f.text_field :webvideo, :size => 30 %> <br/>
+        Please keep video under 2 minutes.
+      </td>
+    </tr>
+    <tr>
+      <td><b>
+        <%= f.label :businessplan, "Please describe your business plan, customer base, and potential revenue stream." %>
+      </b></td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.text_area :businessplan, :rows => 6, :cols => 80 %>
+      </td>
+    </tr>
+    <tr>
+      <td><b>
+        <%= f.label :competition, "Who are your competitors, if any, and how your product is different from theirs?" %>
+      </b></td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.text_area :competition, :rows => 6, :cols => 80 %>
+      </td>
+    </tr>
+    <tr>
+      <td><b>
+        <%= f.label :other, "What other projects have the founders contributed to, if any?" %>
+      </b></td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.text_area :other, :rows => 6, :cols => 80 %>
+      </td>
+    </tr>
+    <tr>
+      <td><b>
+        <%= f.label :invest, "If you have any investors, please describe." %>
+      </b></td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.text_area :invest, :rows => 6, :cols => 80 %>
+      </td>
+    </tr>
+  </table>
+
+  <br/>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

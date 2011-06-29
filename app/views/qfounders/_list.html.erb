@@ -1,0 +1,25 @@
+<table>
+  <tr>
+    <th>Founders:</th>
+    <th class="index">Name</th>
+    <th class="index">Area of Expertise</th>
+    <th class="index">Will write code</th>
+    <th class="index">Linked-In Page / Web Site (if any)</th>
+  </tr>
+  <% for qfounder in @questionnaire.qfounders do %>
+    <tr>
+      <td></td>
+      <td><%= qfounder.firstname %> <%= qfounder.lastname %></td>
+      <td><%= qfounder.role %></td>
+      <td>
+        <% if (! qfounder.willcode.nil?) && (qfounder.willcode == 1) %>
+          Yes
+        <% else %>
+          No
+        <% end %>
+      </td>
+      <td><%= link_to qfounder.weblink, qfounder.weblink %></td>
+    </tr>
+  <% end %>
+</table>
+<br/>

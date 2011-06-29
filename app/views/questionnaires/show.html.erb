@@ -1,0 +1,71 @@
+<h2>Founders Questionnaire Details</h2>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Company Name:</b>
+  <%= @questionnaire.companyname %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <% if (@questionnaire.website.nil? || @questionnaire.website.empty?) %>
+     None
+  <% else %>
+    <%= link_to @questionnaire.website, @questionnaire.website %>
+  <% end %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <span>Name:</span>
+  <%= @questionnaire.firstname + " " + @questionnaire.lastname + ", " %>
+  <span> Email:</span>
+  <%= @questionnaire.email %>
+</p>
+
+<%= render :partial => "qfounders/list" %>
+
+<p>
+  <b>Founder Team Background:</b>
+  <%= @questionnaire.team %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @questionnaire.description %>
+</p>
+
+<p>
+  <b>Web Video:</b>
+  <% if (@questionnaire.webvideo.nil? || @questionnaire.webvideo.empty?) %>
+     None
+  <% else %>
+    <%= link_to @questionnaire.webvideo, @questionnaire.webvideo %>
+  <% end %>
+</p>
+
+<p>
+  <b>Business Plan:</b>
+  <%= @questionnaire.businessplan %>
+</p>
+
+<p>
+  <b>Competition:</b>
+  <%= @questionnaire.competition %>
+</p>
+
+<p>
+  <b>Other Founder Projects:</b>
+  <%= @questionnaire.other %>
+</p>
+
+<p>
+  <b>Investors:</b>
+  <%= @questionnaire.invest %>
+</p>
+
+<%= link_to 'Show List', questionnaires_path %> |
+<%= link_to 'Edit', edit_questionnaire_path(@questionnaire) %> |
+<%= link_to 'Delete', questionnaire_path(@questionnaire), :confirm => 'Are you sure?', :method => :delete %>
+

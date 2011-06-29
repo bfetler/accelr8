@@ -1,0 +1,68 @@
+<!--h4> Ques: id=<%#= @questionnaire.id %>,
+Qfounders: any=<%#= @questionnaire.qfounders.any? %>
+size=<%#= @questionnaire.qfounders.size %>
+</h4!-->
+<table id="fdr">
+  <tr>
+    <%= fields_for :qfounder do |q_form| %>
+      <th>
+        Founders:<span class="required">*</span>
+      </th>
+      <th><%= q_form.label :firstname, 'First name' %></th>
+      <th><%= q_form.label :lastname, 'Last name' %></th>
+      <th><%= q_form.label :role, 'Area of Expertise' %></th>
+      <th><%= q_form.label :willcode, 'Will write code' %></th>
+      <th><%= q_form.label :weblink, 'Linked-In Page / Web Site (if any)' %></th>
+      <th/>
+      <th/>
+      <td>
+        <%# if (@questionnaire.qfounders.size < 10) %>
+          <button type="button" id="cloneit">Add Founder</button>
+        <%# end %>
+      </td>
+    <% end %>
+  </tr>
+  <% ix=0 %>
+  <%# if @questionnaire.qfounders.any? %>
+    <% for qfounder in @questionnaire.qfounders %>
+      <%= fields_for qfounder, :index => ix do |q_form| %>
+        <tr>
+          <td>
+            <%# if (ix==0) && (@questionnaire.qfounders.size < 10) %>
+              <%#= link_to 'Add Founder', fadd_path %>
+            <%# end %>
+          </td>
+          <td><%= q_form.text_field :firstname, :size => 12 %></td>
+          <td><%= q_form.text_field :lastname, :size => 12 %></td>
+          <td><%= q_form.text_field :role, :size => 20 %></td>
+          <td>
+            <%#= q_form.check_box :willcode, {}, checked_value="1", unchecked_value="2" %>
+<!-- above fails, gives: <input name="qfounder[1][willcode]" type="hidden" value="2" /><input id="qfounder_1_willcode" name="qfounder[1][willcode]" type="checkbox" value="1" /> -->
+            <%#= q_form.check_box :willcode, {}, "1", "2" %>
+            <% qfx='qfounder['+ix.to_s+']' %>
+            <%= hidden_field qfx, :willcode %>
+            <% if qfounder.willcode == 1 %>
+              <%= check_box_tag qfx+'[willcode]', '1', true %>
+            <% else %>
+              <%= check_box_tag qfx+'[willcode]', '1', false %>
+            <% end %>
+          </td>
+          <td><%= q_form.text_field :weblink, :size => 30 %></td>
+          <td/>
+          <td/>
+          <%# unless q_form.object.nil? || q_form.object.new_record? %>
+            <!--td><%#= q_form.label :_destroy, 'Remove:' %></td>
+            <td><%#= q_form.check_box :_destroy %></td!-->
+            <!-- note @questionnaire exists only for edit, not new -->
+            <td>
+              <%#= link_to 'Remove', fsubtract_path(:qx => @questionnaire.id, :ix => ix) %>
+              <button type="button" id="rmit">Remove</button>
+            </td>
+          <%# end %>
+        </tr>
+      <% ix += 1 %>
+      <% end %>
+    <% end %>
+  <%# end %>
+</table>
+<br/>

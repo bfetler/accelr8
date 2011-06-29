@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  firstname: MyString
+  lastname: MyString
+  role: MyString
+  willcode: 1
+  weblink: MyString
+  questionnaire: 
+
+two:
+  firstname: MyString
+  lastname: MyString
+  role: MyString
+  willcode: 1
+  weblink: MyString
+  questionnaire: 
