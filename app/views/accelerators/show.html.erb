@@ -59,16 +59,6 @@
 </p>
 
 <p>
-  <b>Offer:<span> What we offer to founders: </span></b>
-  <%= @accelerator.offer %>
-</p>
-
-<p>
-  <b>Equity:<span> What we require of founders: </span></b>
-  <%= @accelerator.equity %>
-</p>
-
-<p>
   <b>Acceptance:<span> We will accept emailed applications from Founders Hookup: </span></b>
   <% if (@accelerator.acceptapp.nil? || @accelerator.acceptapp.empty?) %>
      No
