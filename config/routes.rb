@@ -1,9 +1,17 @@
 Accelr8::Application.routes.draw do
-  resources :questionnaires do
-    resources :qfounders
-  end
 
   resources :accelerators
+
+  resources :questionnaires do
+    resources :qfounders
+    member do
+      get 'apply'
+    end
+  end
+
+  resources :registrations, :only => [:index]
+  match 'registrations/createbatch' => 'registrations#createbatch', :via => :post
+  match 'registrations/destroybatch' => 'registrations#destroybatch', :via => :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

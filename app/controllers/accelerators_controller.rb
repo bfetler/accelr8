@@ -1,14 +1,40 @@
 class AcceleratorsController < ApplicationController
+
   # GET /accelerators
   # GET /accelerators.xml
   def index
-    @accelerators = Accelerator.all
+    if ! params[:column].nil?
+      self.setsortorder()      # sort columns by param
+      @accelerators = Accelerator.order(params[:column]+" "+flash[:sortorder])
+    else
+      @accelerators = Accelerator.all  # sort by index
+    end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @accelerators }
     end
   end
+
+# utility to set column sort order by param
+  def setsortorder
+    if flash[:sortorder].nil?
+      flash[:sortorder]="ASC"
+    else  # swap sort order
+      if flash[:sortorder]=="DESC"
+        flash[:sortorder]="ASC"
+      else
+        flash[:sortorder]="DESC"
+      end
+    end
+    if ! flash[:sortcolumn].nil?
+#     if column changed, reset to ASC
+      if flash[:sortcolumn] != params[:column]
+        flash[:sortorder]="ASC"
+      end
+    end
+    flash[:sortcolumn] = params[:column]
+  end    # setcolumn utility
 
   # GET /accelerators/1
   # GET /accelerators/1.xml
@@ -67,6 +93,7 @@ class AcceleratorsController < ApplicationController
         format.xml  { render :xml => @accelerator.errors, :status => :unprocessable_entity }
       end
     end
+#   flash[:notice] = "accel update: " + params.inspect
   end
 
   # DELETE /accelerators/1
@@ -77,6 +104,8 @@ class AcceleratorsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(accelerators_url) }
+#     format.html # index.html.erb
+#     format.html { render :action => "index" }
       format.xml  { head :ok }
     end
   end

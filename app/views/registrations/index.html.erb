@@ -1,0 +1,38 @@
+<h2>Registration List</h2>
+
+<p id="notice"><%= notice %></p>
+
+<%= form_for(:registration, :url => {:action => 'destroybatch'}, :html => {:method => :delete} ) do |f| %>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Founder Company</th>
+    <th>Accelerator</th>
+    <th>Registration Date / Time</th>
+    <th></th>
+  </tr>
+
+  <% @registrations.each do |r| %>
+    <tr>
+      <td><%= check_box_tag("bx[" + r.id.to_s + "]", "") %></td>
+      <td><%= r.questionnaire.to_s %></td>
+      <td><%= r.accelerator.to_s %></td>
+      <td><%= r.updated_at.to_formatted_s(:db) %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+<br/>
+
+<p>Select registrations to delete, then click the button below.<br/>
+This action is for admin cleanup only, and will not "unsend" any emails.</p>
+
+<%= f.submit(value='Delete Registrations', :confirm => 'Are you sure you want to delete these registrations?') %>
+
+<% end %>
+
+<br />
+
+<%= link_to 'Back to Accelerators', accelerators_path %>

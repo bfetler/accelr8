@@ -69,20 +69,22 @@
   <br/>
   <table>
     <tr class="field">
-      <td colspan=2><%= f.label :description, "Description: Please describe the accelerator in 4-6 sentences." %><span class="required">*</span></td>
+      <td colspan=2><%= f.label :description, "Description: Please describe the accelerator in 5-8 sentences." %><span class="required">*</span></td>
     </tr>
     <tr class="field">
-      <td colspan=2><%= f.text_area :description, :rows => 7, :cols => 104 %></td>
-    </tr>
-    <tr class="field">
-      <td><%= f.label :offer, "Offer: What the accelerator offers to founders." %></td>
-      <td><%= f.label :equity, "Equity: What the accelerator requires of founders." %></td>
-    </tr>
-    <tr class="field">
-      <td><%= f.text_area :offer, :rows => 5, :cols => 50 %></td>
-      <td><%= f.text_area :equity, :rows => 5, :cols => 50 %></td>
+      <td colspan=2><%= f.text_area :description, :rows => 9, :cols => 104 %></td>
     </tr>
   </table>
+  <!--table>
+    <tr class="field">
+      <td><%#= f.label :offer, "Offer: What the accelerator offers to founders." %></td>
+      <td><%#= f.label :equity, "Equity: What the accelerator requires of founders." %></td>
+    </tr>
+    <tr class="field">
+      <td><%#= f.text_area :offer, :rows => 5, :cols => 50 %></td>
+      <td><%#= f.text_area :equity, :rows => 5, :cols => 50 %></td>
+    </tr>
+  </table!-->
   <table>
     <tr class="field">
       <td>We have read the <%= link_to "Terms of Agreement", "#" %>, and<br/>

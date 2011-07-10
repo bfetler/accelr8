@@ -1,0 +1,60 @@
+Welcome to rails.example.com, <%= @accel.name %>
+===============================================
+ 
+You are receiving a registration from FoundersHookup.com
+your city is: <%= @accel.city %>.
+ 
+Founders Hookup Application
+
+The following is an application to your accelerator <%= @accel.name %>
+from <%= @questionnaire.companyname %> via Founders Hookup.
+ 
+===============================================
+
+  Company Name: <%= @questionnaire.companyname %>
+
+  Website:
+  <% if (@questionnaire.website.nil? || @questionnaire.website.empty?) %>
+     None
+  <% else %>
+    <%= link_to @questionnaire.website, @questionnaire.website %>
+  <% end %>
+
+  Contact: Name:  <%= @questionnaire.firstname + " " + @questionnaire.lastname + ", " %>
+           Email: <%= @questionnaire.email %>
+
+  Founders:
+	Name	Area of Expertise	Writes code		Linked-In Page / Web Site (if any)
+  <% for qfounder in @questionnaire.qfounders do %>
+	<%= qfounder.firstname %> <%= qfounder.lastname %>	<%= qfounder.role %>	<% if (! qfounder.willcode.nil?) && (qfounder.willcode == 1) %> Yes <% else %> No <% end %>	<%= link_to qfounder.weblink, qfounder.weblink %>
+
+  <% end %>
+
+
+  Founder Team Background:
+  <%= @questionnaire.team %>
+
+  Description:
+  <%= @questionnaire.description %>
+
+  Web Video: <% if (@questionnaire.webvideo.nil? || @questionnaire.webvideo.empty?) %> None <% else %> <%= link_to @questionnaire.webvideo, @questionnaire.webvideo %> <% end %>
+
+  Business Plan:
+  <%= @questionnaire.businessplan %>
+
+  Competition:
+  <%= @questionnaire.competition %>
+
+  Other Founder Projects:
+  <%= @questionnaire.other %>
+
+  Investors:
+  <%= @questionnaire.invest %>
+
+  Advisors / Mentors:
+  <%= @questionnaire.advisor %>
+
+
+===============================================
+
+Thanks and have a great day!

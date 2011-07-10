@@ -1,0 +1,39 @@
+<h2>Founders Application</h2>
+
+<nav class="accel round">
+  <ul class="accel">
+    <li class="accel">
+      <%= link_to 'Full Details', @questionnaire %>
+    </li>
+    <li class="accel">
+      <%= link_to 'Edit', edit_questionnaire_path(@questionnaire) %>
+    </li>
+    <li class="accel">
+      <%= link_to 'Show List', questionnaires_path %>
+    </li>
+  </ul>
+</nav>
+<!-- put links in a table, to the right of info? -->
+
+<p>
+  <b>Company Name:</b>
+  <%= @questionnaire.companyname %>
+</p>
+
+<p>
+  <b>Founders:</b>
+  <%= @questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @questionnaire.description %>
+<!-- put description in a table, left half of screen?
+     or a text_area_tag w/ readonly? -->
+</p>
+
+<br/>
+<hr/>
+
+<%= render :partial => 'accelerators/list' %>
+

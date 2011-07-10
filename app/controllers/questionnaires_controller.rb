@@ -21,6 +21,46 @@ class QuestionnairesController < ApplicationController
     end
   end
 
+  # GET /questionnaires/1
+  # GET /questionnaires/1.xml
+  def apply
+    @questionnaire = Questionnaire.find(params[:id])
+
+# used by accelerator/_list.html.erb
+    if ! params[:column].nil?
+      self.setsortorder()      # sort columns by param
+      @accelerators = Accelerator.order(params[:column]+" "+flash[:sortorder])
+    else
+      @accelerators = Accelerator.all  # sort by index
+    end
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @questionnaire }
+    end
+  end
+
+# utility to set column sort order by param
+# copy of method from accelerators_controller
+  def setsortorder
+    if flash[:sortorder].nil?
+      flash[:sortorder]="ASC"
+    else  # swap sort order
+      if flash[:sortorder]=="DESC"
+        flash[:sortorder]="ASC"
+      else
+        flash[:sortorder]="DESC"
+      end
+    end
+    if ! flash[:sortcolumn].nil?
+#     if column changed, reset to ASC
+      if flash[:sortcolumn] != params[:column]
+        flash[:sortorder]="ASC"
+      end
+    end
+    flash[:sortcolumn] = params[:column]
+  end    # setcolumn utility
+
   # GET /questionnaires/new
   # GET /questionnaires/new.xml
   def new
@@ -70,8 +110,6 @@ class QuestionnairesController < ApplicationController
         format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
       end
     end
-
-#   flash[:notice] = "flash create: " + params['questionnaire'].inspect
   end
 
   # PUT /questionnaires/1
@@ -85,34 +123,8 @@ class QuestionnairesController < ApplicationController
     else
 # no save errors for questionnaire, try saving qfounders
       if params['qfounder'].any?
-#
-# method A
-## delete all previous qfounders
-#       @questionnaire.qfounders.each do |qfdr|
-#         qfdr.destroy
-#       end
-#       params['qfounder'].each { |i, fdr|
-## if non-empty lastname string, save qfounder
-#         if fdr.fetch("lastname", "").match('[A-z]+')
-#           @qfdr = Qfounder.new(fdr)
-#           @qfdr.questionnaire_id = @questionnaire.id
-#           if ! @qfdr.save
-#             saveerr = 0
-#           end
-#         end
-#       }
-# end method A
-#
-# method C
-#   similar to method A/B, except create array of old qfdr as in B.
-#   loop through new fdr, call update and delete (1) from array.
-#   if any left in array at end, just delete.
-#   don't need to compare all attrs.
-#   it may give some unnecessary updates, but easier to keep track.
-# end method C
-#
-# method B
-# works but it sure is ugly
+
+# method works okay
 # set all previous qfounders into oldlist
         oldlist = []
         @questionnaire.qfounders.each do |qf|
@@ -120,29 +132,20 @@ class QuestionnairesController < ApplicationController
         end
 # create/update new qfounders
         params['qfounder'].each { |i, fdr|
-          if fdr.fetch("lastname", "").match('[A-z]+')  # non-empty string
-            updated = 1
-            fdrf = fdr.fetch("firstname")
-            fdrl = fdr.fetch("lastname")
-            fdrw = fdr.fetch("weblink")
-            fdrr = fdr.fetch("role")
-            fdrc = fdr.fetch("willcode")
-            oldlist.each do |qf|
-              if (fdrf == qf.firstname && fdrl == qf.lastname)
-                updated = 0
-                if ! (fdrw==qf.weblink && fdrr==qf.role && fdrc==qf.willcode)
-#               if (fdrw != qf.weblink || fdrr != qf.role)
-#                 not all attributes match, update entry
-                  if ! qf.update_attributes(fdr)
-                    saveerr = 0
-                  end
-#               else  # no attributes changed
-                end
-                oldlist.delete(qf)  # delete matched entry from oldlist
-                break
+          do_update = 1
+          fdr.each { |j, fval|
+            if fval != ""   # check if any value is non-empty
+              do_update = 0
+            end
+          }
+          if do_update == 0
+            oqf = oldlist.first
+            if ! oqf.nil?   # update old founder
+              if ! oqf.update_attributes(fdr)
+                saveerr = 0
               end
-            end   # oldlist.each do
-            if updated > 0  # params not found in oldlist, save new entry
+              oldlist.delete(oqf)
+            else            # create new founder
               @qfdr = Qfounder.new(fdr)
               @qfdr.questionnaire_id = @questionnaire.id
               if ! @qfdr.save
@@ -154,7 +157,7 @@ class QuestionnairesController < ApplicationController
         oldlist.each do |qf|
           qf.destroy   # delete any remaining old founders
         end
-# end method B
+# end method
 
       end  # if params['qfounder'].any?
     end
@@ -169,9 +172,57 @@ class QuestionnairesController < ApplicationController
       end
     end
 
+# output flash msg only, action above format
+    if params['qfounder'].any?
+
+# method works okay - flash output
+        flash[:notice] += " OLD OLD "
+        oldlist = []
+# set all previous qfounders into oldlist
+        @questionnaire.qfounders.each do |qf|
+          oldlist << qf
+#         flash[:notice] += " old " + qf.lastname
+        end
+# create/update new qfounders
+        params['qfounder'].each { |i, fdr|
+          flash[:notice] += " fdr" + i.to_s + " "
+          do_update = 1
+          fdr.each { |j, fval|
+            if fval != ""   # check if any value is non-empty
+              do_update = 0
+            end
+          }
+          if do_update == 0
+            oqf = oldlist.first
+            if ! oqf.nil?   # update old founder
+              flash[:notice] += " update fdr " + oqf.lastname + " > " + fdr.fetch("lastname") + " "
+#             if ! oqf.update_attributes(fdr)
+#               saveerr = 0
+#             end
+              oldlist.delete(oqf)
+            else            # create new founder
+              flash[:notice] += " create fdr " + fdr.fetch("lastname") + " "
+#             @qfdr = Qfounder.new(fdr)
+#             @qfdr.questionnaire_id = @questionnaire.id
+#             if ! @qfdr.save
+#               saveerr = 0
+#             end
+            end
+          end
+        }  # end params['qfounder'].each
+        flash[:notice] += " oldlist.size " + oldlist.size.to_s + " "
+        oldlist.each do |oqf|
+          flash[:notice] += "del " + oqf.id.to_s + " "
+        end
+# end method
+
+    end
+
+#   flash[:notice] += params['qfounder'].count.to_s + " xx " + params['questionnaire'].inspect
 #   flash[:notice] += params['qfounder'].count.to_s + " xx " + params.inspect
 #   flash[:notice] = "flash update: " + params['questionnaire'].inspect
   end
+
 
   # DELETE /questionnaires/1
   # DELETE /questionnaires/1.xml
@@ -184,5 +235,6 @@ class QuestionnairesController < ApplicationController
       format.html { redirect_to(questionnaires_url) }
       format.xml  { head :ok }
     end
+#   flash[:notice] = "try destroy questionnaire"
   end
 end

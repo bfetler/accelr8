@@ -1,11 +1,12 @@
 <table>
   <tr>
     <th>Founders:</th>
-    <th class="index">Name</th>
-    <th class="index">Area of Expertise</th>
-    <th class="index">Will write code</th>
-    <th class="index">Linked-In Page / Web Site (if any)</th>
+    <th>Name</th>
+    <th>Area of Expertise</th>
+    <th>Writes Code</th>
+    <th>Linked-In Page / Web Site (if any)</th>
   </tr>
+  <%# for qfounder in @questionnaire.qfounders.order("lastname") do %>
   <% for qfounder in @questionnaire.qfounders do %>
     <tr>
       <td></td>

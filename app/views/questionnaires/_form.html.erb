@@ -1,9 +1,13 @@
-
-<% @questionnaire.qfounders.build %> <!-- makes a qfounder -->
 <% if @questionnaire.new_record? %>
-  <% @questionnaire.qfounders.build %> <!-- makes two more qfounders -->
+  <% @questionnaire.qfounders.build %> <!-- makes three qfounders -->
   <% @questionnaire.qfounders.build %>
+  <% @questionnaire.qfounders.build %>
+<% else %>
+  <% if (@questionnaire.qfounders.size < 10) %>
+    <% @questionnaire.qfounders.build %> <!-- makes one qfounder -->
+  <% end %>
 <% end %>
+
 <%= form_for @questionnaire do |f| %>
   <% if @questionnaire.errors.any? %>
     <div id="error_explanation">
@@ -107,10 +111,24 @@
         <%= f.text_area :invest, :rows => 6, :cols => 80 %>
       </td>
     </tr>
+    <tr>
+      <td><b>
+        <%= f.label :advisor, "If you have advisors or mentors working with you, please describe." %>
+      </b></td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.text_area :advisor, :rows => 6, :cols => 80 %>
+      </td>
+    </tr>
   </table>
 
   <br/>
   <div class="actions">
-    <%= f.submit %>
+    <% if @questionnaire.new_record? %>
+      <%= f.submit value='New Founders Application' %>
+    <% else %>
+      <%= f.submit value='Update Founders Application' %>
+    <% end %>
   </div>
 <% end %>
