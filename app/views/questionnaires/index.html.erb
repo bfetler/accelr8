@@ -1,37 +1,39 @@
 <h2>Founders Application List</h2>
 
-<table>
-  <tr>
-    <th class="index">Company Name</th>
-    <th class="index">Website</th>
-    <th class="index">Contact Email</th>
-    <th class="index">Founders</th>
-    <th class="index">Description</th>
-    <th class="index">Web Video</th>
-    <th/>
-  </tr>
+<% if @questionnaires.any? %>
+  <table>
+    <tr>
+      <th class="index">Company Name</th>
+      <th class="index">Website</th>
+      <th class="index">Contact Email</th>
+      <th class="index">Founders</th>
+      <th class="index">Description</th>
+      <th class="index">Web Video</th>
+      <th/>
+    </tr>
 
-<% @questionnaires.each do |questionnaire| %>
-  <tr>
-    <td class="index"><%= questionnaire.companyname %></td>
-    <td class="index"><%= link_to questionnaire.website, questionnaire.website %></td>
-    <td class="index"><%= questionnaire.email %></td>
-    <td class="index">
-      <%= questionnaire.qfounders.map { |t| t.lastname }.join(", ") %>
-      <%#= questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %>
-    </td>
-    <td class="index"><%= questionnaire.description %></td>
-    <td class="index">
-      <% if (questionnaire.webvideo.nil? || questionnaire.webvideo.empty?) %>
-         None
-      <% else %>
-        <%= link_to questionnaire.webvideo, questionnaire.webvideo %>
-      <% end %>
-    </td>
-    <td class="index"><%= link_to 'Show Details', questionnaire, :class => "nowrap" %></td>
-  </tr>
+    <% @questionnaires.each do |questionnaire| %>
+    <tr>
+      <td class="index"><%= questionnaire.companyname %></td>
+      <td class="index"><%= link_to questionnaire.website, questionnaire.website %></td>
+      <td class="index"><%= questionnaire.email %></td>
+      <td class="index">
+        <%= questionnaire.qfounders.map { |t| t.lastname }.join(", ") %>
+        <%#= questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %>
+      </td>
+      <td class="index"><%= questionnaire.description %></td>
+      <td class="index">
+        <% if (questionnaire.webvideo.nil? || questionnaire.webvideo.empty?) %>
+           None
+        <% else %>
+          <%= link_to questionnaire.webvideo, questionnaire.webvideo %>
+        <% end %>
+      </td>
+      <td class="index"><%= link_to 'Show Details', questionnaire, :class => "nowrap" %></td>
+    </tr>
+    <% end %>
+  </table>
 <% end %>
-</table>
 
 <br />
 

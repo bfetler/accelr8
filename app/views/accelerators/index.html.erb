@@ -1,5 +1,6 @@
 <h2>Accelerator List</h2>
 
+<% if @accelerators.any? %>
 <table>
   <tr>
     <th class="index">
@@ -28,7 +29,7 @@
     <th></th>
   </tr>
 
-<% @accelerators.each do |accelerator| %>
+  <% @accelerators.each do |accelerator| %>
   <tr>
     <td class="index">
       <%= accelerator.to_s %>
@@ -57,14 +58,13 @@
       <%= button_to 'Show Details', { :controller => "accelerators", :action => "show", :id => accelerator.id }, :method => :get %>
     </td>
   </tr>
-<% end %>
+  <% end %> <!-- @accelerators.each -->
 </table>
+<% end %> <!-- if @accelerators.any? -->
 
 <br />
 
-<!-- shouldn't use nav? -->
-
-<nav class="accelnew">
+<nav>
   <%= button_to 'New Accelerator', { :controller => "accelerators", :action => "new" }, :method => :get %>
 </nav>
 
