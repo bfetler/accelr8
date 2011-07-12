@@ -31,7 +31,8 @@ class QuestionnairesController < ApplicationController
       self.setsortorder()      # sort columns by param
       @accelerators = Accelerator.order(params[:column]+" "+flash[:sortorder])
     else
-      @accelerators = Accelerator.all  # sort by index
+#     @accelerators = Accelerator.all  # sort by index
+      @accelerators = Accelerator.order("name")  # sort by name
     end
 
     respond_to do |format|

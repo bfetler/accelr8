@@ -1,4 +1,25 @@
+<nav class="accel round">
+  <ul class="accel">
+    <li class="accel">
+      <%= link_to 'Accelerators', accelerators_path %>
+    </li>
+    <li class="accel">
+      <%= link_to 'Founders Applications', questionnaires_path %>
+    </li>
+    <li class="accel">
+      <%# if isadmin? %>
+        <%= link_to 'Registration List', registrations_path %>
+      <%# end %>
+    </li>
+  </ul>
+</nav>
+
 <h2>Founders Application List</h2>
+
+<nav>
+  <%= button_to 'New Founders Application', { :controller => "questionnaires", :action => "new" }, :method => :get %>
+</nav>
+<br/>
 
 <% if @questionnaires.any? %>
   <table>
@@ -34,11 +55,4 @@
     <% end %>
   </table>
 <% end %>
-
-<br />
-
-<%= link_to 'New Founders Application', new_questionnaire_path %>
-<br/><br/>
-<%= link_to 'Accelerators', accelerators_path %> |
-<%= link_to 'Founders Applications', questionnaires_path %>
 

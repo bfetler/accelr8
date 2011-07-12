@@ -72,6 +72,6 @@
 
 <%= link_to 'Show List', questionnaires_path %> |
 <%= link_to 'Edit', edit_questionnaire_path(@questionnaire) %> |
-<%= link_to 'Delete', questionnaire_path(@questionnaire), :confirm => 'Are you sure?', :method => :delete %> |
+<%= link_to 'Delete', questionnaire_path(@questionnaire), :confirm => 'Are you sure you want to delete this application?', :method => :delete %> |
 <%= link_to 'Apply to Accelerators', apply_questionnaire_path(@questionnaire) %>
 
