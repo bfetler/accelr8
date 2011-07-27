@@ -1,28 +1,23 @@
-<nav class="accel round">
-  <ul class="accel">
-    <li class="accel">
-      <%= link_to 'Accelerators', accelerators_path %>
-    </li>
-    <li class="accel">
-      <%= link_to 'Founders Applications', questionnaires_path %>
-    </li>
-    <li class="accel">
-      <%# if isadmin? %>
-        <%= link_to 'Registration List', registrations_path %>
-      <%# end %>
-    </li>
-  </ul>
-</nav>
+<h4><b>List of Accelerator Applications</b></h4>
 
-<h2>Founders Application List</h2>
-
-<nav>
-  <%= button_to 'New Founders Application', { :controller => "questionnaires", :action => "new" }, :method => :get %>
-</nav>
+<ul class="accel small">
+  <li class="nostyle">
+    Accelerator applications may be used to apply to accelerator programs.  A founder may create multiple applications for each company or project.
+  </li>
+  <li class="left_margin">
+    Click on Edit to view an application and edit its details.
+  </li>
+  <li class="left_margin">
+    Click on Apply to use an application to apply to accelerators.
+  </li>
+  <li class="left_margin">
+    Click on Create New Accelerator Application to start a new application.
+  </li>
+</ul>
 <br/>
 
 <% if @questionnaires.any? %>
-  <table>
+  <table class="accel">
     <tr>
       <th class="index">Company Name</th>
       <th class="index">Website</th>
@@ -30,7 +25,8 @@
       <th class="index">Founders</th>
       <th class="index">Description</th>
       <th class="index">Web Video</th>
-      <th/>
+      <th class="index center">Edit</th>
+      <th class="index center">Apply to<br/>Accelerators</th>
     </tr>
 
     <% @questionnaires.each do |questionnaire| %>
@@ -42,7 +38,9 @@
         <%= questionnaire.qfounders.map { |t| t.lastname }.join(", ") %>
         <%#= questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %>
       </td>
-      <td class="index"><%= questionnaire.description %></td>
+      <td class="index description">
+        <div class="notice round"><%= questionnaire.description %></div>
+      </td>
       <td class="index">
         <% if (questionnaire.webvideo.nil? || questionnaire.webvideo.empty?) %>
            None
@@ -50,9 +48,22 @@
           <%= link_to questionnaire.webvideo, questionnaire.webvideo %>
         <% end %>
       </td>
-      <td class="index"><%= link_to 'Show Details', questionnaire, :class => "nowrap" %></td>
+      <td class="index center">
+        <%#= link_to 'Edit', edit_questionnaire_path(questionnaire), :class => "small" %>
+        <%= button_to 'Edit', { :controller => "questionnaires", :action => "edit", :id => questionnaire.id }, :method => :get, :class => "small" %>
+      </td>
+      <td class="index center">
+        <%#= link_to 'Apply', apply_questionnaire_path(questionnaire), :class => "small" %>
+        <%= button_to 'Apply', { :controller => "questionnaires", :action => "apply", :id => questionnaire.id }, :method => :get, :class => "small" %>
+      </td>
     </tr>
     <% end %>
   </table>
 <% end %>
+
+<ul class="accel">
+  <li class="nostyle">
+    <%= button_to 'Create New Accelerator Application', { :controller => "questionnaires", :action => "new" }, :method => :get %>
+  </li>
+</ul>
 

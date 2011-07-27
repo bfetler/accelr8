@@ -11,15 +11,15 @@
     </div>
   <% end %>
 
-  <table>
-    <tr class="field">
+  <table class="clear span-18">
+    <tr class="field nomargin">
       <td><%= f.label :name %><span class="required">*</span></td>
       <td><%= f.text_field :name %></td>
       <td/>
       <td colspan=2><%= f.label :season, "Season / Year" %></td>
       <td colspan=1><%= f.text_field :season, :size => 20 %></td>
     </tr>
-    <tr class="field">
+    <tr class="field nomargin">
       <td><%= f.label :city %><span class="required">*</span></td>
       <td><%= f.text_field :city %></td>
       <td><%= f.label :state %><span class="required">*</span></td>
@@ -27,71 +27,65 @@
       <td><%= f.label :country %></td>
       <td><%= f.text_field :country, :size => 20 %></td>
     </tr>
-    <tr class="field">
+    <tr class="field nomargin">
       <td><%= f.label :website %><span class="required">*</span></td>
-      <td colspan=3><%= f.text_field :website, :size => 42 %></td>
+      <td colspan=3><%= f.text_field :website, :size => 44 %></td>
       <td/>
       <td/>
     </tr>
   </table>
-  <br/>
-  <table>
-    <tr class="field">
+  <table class="clear span-18">
+    <tr class="field nomargin">
       <td><%= f.label :startdate, "Start Date" %><span class="required">*</span></td>
-      <td><%= f.date_select :startdate, options = { :start_year => Time.now.year } %></td>
-      <td/>
-      <td/>
+      <td><%= f.date_select :startdate, options = { :start_year => Time.now.year }, :class => "nomargin" %></td>
       <td><%= f.label :length, "Length (weeks)" %><span class="required">*</span></td>
       <td><%= f.text_field :length, :size => 3 %></td>
       <td/>
       <td/>
     </tr>
-    <tr class="field">
+    <tr class="field nomargin">
       <td><%= f.label :duedate, "Application Due Date" %><span class="required">*</span></td>
-      <td><%= f.date_select :duedate, options = { :start_year => Time.now.year } %></td>
-      <td/>
-      <td/>
-      <td colspan=4><%= f.label :acceptlate, "We will accept late applications:" %></td>
+      <td><%= f.date_select :duedate, options = { :start_year => Time.now.year }, :class => "nomargin" %></td>
+      <td colspan=3><%= f.label :acceptlate, "We will accept late applications:" %></td>
       <td><%= f.check_box :acceptlate, {}, "Yes", "No" %></td>
     </tr>
   </table>
-  <table>
-    <tr class="field">
-      <td>Contact:<span class="required"> </span></td>
-      <td><%= f.label :firstname, "First name" %><span class="required"> </span></td>
+  <table class="clear span-18">
+    <tr class="field nomargin">
+      <td><b>Contact:</b><span class="required"> </span></td>
+      <td class="nowrap"><%= f.label :firstname, "First name" %><span class="required"> </span></td>
       <td><%= f.text_field :firstname, :size => 15 %></td>
-      <td><%= f.label :lastname, "Last name" %><span class="required">*</span></td>
+      <td class="nowrap"><%= f.label :lastname, "Last name" %><span class="required">*</span></td>
       <td><%= f.text_field :lastname, :size => 15 %></td>
+    </tr>
+    <tr class="field nomargin">
+      <td/>
       <td><%= f.label :email %><span class="required">*</span></td>
-      <td><%= f.text_field :email, :size => 30 %></td>
+      <td colspan=4><%= f.text_field :email, :size => 57 %></td>
     </tr>
   </table>
-  <br/>
-  <table>
+  <table class="clear span-16">
     <tr class="field">
-      <td colspan=2><%= f.label :description, "Description: Please describe the accelerator in 5-8 sentences." %><span class="required">*</span></td>
+      <td><%= f.label :description, "Description: Please describe the accelerator in 5 - 10 sentences." %><span class="required">*</span></td>
     </tr>
     <tr class="field">
-      <td colspan=2><%= f.text_area :description, :rows => 9, :cols => 104 %></td>
+      <td>
+        <%= f.text_area :description, :class => "bigarea" %>
+      </td>
     </tr>
   </table>
-  <!--table>
+  <table class="clear span-18">
     <tr class="field">
-      <td><%#= f.label :offer, "Offer: What the accelerator offers to founders." %></td>
-      <td><%#= f.label :equity, "Equity: What the accelerator requires of founders." %></td>
-    </tr>
-    <tr class="field">
-      <td><%#= f.text_area :offer, :rows => 5, :cols => 50 %></td>
-      <td><%#= f.text_area :equity, :rows => 5, :cols => 50 %></td>
-    </tr>
-  </table!-->
-  <table>
-    <tr class="field">
-      <td>We have read the <%= link_to "Terms of Agreement", "#" %>, and<br/>
-         <%= f.label :acceptapp, "will accept emailed applications from Founders Hookup:" %>
+      <td>
+        <!--b>We have read the
+        <%#= link_to "Terms of Agreement", { :controller => "accelerators", :action => "terms" }, :method => :post %>
+        , and</b><br/-->
+        <%#= f.label :acceptapp, "will accept emailed applications from Founders Hookup:" %>
+        <%= f.label :acceptapp, "We will accept emailed applications from Founders Hookup:" %>
        </td>
       <td>
-        <br/><%= f.check_box :acceptapp, {}, "Yes", "No" %>
+        <!--br/-->
+        <%= f.check_box :acceptapp, {}, "Yes", "No" %>
       </td>
     <tr class="field">
     </tr>
@@ -99,8 +93,7 @@
       <td><%= f.text_field :acceptemail, :size => 30 %></td>
     </tr>
   </table>
-  <br/>
-  <div class="actions">
+  <div class="actions clear span-4">
     <%= f.submit %>
   </div>
 <% end %>

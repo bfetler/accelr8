@@ -1,7 +1,16 @@
-<h2>Update Founders Application</h2>
+<div class="span-20">
+
+<h4><b>Update Accelerator Application</b></h4>
 
 <%= render 'form' %>
 
-<%= link_to 'Discard Changes', @questionnaire %> |
-<%= link_to 'Show List', questionnaires_path %>
+<ul class="push-7">
+  <li class="inline_menu span-4">
+    <%= link_to 'List Applications', questionnaires_path %>
+  </li>
+  <li class="inline_menu span-4">
+    <%= link_to 'Delete Application', questionnaire_path(@questionnaire), :confirm => 'Are you sure you want to delete this application?', :method => :delete %>
+  </li>
+</ul>
 
+</div>

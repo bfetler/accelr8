@@ -20,6 +20,9 @@ class Questionnaire < ActiveRecord::Base
   validates :invest, 		:length => { :maximum => 500 }
   validates :advisor, 		:length => { :maximum => 500 }
 
+# validates_numericality_of :qfounder_ids, :greater_than => 0
+# validates :qfounder_ids, 	:length => { :minimum => 1 }
+
   accepts_nested_attributes_for :qfounders, :allow_destroy => :true,
       :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
   accepts_nested_attributes_for :registrations, :allow_destroy => :true,

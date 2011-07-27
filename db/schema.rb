@@ -27,13 +27,13 @@ ActiveRecord::Schema.define(:version => 20110709230359) do
     t.date     "enddate"
     t.integer  "length"
     t.string   "description"
-    t.string   "offer"
-    t.string   "equity"
     t.string   "acceptlate"
     t.string   "acceptapp"
     t.string   "acceptemail"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "equity"
+    t.string   "offer"
   end
 
   create_table "qfounders", :force => true do |t|

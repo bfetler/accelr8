@@ -83,7 +83,7 @@ class RegistrationsController < ApplicationController
 #     flash[:notice] += " BX count " + params['bx'].count.to_s + " " + params['bx'].inspect
 
       flash[:notice] = "  " + Questionnaire.find(params['quid']).companyname
-      flash[:notice] += " applied to: "
+      flash[:notice] += " application sent to: "
       flash[:notice] += params['bx'].map { |t, v|
         acc = Accelerator.find(t)
         if (acc.season.nil? || acc.season.empty?)
@@ -94,6 +94,8 @@ class RegistrationsController < ApplicationController
       }.join(", ")
       flash[:notice] += "."
 
+    else
+      flash[:notice] = "Please select 'Apply Now' check boxes to apply to accelerators."
     end   # if !params['bx'].nil?
 
   end  # def createbatch
@@ -134,6 +136,8 @@ class RegistrationsController < ApplicationController
       (params['bx'].size<1.5) ? rstr = 'id' : rstr = 'ids'
       flash[:notice] = "Delete batch registration " + rstr + ": "
       flash[:notice] += params['bx'].map { |t, v| t.to_s }.join(", ")
+    else
+      flash[:notice] = "Click the check boxes to select registrations to delete."
     end
 
   end  # def destroybatch

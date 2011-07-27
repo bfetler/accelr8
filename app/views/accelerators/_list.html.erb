@@ -1,60 +1,66 @@
 <%= form_for :registration, :url => { :action => 'createbatch', :controller => 'registrations' } do |f| %>
 
-  <table class="applytable">
+  <table>
     <tr>
-      <td class="applytitle">Apply to Accelerators</td>
-      <td class="applynotice" id="notice"><%= notice %></td>
-      <td class="applyaction">
+      <td class="apply_title">Accelerators</td>
+      <td class="right">
         <% if @accelerators.any? %>
-          <%= f.submit value='Apply to Accelerators Now' %>
+          <%= f.submit value='Apply to Accelerators Now', :class => "bigbutton" %>
         <% else %>
-          <%= f.submit value='Apply to Accelerators Now', :disabled => true %>
+          <%= f.submit value='Apply to Accelerators Now', :disabled => true, :class => "bigbutton" %>
         <% end %>
       </td>
+    </tr>
+    <tr>
+      <td colspan=2 id="notice" class="apply_notice"><%= notice %></td>
     </tr>
   </table>
 
   <div class="field">
-    <% quid = @questionnaire.id %>
+    <% quid = nil %>
+    <% if ! @questionnaire.nil? %>
+      <% quid = @questionnaire.id %>
+    <% end %>
     <%= hidden_field_tag 'quid', quid %>
   </div>
 
   <% if @accelerators.any? %>
-  <table>
+  <table class="accel">
     <tr>
       <th class="index">
-        <%= link_to 'Name', { :controller => "questionnaires", :action => "apply", :column => "name" }, :method => :get, :class => "noline" %>
+        <%= link_to 'Name', { :controller => "questionnaires", :action => "apply", :column => "name" }, :method => :get %>
       </th>
       <th class="index">
-        <%= link_to 'Location', { :controller => "questionnaires", :action => "apply", :column => "city" }, :method => :get, :class => "noline" %>
+        <%= link_to 'Location', { :controller => "questionnaires", :action => "apply", :column => "city" }, :method => :get %>
       </th>
       <th class="index">
-        <%= link_to 'Start Date', { :controller => "questionnaires", :action => "apply", :column => "startdate" }, :method => :get, :class => "noline" %>
+        <%= link_to 'Start Date', { :controller => "questionnaires", :action => "apply", :column => "startdate" }, :method => :get %>
       </th>
       <th class="index">
-        <%= link_to 'Length', { :controller => "questionnaires", :action => "apply", :column => "length" }, :method => :get, :class => "noline" %>
-      </th>
-      <th class="index">
-        <%= link_to 'Web Site', { :controller => "questionnaires", :action => "apply", :column => "website" }, :method => :get, :class => "noline" %>
+        <%= link_to 'Length', { :controller => "questionnaires", :action => "apply", :column => "length" }, :method => :get %>
       </th>
       <th class="index">
         Description
       </th>
-      <th class="index">
-        <%= link_to 'Application', { :controller => "questionnaires", :action => "apply", :column => "duedate" }, :method => :get, :class => "noline" %>
-        <%= link_to 'Due Date', { :controller => "questionnaires", :action => "apply", :column => "duedate" }, :method => :get, :class => "noline" %>
+      <th class="index center nowrap">
+        <%= link_to 'Application', { :controller => "questionnaires", :action => "apply", :column => "duedate" }, :method => :get %>
+        <br/>
+        <%= link_to 'Due Date', { :controller => "questionnaires", :action => "apply", :column => "duedate" }, :method => :get %>
       </th>
-      <th class="index nowrap">
-        Will Accept Late<br/>Applications
+      <th class="index center nowrap">
+        <%= link_to 'Will Accept Late', { :controller => "questionnaires", :action => "apply", :column => "acceptlate" }, :method => :get %>
+        <br/>
+        <%= link_to 'Applications', { :controller => "questionnaires", :action => "apply", :column => "acceptlate" }, :method => :get %>
       </th>
-      <th class="index">Application<br/>Sent</th>
-      <th class="index">Apply<br/>Now</th>
+      <th class="index center">Application<br/>Sent</th>
+      <th class="index center">Apply<br/>Now</th>
     </tr>
 
     <% @accelerators.each do |accelerator| %>
     <tr>
       <td class="index">
-        <%= accelerator.to_s %>
+        <%#= accelerator.to_s %>
+        <%= link_to accelerator.to_s, accelerator.website, :title => accelerator.website %>
       </td>
       <td class="index">
         <% if (accelerator.country.nil? || accelerator.country.empty?) %>
@@ -65,27 +71,28 @@
       </td>
       <td class="index"><%= accelerator.startdate %></td>
       <td class="index"><span class="nowrap"><%= accelerator.length %> weeks</span></td>
-      <td class="index"><%= link_to accelerator.website, accelerator.website %></td>
-      <td class="index round"><%= accelerator.description %></td>
-      <td class="index"><%= accelerator.duedate %></td>
-      <td class="indexctr">
+      <td class="index"><div class="notice round"><%= accelerator.description %></div></td>
+      <td class="index center"><%= accelerator.duedate %></td>
+      <td class="index center">
         <% if (accelerator.acceptlate.nil? || accelerator.acceptlate.empty?) %>
           No
         <% else %>
           <%= accelerator.acceptlate %>
         <% end %>
       </td>
-      <td class="indexctr">
-        <!-- maybe I don't need this column? -->
+      <td class="index center">
+        <!-- don't need this column if email works? -->
         <%= Registration.getlastmatch(quid, accelerator.id) %>
       </td>
-      <td class="indexctr">
-        <%= check_box_tag "bx[" + accelerator.id.to_s + "]", "", false %>
+      <td class="index center">
+        <% if accelerator.acceptapp == "Yes" %>
+          <%= check_box_tag "bx[" + accelerator.id.to_s + "]", "", false %>
+        <% end %>
       </td>
     </tr>
     <% end %> <!-- accelerators.each -->
   </table>
   <% end %> <!-- accelerators.any? -->
 
-<% end %>
+<% end %> <!-- form -->
 

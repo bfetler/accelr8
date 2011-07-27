@@ -3,19 +3,18 @@
 <%= javascript_include_tag "qfounder" %>
 
 <table id="fdr">
-  <tr>
+  <tr class="nomargin">
     <%= fields_for :qfounder do |q_form| %>
-      <th>
+      <th title="Minimum 1 founder">
         Founders:<span class="required">*</span>
       </th>
       <th><%= q_form.label :firstname, 'First name' %></th>
       <th><%= q_form.label :lastname, 'Last name' %></th>
       <th><%= q_form.label :role, 'Area of Expertise' %></th>
-      <th><%= q_form.label :willcode, 'Writes Code' %></th>
+      <th><%= q_form.label :willcode, 'Will Code' %></th>
       <th><%= q_form.label :weblink, 'Linked-In Page / Web Site (if any)' %></th>
-      <th/>
       <td>
-        <button type="button" id="cloneit">Add Founder</button>
+        <button type="button" id="addrow" title="Minimum 1 founder">Add Founder</button>
       </td>
     <% end %>
   </tr>
@@ -24,15 +23,11 @@
     <%# for qfounder in @questionnaire.qfounders.order("lastname") %>
     <% for qfounder in @questionnaire.qfounders %>
       <%= fields_for qfounder, :index => ix do |q_form| %>
-        <tr class="rmable" id="qfdr<%= ix.to_s %>">
-          <td>
-            <%# if (ix==0) && (@questionnaire.qfounders.size < 10) %>
-              <%#= link_to 'Add Founder', fadd_path %>
-            <%# end %>
-          </td>
+        <tr class="rmable nomargin" id="qfdr<%= ix.to_s %>">
+          <td/>
           <td><%= q_form.text_field :firstname, :size => 12 %></td>
           <td><%= q_form.text_field :lastname, :size => 12 %></td>
-          <td><%= q_form.text_field :role, :size => 20 %></td>
+          <td><%= q_form.text_field :role, :size => 16 %></td>
           <td>
             <% qfx='qfounder['+ix.to_s+']' %>
             <%= hidden_field qfx, :willcode %>
@@ -43,7 +38,6 @@
             <% end %>
           </td>
           <td><%= q_form.text_field :weblink, :size => 30 %></td>
-          <td/>
           <td>
               <button type="button" class="rmable" id="rmit<%= ix.to_s %>">Remove</button>
           </td>

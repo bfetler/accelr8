@@ -4,20 +4,14 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h4>Welcome to rails.example.com, <%= @accel.name %></h4>
-    <p>
-      You are receiving a registration from FoundersHookup.com,
-      and your city is: <%= @accel.city %>.<br/>
-    </p>
 
-<br/>
 <h3>Founders Hookup Application</h3>
-<p>The following is an application to your accelerator <%= @accel.name %>
+<br/>
+<p>The following is an application to accelerator <%= @accel.name %>
    from <%= @questionnaire.companyname %> via Founders Hookup.
 </p>
 <br/>
 
-<!-- could share partial with questionnaires/show -->
 <p>
   <b>Company Name:</b>
   <%= @questionnaire.companyname %>
@@ -72,7 +66,7 @@
 </p>
 
 <p>
-  <b>Other Founder Projects:</b>
+  <b>Other Significant Founder Projects:</b>
   <%= @questionnaire.other %>
 </p>
 
@@ -87,7 +81,8 @@
 </p>
 
 <br/>
-<p>Thanks and have a great day!</p>
+<p>Thank you for using Founders Hookup!  If you have any questions or comments, please contact us at <%= @support_email %>, or call <%= @support_phone %>.  Please visit us online at <%= link_to @url, @url %>.
+</p>
     
   </body>
 </html>

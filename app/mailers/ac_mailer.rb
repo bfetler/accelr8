@@ -1,28 +1,40 @@
 class AcMailer < ActionMailer::Base
-  default :from => "from@rails.example.com"
-# replace w/ support@foundershookup.com ?
+  default :from => "support@foundershookup.com"
+# could have a different from address
 
-# to get email to work, do we need to set up mail server?
+# to get email to work, how do we to set up a mail server?
 
 # method name matches file names in app/views/ac_mailer
   def register_email(ac_id, ques)
     @questionnaire = ques
     @accel = Accelerator.find(ac_id)
     if (! @accel.nil? && ! @questionnaire.nil?)
-      @url = "http://rubyonrails.org"
+      @url = "http://foundershookup.com"
+      @support_email = "support@foundershookup.com"
+      @support_phone = "+1-415-309-8860"
+
+# set accelerator email address
       if ((! @accel.acceptapp.nil?   && @accel.acceptapp == "Yes") &&
           (! @accel.acceptemail.nil? && ! @accel.acceptemail.empty?))
         ac_email = @accel.acceptemail
       else
         ac_email = @accel.email
       end
+
       if (! ac_email.nil? && ! ac_email.empty?)
-        mail(:to => ac_email,
-             :subject => "accelerator application")
-      end
-      if (! @questionnaire.email.nil? && ! @questionnaire.email.empty?)
-        mail(:to => @questionnaire.email,
-             :subject => "accelerator application")
+# cc questionnaire application email if set
+        if (! @questionnaire.email.nil? && ! @questionnaire.email.empty?)
+          mail(:to => ac_email,
+               :cc => @questionnaire.email,
+               :subject => "accelerator application")
+        else
+# send email without cc
+          mail(:to => ac_email,
+               :subject => "accelerator application")
+        end
+      else  # accelerator email not set (shouldn't happen, it's required)
+          mail(:to => @support_email,
+               :subject => "accelerator email not set")
       end
 # could use File to send attachment (see ruby docs)
 # spawn email as separate thread?

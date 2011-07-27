@@ -1,4 +1,4 @@
-<h2>Registration List</h2>
+<h3>Registration List</h3>
 
 <p id="notice"><%= notice %></p>
 
@@ -35,8 +35,9 @@ This action is for admin cleanup only, and will not "unsend" any emails.</p>
 
   <% end %>
 
+<% else %>
+
+  <p class="push-1 last">No registrations found.</p>
+
 <% end %> <!-- Registration.any? -->
 
-<br />
-
-<%= link_to 'Back to Accelerators', accelerators_path %>

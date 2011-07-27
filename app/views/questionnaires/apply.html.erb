@@ -1,39 +1,57 @@
-<nav class="accel round">
-  <ul class="accel">
-    <li class="accel">
-      <%= link_to 'Full Details', @questionnaire %>
-    </li>
-    <li class="accel">
-      <%= link_to 'Edit', edit_questionnaire_path(@questionnaire) %>
-    </li>
-    <li class="accel">
-      <%= link_to 'Show List', questionnaires_path %>
-    </li>
-  </ul>
-</nav>
-<!-- put links in a table, to the right of info? -->
+<h4><b>Accelerator Application Summary</b></h4>
 
-<h2>Founders Application</h2>
+<ul class="right">
+  <!--li class="nostyle">
+    <%#= link_to 'Application Details', @questionnaire %>
+  </li!-->
+  <li class="nostyle">
+    <%= link_to 'Edit Application', edit_questionnaire_path(@questionnaire) %>
+  </li>
+  <li class="nostyle">
+    <%= link_to 'List Applications', questionnaires_path %>
+  </li>
+</ul>
 
-<p>
+<p class="span-16 last">
   <b>Company Name:</b>
   <%= @questionnaire.companyname %>
 </p>
 
-<p>
+<p class="span-16 last">
   <b>Founders:</b>
   <%= @questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %>
 </p>
 
-<p>
+<p class="span-16">
   <b>Description:</b>
-  <%= @questionnaire.description %>
-<!-- put description in a table, left half of screen?
-     or a text_area_tag w/ readonly? -->
+  <span class="info round span-16 last"><%= @questionnaire.description %></span>
 </p>
+
+<!--ul class="right">
+  <li class="accel_menu" style="width:94px">
+    <%#= link_to 'Email Myself a Test Application', '#' %>
+  </li>
+</ul!-->
+
+<p class="clear span-16">To email full details of your application to Accelerators, do the following.</p>
+
+<ul class="push-1 ">
+  <li>
+    Select the 'Apply Now' check box below for each Accelerator you are interested in.
+  </li>
+  <li>
+    Click the 'Apply to Accelerators Now' button.
+  </li>
+</ul>
 
 <br/>
 <hr/>
 
 <%= render :partial => 'accelerators/list' %>
+
+<ul class="right">
+  <li class="accel_menu">
+    <%= link_to 'List All Accelerators', accelerators_path %>
+  </li>
+</ul>
 

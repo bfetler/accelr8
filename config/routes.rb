@@ -1,6 +1,11 @@
 Accelr8::Application.routes.draw do
 
-  resources :accelerators
+  resources :accelerators do
+#   member do
+#     post 'terms'
+#   end
+  end
+  match 'accelerators/terms' => 'accelerators#terms', :via => :post
 
   resources :questionnaires do
     resources :qfounders
@@ -8,6 +13,7 @@ Accelr8::Application.routes.draw do
       get 'apply'
     end
   end
+# match 'questionnaires/apply' => 'questionnaires#apply', :via => :get
 
   resources :registrations, :only => [:index]
   match 'registrations/createbatch' => 'registrations#createbatch', :via => :post

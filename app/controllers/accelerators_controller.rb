@@ -48,6 +48,15 @@ class AcceleratorsController < ApplicationController
     end
   end
 
+  # GET /accelerators/1
+  # GET /accelerators/1.xml
+  def terms
+    respond_to do |format|
+      format.html # terms.html.erb
+      format.xml  { head :ok }
+    end
+  end
+
   # GET /accelerators/new
   # GET /accelerators/new.xml
   def new
@@ -71,7 +80,8 @@ class AcceleratorsController < ApplicationController
 
     respond_to do |format|
       if @accelerator.save
-        format.html { redirect_to(@accelerator, :notice => 'Accelerator was successfully created.') }
+#       format.html { redirect_to(@accelerator, :notice => 'Accelerator was successfully created.') }
+        format.html { redirect_to(accelerators_path, :notice => 'Accelerator was successfully created.') }
         format.xml  { render :xml => @accelerator, :status => :created, :location => @accelerator }
       else
         format.html { render :action => "new" }
@@ -87,7 +97,8 @@ class AcceleratorsController < ApplicationController
 
     respond_to do |format|
       if @accelerator.update_attributes(params[:accelerator])
-        format.html { redirect_to(@accelerator, :notice => 'Accelerator was successfully updated.') }
+#       format.html { redirect_to(@accelerator, :notice => 'Accelerator was successfully updated.') }
+        format.html { redirect_to(accelerators_path, :notice => 'Accelerator was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

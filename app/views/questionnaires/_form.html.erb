@@ -8,6 +8,8 @@
   <% end %>
 <% end %>
 
+<p id="notice"><%= notice %></p> <!-- doesn't seem to show -->
+
 <%= form_for @questionnaire do |f| %>
   <% if @questionnaire.errors.any? %>
     <div id="error_explanation">
@@ -21,28 +23,39 @@
     </div>
   <% end %>
 
-  <table>
-    <tr>
-      <td><b>Company or Project Name:</b><span class="required">*</span></td>
-      <td colspan=4><%= f.text_field :companyname, :size => 44 %></td>
-      <td><%= f.label :website, "Website (if any)" %></td>
-      <td><%= f.text_field :website %></td>
+  <table class="clear span-20">
+    <tr class="nomargin">
+      <td><b class="nowrap">Company or Project Name:</b><span class="required">*</span></td>
+      <td colspan=4><%= f.text_field :companyname, :size => 67 %></td>
     </tr>
-    <tr>
-      <td><b>Primary Contact:</b><span class="required">*</span></td>
-      <td><%= f.label :firstname, "First name" %></td>
-      <td><%= f.text_field :firstname, :size => 12 %></td>
-      <td><%= f.label :lastname, "Last name" %></td>
-      <td><%= f.text_field :lastname, :size => 12 %></td>
+    <tr class="nomargin">
+      <td class="nowrap"><%= f.label :website, "Website (if any)" %></td>
+      <td colspan=4><%= f.text_field :website, :size => 67 %></td>
+    </tr>
+    <tr class="nomargin">
+      <td class="nowrap">
+        <b>Primary Contact:</b><span class="required">*</span>
+      </td>
+      <td class="nowrap"><%= f.label :firstname, "First name" %></td>
+      <td>
+        <%= f.text_field :firstname, :class => "accelwidth" %>
+      </td>
+      <td class="nowrap"><%= f.label :lastname, "Last name" %></td>
+      <td>
+        <%= f.text_field :lastname, :class => "accelwidth" %>
+      </td>
+    </tr>
+    <tr class="nomargin">
+      <td/>
       <td><%= f.label :email %></td>
-      <td><%= f.text_field :email %></td>
+      <td colspan=3><%= f.text_field :email, :size => 57 %></td>
     </tr>
   </table>
 
   <br/>
   <%= render :partial => 'qfounders/form', :locals => {:form => f} %>
 
-  <table>
+  <table class="clear span-20 last">
     <tr>
       <td><b>
         <%= f.label :team, "Can you tell us about the founders team background?" %>
@@ -50,18 +63,21 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :team, :rows => 6, :cols => 80 %>
+        <%= f.text_area :team, :class => "span-15" %>
+<!-- 6 x 80 seems to be 6 x 55, try 6 x 120 => 6 x 82.5 ...
+     huh! value of :cols is ignored!  -->
       </td>
     </tr>
     <tr>
-      <td><b>
+      <td><b class="nowrap">
         <%= f.label :description, "Please describe your company or project in 2-3 sentences." %><span class="required">*</span>
       </b></td>
       <td/>
     </tr>
     <tr>
       <td>
-        <%= f.text_area :description, :rows => 6, :cols => 80 %>
+        <%#= f.text_area :description, :rows => 6, :cols => 80 %>
+        <%= f.text_area :description, :class => "span-15" %>
       </td>
       <td/>
       <td>
@@ -72,6 +88,8 @@
         Please keep video under 2 minutes.
       </td>
     </tr>
+  <table/>
+  <table class="clear span-24 last">
     <tr>
       <td><b>
         <%= f.label :businessplan, "Please describe your business plan, customer base, and potential revenue stream." %>
@@ -79,7 +97,7 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :businessplan, :rows => 6, :cols => 80 %>
+        <%= f.text_area :businessplan, :class => "span-15" %>
       </td>
     </tr>
     <tr>
@@ -89,17 +107,18 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :competition, :rows => 6, :cols => 80 %>
+        <%#= f.text_area :competition, :rows => 6, :cols => 80 %>
+        <%= f.text_area :competition, :class => "span-15" %>
       </td>
     </tr>
     <tr>
       <td><b>
-        <%= f.label :other, "What other projects have the founders contributed to, if any?" %>
+        <%= f.label :other, "If the founders have contributed to other significant projects, please describe." %>
       </b></td>
     </tr>
     <tr>
       <td>
-        <%= f.text_area :other, :rows => 6, :cols => 80 %>
+        <%= f.text_area :other, :class => "span-15" %>
       </td>
     </tr>
     <tr>
@@ -109,7 +128,7 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :invest, :rows => 6, :cols => 80 %>
+        <%= f.text_area :invest, :class => "span-15" %>
       </td>
     </tr>
     <tr>
@@ -119,17 +138,17 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :advisor, :rows => 6, :cols => 80 %>
+        <%= f.text_area :advisor, :class => "span-15" %>
       </td>
     </tr>
   </table>
 
   <br/>
-  <div class="actions">
+  <div class="actions span-6">
     <% if @questionnaire.new_record? %>
-      <%= f.submit value='New Founders Application' %>
+      <%= f.submit value='Create New Accelerator Application' %>
     <% else %>
-      <%= f.submit value='Update Founders Application' %>
+      <%= f.submit value='Update Accelerator Application' %>
     <% end %>
   </div>
 <% end %>

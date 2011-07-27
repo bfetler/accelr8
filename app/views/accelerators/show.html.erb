@@ -1,6 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h3>Accelerator Details</h3>
 
-<h2>Accelerator Details</h2>
+<p id="notice"><%= notice %></p>
 
 <p>
   <% if (@accelerator.season.nil? || @accelerator.season.empty?) %>
@@ -72,7 +72,12 @@
   <%= @accelerator.acceptemail %>
 </p>
 
+<ul class="right">
+  <li class="inline_menu">
+    <%= link_to 'Edit Accelerator', edit_accelerator_path(@accelerator) %>
+  </li>
+  <li class="inline_menu">
+    <%= link_to 'List Accelerators', accelerators_path %>
+  </li>
+</ul>
 
-<%= link_to 'Show List', accelerators_path %> |
-<%= link_to 'Edit', edit_accelerator_path(@accelerator) %> |
-<%= link_to 'Delete', accelerator_path(@accelerator), :confirm => 'Are you sure?', :method => :delete %>

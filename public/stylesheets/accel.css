@@ -1,75 +1,118 @@
-.required
+table.accel
 {
-#   color:#4444FF;
-    color:red;
-    font-size:130%;
-    font-weight:bold;
-    font-style:italic;
+# border:0;
+# border-collapse:collapse;
 }
-td.index, th.index
+table.accel td.index, th.index
 {
   padding:0px 3px;
+  font-size: 0.8em;
 }
-td.index
+table.accel td.index
 {
   vertical-align:text-top;
 }
-th.index
+table.accel td.center, th.center
 {
-# text-decoration:none;
-}
-td.indexctr
-{
-  vertical-align:text-top;
   text-align:center;
+}
+table.accel td.description
+{
+  width:45%;
+}
+tr.nomargin, tr.nomargin td, tr.nomargin td input[type=text]
+{
+  padding:2px;
+  margin:2px;
+  line-height:1.0em;
+}
+select.nomargin, select.nomargin option
+{
+  border-color:#aaa;
+  padding-top:0px;
+  padding-bottom:0px;
+  margin-top:0px;
+  margin-bottom:0px;
+}
+input.accelwidth
+{
+  width:180px;
 }
 .nowrap
 {
   white-space:nowrap;
 }
-.applytable
+.required
 {
-  width:100%;
-# border-collapse:collapse;
-# border: 1px solid black;
-}
-.applytitle
-{
-  font-weight:bold;
+  color:red;
   font-size:130%;
-# padding: 0.5em 0.2em;
-  width:25%;
+  font-weight:bold;
+  font-style:italic;
 }
-.applynotice
-{
-  width:50%;
-}
-.applyaction
-{
-  text-align:right;
-  width:25%;
-}
-nav.accel
-{
-  float:right;
-# background-color:#c0ffc0;
-  padding: 0 0.2em;
-}
-nav ul.accel
+ul.accel
 {
   margin:10px;
   padding:0;
 }
-nav ul li.accel
+ul li.inline_menu
+{
+  display: inline-block;
+  list-style-type:none;
+  padding: 0 1.8em;
+}
+ul li.accel_menu
 {
   list-style-type:none;
-  display: inline-block;
-  padding: 0 0.2em;
+  padding: 0 0.4em;
+  font-size:0.8em;  # small font
 }
-.round
+ul li.nostyle
 {
-  -moz-border-radius:    10px;
-  -webkit-border-radius: 10px;
-  border-radius:         10px;
+  list-style-type:none;
+}
+.left_margin
+{
+  margin-left:40px;
+}
+.apply_title
+{
+  font-weight:bold;
+  font-size:1.3em;
+}
+.apply_notice
+{
+  font-size:0.9em;
+# color:#444;
+# color:#069;
+  color:#205791;
+}
+.bigbutton
+{
+  height:40px;
+  width:290px;
+  font-size:1.0em;
+}
+.bigfont
+{
+  font-size:1.4em;
+}
+.bigarea
+{
+  width:585px;
+  height:185px;
+}
+.bigmargin
+{
+  margin-bottom:12px;
+}
+.accelsmall
+{
+# not used
+  font-size: 0.8em;
+}
+.breakword
+{
+# not used
+  word-wrap:break-word;
 }
 

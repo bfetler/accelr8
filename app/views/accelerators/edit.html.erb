@@ -1,6 +1,18 @@
-<h2>Update Accelerator</h2>
+<div class="span-20">
+
+<div class="span-6 bigfont bigmargin">
+  Update Accelerator
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Discard Changes', @accelerator %> |
-<%= link_to 'Show List', accelerators_path %>
+<ul class="push-10 span-10 last">
+  <li class="inline_menu">
+    <%= link_to 'List Accelerators', accelerators_path %>
+  </li>
+  <li class="inline_menu">
+    <%= link_to 'Delete Accelerator', { :controller => "accelerators", :action => "destroy" }, :confirm => 'Are you sure you want to delete this accelerator?', :method => :delete %>
+  </li>
+</ul>
+
+</div>

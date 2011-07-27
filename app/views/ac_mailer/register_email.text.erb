@@ -1,12 +1,7 @@
-Welcome to rails.example.com, <%= @accel.name %>
-===============================================
- 
-You are receiving a registration from FoundersHookup.com
-your city is: <%= @accel.city %>.
  
 Founders Hookup Application
 
-The following is an application to your accelerator <%= @accel.name %>
+The following is an application to accelerator <%= @accel.name %>
 from <%= @questionnaire.companyname %> via Founders Hookup.
  
 ===============================================
@@ -24,7 +19,7 @@ from <%= @questionnaire.companyname %> via Founders Hookup.
            Email: <%= @questionnaire.email %>
 
   Founders:
-	Name	Area of Expertise	Writes code		Linked-In Page / Web Site (if any)
+	Name	Area of Expertise	Will code		Linked-In Page / Web Site (if any)
   <% for qfounder in @questionnaire.qfounders do %>
 	<%= qfounder.firstname %> <%= qfounder.lastname %>	<%= qfounder.role %>	<% if (! qfounder.willcode.nil?) && (qfounder.willcode == 1) %> Yes <% else %> No <% end %>	<%= link_to qfounder.weblink, qfounder.weblink %>
 
@@ -45,7 +40,7 @@ from <%= @questionnaire.companyname %> via Founders Hookup.
   Competition:
   <%= @questionnaire.competition %>
 
-  Other Founder Projects:
+  Other Significant Founder Projects:
   <%= @questionnaire.other %>
 
   Investors:
@@ -57,4 +52,9 @@ from <%= @questionnaire.companyname %> via Founders Hookup.
 
 ===============================================
 
-Thanks and have a great day!
+Thank you for using Founders Hookup!  If you have any questions 
+or comments, please contact us at <%= @support_email %>, 
+or call <%= @support_phone %>.  
+
+Please visit us online at <%= link_to @url, @url %>.
+

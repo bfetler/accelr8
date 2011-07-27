@@ -29,10 +29,12 @@ class QuestionnairesController < ApplicationController
 # used by accelerator/_list.html.erb
     if ! params[:column].nil?
       self.setsortorder()      # sort columns by param
-      @accelerators = Accelerator.order(params[:column]+" "+flash[:sortorder])
+#     @accelerators = Accelerator.order(params[:column]+" "+flash[:sortorder])
+      @accelerators = Accelerator.where( :acceptapp => "Yes").order(params[:column]+" "+flash[:sortorder])
     else
 #     @accelerators = Accelerator.all  # sort by index
-      @accelerators = Accelerator.order("name")  # sort by name
+#     @accelerators = Accelerator.order("name")  # sort by name
+      @accelerators = Accelerator.where( :acceptapp => "Yes").order("name")  # sort by name
     end
 
     respond_to do |format|
@@ -83,15 +85,31 @@ class QuestionnairesController < ApplicationController
   def create
     saveerr = nil
 
+# problem if it bounces back to New if no Qfounders =>
+#  Questionnaire.new makes a new copy, end up with multiple Questionnaires
+#  rather than editing the same one
+
     @questionnaire = Questionnaire.new(params[:questionnaire])
     if ! @questionnaire.save
       saveerr = 0
     else
 # no save errors for questionnaire, try saving qfounders
+     if params['qfounder'].nil?
+        saveerr = 0
+     else
       if params['qfounder'].any?
+        did_any_update = 1
         params['qfounder'].each { |i, fdr|
 # if non-empty lastname string, save qfounder
-          if fdr.fetch("lastname", "").match('[A-z]+')
+#         if fdr.fetch("lastname", "").match('[A-z]+')
+          do_update = 1
+          fdr.each { |j, fval|
+            if fval != ""   # check if any value is non-empty
+              do_update = 0
+            end
+          }
+          if do_update == 0
+            did_any_update = 0
             @qfdr = Qfounder.new(fdr)
             @qfdr.questionnaire_id = @questionnaire.id
             if ! @qfdr.save
@@ -99,16 +117,28 @@ class QuestionnairesController < ApplicationController
             end
           end
         }
+        if did_any_update == 1
+# no non-empty qfounders, must have at least one
+          saveerr = 0
+        end
       end
+     end
     end
 
     respond_to do |format|
       if saveerr.nil?    # no errors saving questionnaire
-        format.html { redirect_to(@questionnaire, :notice => 'Founders Application was successfully created.') }
+#       format.html { redirect_to(@questionnaire, :notice => 'Founders Application was successfully created.') }
+        format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
         format.xml  { render :xml => @questionnaire, :status => :created, :location => @questionnaire }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
+        if did_any_update == 1
+# temporary fix until validate :qfounders.any? in questionnaire works
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
@@ -123,6 +153,9 @@ class QuestionnairesController < ApplicationController
       saveerr = 0
     else
 # no save errors for questionnaire, try saving qfounders
+     if params['qfounder'].nil?
+        saveerr = 0
+     else
       if params['qfounder'].any?
 
 # method works okay
@@ -132,6 +165,7 @@ class QuestionnairesController < ApplicationController
           oldlist << qf
         end
 # create/update new qfounders
+        did_any_update = 1
         params['qfounder'].each { |i, fdr|
           do_update = 1
           fdr.each { |j, fval|
@@ -140,6 +174,7 @@ class QuestionnairesController < ApplicationController
             end
           }
           if do_update == 0
+            did_any_update = 0
             oqf = oldlist.first
             if ! oqf.nil?   # update old founder
               if ! oqf.update_attributes(fdr)
@@ -155,17 +190,24 @@ class QuestionnairesController < ApplicationController
             end
           end
         }
-        oldlist.each do |qf|
-          qf.destroy   # delete any remaining old founders
+        if did_any_update == 1
+# no non-empty qfounders updated, must have at least one
+          saveerr = 0
+        else
+          oldlist.each do |qf|
+            qf.destroy   # delete any remaining old founders
+          end
         end
 # end method
 
       end  # if params['qfounder'].any?
+     end
     end
 
     respond_to do |format|
       if saveerr.nil?    # no errors saving questionnaire
-        format.html { redirect_to(@questionnaire, :notice => 'Questionnaire was successfully updated.') }
+#       format.html { redirect_to(@questionnaire, :notice => 'Application was successfully updated.') }
+        format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -173,51 +215,60 @@ class QuestionnairesController < ApplicationController
       end
     end
 
-# output flash msg only, action above format
-    if params['qfounder'].any?
+    if params['qfounder'].nil?   # doesn't show, needs validation
+      flash[:notice] = "Warning: application must contain at least one founder!"
+    end
+
+# output flash debug msg only, action above format
+#   flash[:notice] = "questionnaire update "
+#   if params['qfounder'].any?
 
 # method works okay - flash output
-        flash[:notice] += " OLD OLD "
-        oldlist = []
+#       flash[:notice] += " OLD OLD "
+#       oldlist = []
 # set all previous qfounders into oldlist
-        @questionnaire.qfounders.each do |qf|
-          oldlist << qf
-#         flash[:notice] += " old " + qf.lastname
-        end
+#       @questionnaire.qfounders.each do |qf|
+#         oldlist << qf
+###       flash[:notice] += " old " + qf.lastname
+#       end
 # create/update new qfounders
-        params['qfounder'].each { |i, fdr|
-          flash[:notice] += " fdr" + i.to_s + " "
-          do_update = 1
-          fdr.each { |j, fval|
-            if fval != ""   # check if any value is non-empty
-              do_update = 0
-            end
-          }
-          if do_update == 0
-            oqf = oldlist.first
-            if ! oqf.nil?   # update old founder
-              flash[:notice] += " update fdr " + oqf.lastname + " > " + fdr.fetch("lastname") + " "
-#             if ! oqf.update_attributes(fdr)
-#               saveerr = 0
-#             end
-              oldlist.delete(oqf)
-            else            # create new founder
-              flash[:notice] += " create fdr " + fdr.fetch("lastname") + " "
-#             @qfdr = Qfounder.new(fdr)
-#             @qfdr.questionnaire_id = @questionnaire.id
-#             if ! @qfdr.save
-#               saveerr = 0
-#             end
-            end
-          end
-        }  # end params['qfounder'].each
-        flash[:notice] += " oldlist.size " + oldlist.size.to_s + " "
-        oldlist.each do |oqf|
-          flash[:notice] += "del " + oqf.id.to_s + " "
-        end
+#       did_any_update = 1
+#       params['qfounder'].each { |i, fdr|
+#         flash[:notice] += "; fdr" + i.to_s + " "
+#         do_update = 1
+#         fdr.each { |j, fval|
+#           flash[:notice] += fval + " "
+#           if fval != ""   # check if any value is non-empty
+#             do_update = 0
+#           end
+#         }
+#         if do_update == 0
+#           did_any_update = 0
+#           oqf = oldlist.first
+#           if ! oqf.nil?   # update old founder
+#             flash[:notice] += " update fdr " + oqf.lastname + " > " + fdr.fetch("lastname") + " "
+###             if ! oqf.update_attributes(fdr)
+###               saveerr = 0
+###             end
+#             oldlist.delete(oqf)
+#           else            # create new founder
+#             flash[:notice] += " create fdr " + fdr.fetch("lastname") + " "
+###             @qfdr = Qfounder.new(fdr)
+###             @qfdr.questionnaire_id = @questionnaire.id
+###             if ! @qfdr.save
+###               saveerr = 0
+###             end
+#           end
+#         end
+#       }  # end params['qfounder'].each
+#       flash[:notice] += " oldlist.size " + oldlist.size.to_s + " "
+#       oldlist.each do |oqf|
+#         flash[:notice] += "del " + oqf.id.to_s + " "
+#       end
+#       flash[:notice] += "; did_any_update " + did_any_update.to_s + " "
 # end method
 
-    end
+#   end
 
 #   flash[:notice] += params['qfounder'].count.to_s + " xx " + params['questionnaire'].inspect
 #   flash[:notice] += params['qfounder'].count.to_s + " xx " + params.inspect
