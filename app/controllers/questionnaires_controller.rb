@@ -3,6 +3,7 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires.xml
   def index
     @questionnaires = Questionnaire.all
+#   @questionnaires = User.questionnaire.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,13 +30,13 @@ class QuestionnairesController < ApplicationController
 # used by accelerator/_list.html.erb
     if ! params[:column].nil?
       self.setsortorder()      # sort columns by param
-#     @accelerators = Accelerator.order(params[:column]+" "+flash[:sortorder])
-      @accelerators = Accelerator.where( :acceptapp => "Yes").order(params[:column]+" "+flash[:sortorder])
     else
 #     @accelerators = Accelerator.all  # sort by index
-#     @accelerators = Accelerator.order("name")  # sort by name
-      @accelerators = Accelerator.where( :acceptapp => "Yes").order("name")  # sort by name
+      flash[:sortcolumn] = "name"  # default sort by name
+      flash[:sortorder] = "ASC"
     end
+#   only show Accelerators that accept FH applications, by sort column order
+    @accelerators = Accelerator.where(:acceptapp => "Yes").order(flash[:sortcolumn]+" "+flash[:sortorder])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -78,6 +79,9 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires/1/edit
   def edit
     @questionnaire = Questionnaire.find(params[:id])
+    if ! @questionnaire.qfounders.any?
+      flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
+    end
   end
 
   # POST /questionnaires
@@ -90,6 +94,7 @@ class QuestionnairesController < ApplicationController
 #  rather than editing the same one
 
     @questionnaire = Questionnaire.new(params[:questionnaire])
+#   @questionnaire.user_id = User.find(?)
     if ! @questionnaire.save
       saveerr = 0
     else
@@ -119,7 +124,7 @@ class QuestionnairesController < ApplicationController
         }
         if did_any_update == 1
 # no non-empty qfounders, must have at least one
-          saveerr = 0
+          saveerr = 2
         end
       end
      end
@@ -131,9 +136,9 @@ class QuestionnairesController < ApplicationController
         format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
         format.xml  { render :xml => @questionnaire, :status => :created, :location => @questionnaire }
       else
-        if did_any_update == 1
+        if saveerr == 2
 # temporary fix until validate :qfounders.any? in questionnaire works
-          format.html { render :action => "edit" }
+          format.html { redirect_to edit_questionnaire_path(@questionnaire) }
           format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
         else
           format.html { render :action => "new" }
@@ -149,6 +154,7 @@ class QuestionnairesController < ApplicationController
 #   flash[:notice] = "flash update: "
     saveerr = nil
     @questionnaire = Questionnaire.find(params[:id])
+#   @questionnaire.user_id = User.find(?)
     if ! @questionnaire.update_attributes(params[:questionnaire])
       saveerr = 0
     else
@@ -192,7 +198,7 @@ class QuestionnairesController < ApplicationController
         }
         if did_any_update == 1
 # no non-empty qfounders updated, must have at least one
-          saveerr = 0
+          saveerr = 2
         else
           oldlist.each do |qf|
             qf.destroy   # delete any remaining old founders
@@ -210,14 +216,20 @@ class QuestionnairesController < ApplicationController
         format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
         format.xml  { head :ok }
       else
+#       format.html { redirect_to :back }
+#       format.html { redirect_to edit_questionnaire_path(@questionnaire) }
         format.html { render :action => "edit" }
+
+#       if saveerr == 2
+#         flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
+#       end
         format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
       end
     end
 
-    if params['qfounder'].nil?   # doesn't show, needs validation
-      flash[:notice] = "Warning: application must contain at least one founder!"
-    end
+#   if params['qfounder'].nil?   # doesn't show, needs validation
+#     flash[:notice] = "Warning: application must contain at least one founder!"
+#   end
 
 # output flash debug msg only, action above format
 #   flash[:notice] = "questionnaire update "

@@ -1,10 +1,10 @@
 <h4><b>List of Accelerator Applications</b></h4>
 
 <ul class="accel small">
-  <li class="nostyle">
-    Accelerator applications may be used to apply to accelerator programs.  A founder may create multiple applications for each company or project.
+  <li class="nostyle span-19 last">
+    Accelerator applications may be used to apply to accelerator programs.  A founder may create multiple applications for each company or project.  By default, the last application is used.
   </li>
-  <li class="left_margin">
+  <li class="clear left_margin">
     Click on Edit to view an application and edit its details.
   </li>
   <li class="left_margin">
@@ -35,8 +35,12 @@
       <td class="index"><%= link_to questionnaire.website, questionnaire.website %></td>
       <td class="index"><%= questionnaire.email %></td>
       <td class="index">
-        <%= questionnaire.qfounders.map { |t| t.lastname }.join(", ") %>
         <%#= questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %>
+        <% if questionnaire.qfounders.any? %>
+          <%= questionnaire.qfounders.map { |t| t.lastname }.join(", ") %>
+        <% else %>
+          <span class="required">None</span>
+        <% end %>
       </td>
       <td class="index description">
         <div class="notice round"><%= questionnaire.description %></div>
@@ -54,7 +58,11 @@
       </td>
       <td class="index center">
         <%#= link_to 'Apply', apply_questionnaire_path(questionnaire), :class => "small" %>
-        <%= button_to 'Apply', { :controller => "questionnaires", :action => "apply", :id => questionnaire.id }, :method => :get, :class => "small" %>
+        <% if questionnaire.qfounders.any? %>
+          <%= button_to 'Apply', { :controller => "questionnaires", :action => "apply", :id => questionnaire.id }, :method => :get, :class => "small" %>
+        <% else %>
+          <%= button_to 'Apply', { :controller => "questionnaires", :action => "apply", :id => questionnaire.id }, :method => :get, :class => "small", :disabled => :true %>
+        <% end %>
       </td>
     </tr>
     <% end %>

@@ -5,6 +5,8 @@
 <% if @accelerators.any? %>
 
 <div class="push-12 span-4 last">
+  <%# if User.questionnaire.any? %>
+    <%#= button_to ...  :id => User.questionnaire.last.id ... %>
   <% if Questionnaire.any? %>
     <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "apply", :id => Questionnaire.last.id }, :method => :get, :class => "bigbutton" %>
   <% else %>
@@ -78,8 +80,8 @@
       <% end %>
     </td>
     <td class="index">
-      <%# if is_admin? || (is_accelerator_user? && accelerator_user == accelerator.owner) %>
-        <%= button_to 'Edit', { :controller => "accelerators", :action => "edit", :id => accelerator.id }, :method => :get %>
+      <%# if is_admin? || (is_accelerator_user? && user.username == accelerator.owner) %>
+        <%= button_to 'Edit', { :controller => "accelerators", :action => "edit", :id => accelerator.id }, :method => :get, :class => "small" %>
       <%# end %>
     </td>
   </tr>

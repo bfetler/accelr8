@@ -8,7 +8,7 @@
   <% end %>
 <% end %>
 
-<p id="notice"><%= notice %></p> <!-- doesn't seem to show -->
+<p id="notice"><b class="required"><%= notice %></b></p>
 
 <%= form_for @questionnaire do |f| %>
   <% if @questionnaire.errors.any? %>

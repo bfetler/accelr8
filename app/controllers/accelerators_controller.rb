@@ -5,11 +5,11 @@ class AcceleratorsController < ApplicationController
   def index
     if ! params[:column].nil?
       self.setsortorder()      # sort columns by param
-      @accelerators = Accelerator.order(params[:column]+" "+flash[:sortorder])
     else
-#     @accelerators = Accelerator.all  # sort by index
-      @accelerators = Accelerator.order("name")  # sort by name
+      flash[:sortcolumn] = "name"  # default sort by name
+      flash[:sortorder] = "ASC"
     end
+    @accelerators = Accelerator.order(flash[:sortcolumn]+" "+flash[:sortorder])
 
     respond_to do |format|
       format.html # index.html.erb

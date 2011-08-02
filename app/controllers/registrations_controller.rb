@@ -2,12 +2,14 @@ class RegistrationsController < ApplicationController
   # GET /registrations
   # GET /registrations.xml
   def index
+#   if is_admin?
     @registrations = Registration.all
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @registrations }
     end
+#   end  # is_admin
   end
 
   # POST /registrations
@@ -29,6 +31,7 @@ class RegistrationsController < ApplicationController
   # POST /registrations
   # POST /registrations.xml
   def createbatch       # create batch registrations
+#   if is_admin?
     if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
 #     params['bx'] etc. => some registration check boxes selected
       savect  = 0.0   # savect  or @savect ?
@@ -97,6 +100,7 @@ class RegistrationsController < ApplicationController
     else
       flash[:notice] = "Please select 'Apply Now' check boxes to apply to accelerators."
     end   # if !params['bx'].nil?
+#   end  # is_admin
 
   end  # def createbatch
 
@@ -115,6 +119,7 @@ class RegistrationsController < ApplicationController
   # DELETE /registrations
   # DELETE /registrations.xml
   def destroybatch
+#   if is_admin?
     if (!params['bx'].nil? && params['bx'].any?)
       params['bx'].each do |i|
         reg_id = i.to_s
@@ -139,6 +144,7 @@ class RegistrationsController < ApplicationController
     else
       flash[:notice] = "Click the check boxes to select registrations to delete."
     end
+#   end  # is_admin
 
   end  # def destroybatch
 

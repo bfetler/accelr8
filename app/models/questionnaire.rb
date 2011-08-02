@@ -1,6 +1,7 @@
 class Questionnaire < ActiveRecord::Base
   has_many :registrations, :dependent => :destroy
   has_many :qfounders, :dependent => :destroy
+# belongs_to :user
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -22,6 +23,11 @@ class Questionnaire < ActiveRecord::Base
 
 # validates_numericality_of :qfounder_ids, :greater_than => 0
 # validates :qfounder_ids, 	:length => { :minimum => 1 }
+# validates_presence_of 	:qfounder_ids
+# validates_presence_of 	:qfounders
+# validates_presence_of 	:qfounders.first
+# validates :qfounder_ids, 	:presence => true
+# validates :qfounders, 	:presence => true
 
   accepts_nested_attributes_for :qfounders, :allow_destroy => :true,
       :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
