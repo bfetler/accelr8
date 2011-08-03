@@ -1,6 +1,7 @@
 class Questionnaire < ActiveRecord::Base
   has_many :registrations, :dependent => :destroy
-  has_many :qfounders, :dependent => :destroy
+# has_many :qfounders, :dependent => :destroy
+  has_many :qfounders
 # belongs_to :user
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -28,11 +29,25 @@ class Questionnaire < ActiveRecord::Base
 # validates_presence_of 	:qfounders.first
 # validates :qfounder_ids, 	:presence => true
 # validates :qfounders, 	:presence => true
+# validates_associated  :qfounders
+# validates_associated  :qfounders,	:presence => :true
 
-  accepts_nested_attributes_for :qfounders, :allow_destroy => :true,
-      :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
+# validate :has_a_qfounder
+
+# accepts_nested_attributes_for :qfounders, :allow_destroy => :true,
+#     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
   accepts_nested_attributes_for :registrations, :allow_destroy => :true,
       :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
+
+  def has_a_qfounder
+    qs = ''
+    qs += qfounders.size.to_s
+#   errors.add("Need", " at least one Founder "+qs) if
+#     qfounders.count < 1
+    if qfounders.size < 1
+      errors.add("Need", " at least one Founder "+qs)
+    end
+  end
 
   def to_s
     self.companyname

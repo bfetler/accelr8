@@ -79,9 +79,9 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires/1/edit
   def edit
     @questionnaire = Questionnaire.find(params[:id])
-    if ! @questionnaire.qfounders.any?
-      flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
-    end
+#   if ! @questionnaire.qfounders.any?
+#     flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
+#   end
   end
 
   # POST /questionnaires
@@ -140,6 +140,7 @@ class QuestionnairesController < ApplicationController
 # temporary fix until validate :qfounders.any? in questionnaire works
           format.html { redirect_to edit_questionnaire_path(@questionnaire) }
           format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
+          flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
         else
           format.html { render :action => "new" }
           format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
@@ -220,9 +221,9 @@ class QuestionnairesController < ApplicationController
 #       format.html { redirect_to edit_questionnaire_path(@questionnaire) }
         format.html { render :action => "edit" }
 
-#       if saveerr == 2
-#         flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
-#       end
+        if saveerr == 2
+          flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
+        end
         format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
       end
     end

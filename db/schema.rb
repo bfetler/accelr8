@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110709230359) do
+ActiveRecord::Schema.define(:version => 20110803055908) do
 
   create_table "accelerators", :force => true do |t|
     t.string   "name"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20110709230359) do
     t.date     "startdate"
     t.date     "enddate"
     t.integer  "length"
-    t.string   "description"
+    t.text     "description", :limit => 255
     t.string   "acceptlate"
     t.string   "acceptapp"
     t.string   "acceptemail"
@@ -54,12 +54,12 @@ ActiveRecord::Schema.define(:version => 20110709230359) do
     t.string   "email"
     t.string   "website"
     t.string   "webvideo"
-    t.string   "description"
-    t.string   "team"
-    t.string   "businessplan"
-    t.string   "competition"
-    t.string   "other"
-    t.string   "invest"
+    t.text     "description",  :limit => 255
+    t.text     "team",         :limit => 255
+    t.text     "businessplan", :limit => 255
+    t.text     "competition",  :limit => 255
+    t.text     "other",        :limit => 255
+    t.text     "invest",       :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "advisor"
