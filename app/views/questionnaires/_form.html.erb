@@ -12,8 +12,8 @@
 
 <%= form_for @questionnaire do |f| %>
   <% if @questionnaire.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@questionnaire.errors.count, "error") %> prohibited this questionnaire from being saved:</h2>
+    <div id="error_explanation" class="clear">
+      <h3 class="required"><%= pluralize(@questionnaire.errors.count, "error") %> prohibited this questionnaire from being saved:</h3>
 
       <ul>
       <% @questionnaire.errors.full_messages.each do |msg| %>

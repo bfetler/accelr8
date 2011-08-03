@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20110803055908) do
     t.text     "invest",       :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "advisor"
+    t.text     "advisor",      :limit => 255
   end
 
   create_table "registrations", :force => true do |t|

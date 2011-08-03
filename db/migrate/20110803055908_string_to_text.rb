@@ -7,6 +7,7 @@ class StringToText < ActiveRecord::Migration
     change_column :questionnaires, :competition,	:text
     change_column :questionnaires, :other,		:text
     change_column :questionnaires, :invest,		:text
+    change_column :questionnaires, :advisor,		:text
   end
 
   def self.down
@@ -15,6 +16,7 @@ class StringToText < ActiveRecord::Migration
     change_column :questionnaires, :competition,	:string
     change_column :questionnaires, :other,		:string
     change_column :questionnaires, :invest,		:string
+    change_column :questionnaires, :advisor,		:string
     change_column :questionnaires, :description,	:string
     change_column :accelerators,   :description,	:string
   end

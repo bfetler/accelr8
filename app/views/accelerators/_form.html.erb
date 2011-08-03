@@ -1,7 +1,7 @@
 <%= form_for(@accelerator) do |f| %>
   <% if @accelerator.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@accelerator.errors.count, "error") %> prohibited this accelerator from being saved:</h2>
+    <div id="error_explanation" class="clear">
+      <h3 class="required"><%= pluralize(@accelerator.errors.count, "error") %> prohibited this accelerator from being saved:</h3>
 
       <ul>
       <% @accelerator.errors.full_messages.each do |msg| %>
