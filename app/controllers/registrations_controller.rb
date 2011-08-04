@@ -126,9 +126,8 @@ class RegistrationsController < ApplicationController
     end
 
     respond_to do |format|
-#     format.html { redirect_to(registrations_url) }
-      format.html { redirect_to(:back, :notice => params) }
-#         format.html { redirect_to(:back, :notice => rstr) }
+      format.html { redirect_to( :back ) }
+#     format.html { redirect_to(:controller => "registrations", :action => "index") }
       format.xml  { head :ok }
     end
 
