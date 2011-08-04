@@ -34,8 +34,8 @@ class RegistrationsController < ApplicationController
 #   if is_admin?
     if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
 #     params['bx'] etc. => some registration check boxes selected
-      savect  = 0.0   # savect  or @savect ?
-      saveerr = nil   # saveerr or @saveerr ?
+      savect  = 0
+      saveerr = nil
 
       ques = Questionnaire.find(params['quid'])  # only needed for email
 
@@ -47,59 +47,56 @@ class RegistrationsController < ApplicationController
 # don't actually need to save registration, as long as email sent?
         if @registration.save
           if ! ques.nil?
+# what happens if email delivery fails?
             AcMailer.register_email(i.to_s, ques).deliver
           end
-          savect += 1.0
+          savect += 1
         else
           saveerr = 0
         end   # if @registration.save
       end   # params['bx'].each do |i|
 
-      rstr = ''
+#     rstr = ''
       respond_to do |format|
         if saveerr.nil?   # no errors in saving registration
-#           rstr = 'Registration'
-#           if savect>1.5
-#             rstr = rstr.pluralize
-#           end
-#           rstr += ' successfully created.'
-          (savect<1.5) ? rstr += 'Registration' : rstr += 'Registrations'
-          rstr += ' successfully created.'
-          format.html { redirect_to(:back, :notice => rstr) }
-          format.xml  { render(:xml => @questionnaire, :status => :created, :location => @questionnaire) }
-        else  # if @saveerr.nil?  # some errors in saving registration
-          format.html { render(:controller => "founder", :action => "show", :id => @registration.founder_id) }
-          format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
-        end   # if @saveerr.nil?
+#         format.html { redirect_to(apply_questionnaire_path(ques)) }
+          format.html { redirect_to(:back) }
+          format.xml  { render(:xml => ques, :status => :created, :location => ques) }
+#         (savect<1.5) ? rstr += 'Registration' : rstr += 'Registrations'
+#         rstr += ' successfully created.'
+          flash[:notice] = "  " + Questionnaire.find(params['quid']).companyname
+          flash[:notice] += " application sent to: "
+          flash[:notice] += params['bx'].map { |t, v|
+            acc = Accelerator.find(t)
+            if (acc.season.nil? || acc.season.empty?)
+              acc.name
+            else
+              acc.name + " (" + acc.season + ")"
+            end
+          }.join(", ")
+          flash[:notice] += "."
+
+        else  # if saveerr.nil?  # some errors in saving registration
+          format.html { redirect_to(:back) }
+          format.xml  { render :xml => ques.errors, :status => :unprocessable_entity }
+          flash[:notice] = "Error creating registrations.  Please contact Founders Hookup for assistance."
+        end
       end   # respond_to do |format|
 
     else  # if !params['bx'].nil?  # no registration check boxes selected
       respond_to do |format|
         format.html { redirect_to(:back) }
-        format.xml  { render(:xml => @questionnaire, :status => :created, :location => @questionnaire) }
+        format.xml  { render(:xml => ques, :status => :created, :location => ques) }
+        flash[:notice] = "Please select 'Apply Now' check boxes to apply to accelerators."
       end   # respond_to do |format|
     end   # if !params['bx'].nil?
 
-#   flash[:notice] = rstr
+# flash[:notice] = rstr
 # flash debug messages
-    if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
+#   if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
 #     flash[:notice] += " BX count " + params['bx'].count.to_s + " " + params['bx'].inspect
 
-      flash[:notice] = "  " + Questionnaire.find(params['quid']).companyname
-      flash[:notice] += " application sent to: "
-      flash[:notice] += params['bx'].map { |t, v|
-        acc = Accelerator.find(t)
-        if (acc.season.nil? || acc.season.empty?)
-          acc.name
-        else
-          acc.name + " (" + acc.season + ")"
-        end
-      }.join(", ")
-      flash[:notice] += "."
-
-    else
-      flash[:notice] = "Please select 'Apply Now' check boxes to apply to accelerators."
-    end   # if !params['bx'].nil?
+#   end   # if !params['bx'].nil?
 #   end  # is_admin
 
   end  # def createbatch

@@ -109,7 +109,7 @@ class QuestionnairesController < ApplicationController
 
     respond_to do |format|
       if saveerr.nil?    # no errors saving questionnaire
-#       format.html { redirect_to(@questionnaire, :notice => 'Founders Application was successfully created.') }
+#       format.html { redirect_to(@questionnaire, :notice => 'Accelerator Application was successfully created.') }
         format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
         format.xml  { render :xml => @questionnaire, :status => :created, :location => @questionnaire }
       else
