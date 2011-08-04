@@ -79,56 +79,33 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires/1/edit
   def edit
     @questionnaire = Questionnaire.find(params[:id])
-#   if ! @questionnaire.qfounders.any?
-#     flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
-#   end
   end
 
   # POST /questionnaires
   # POST /questionnaires.xml
   def create
     saveerr = nil
-
-# problem if it bounces back to New if no Qfounders =>
-#  Questionnaire.new makes a new copy, end up with multiple Questionnaires
-#  rather than editing the same one
-
     @questionnaire = Questionnaire.new(params[:questionnaire])
 #   @questionnaire.user_id = User.find(?)
-    if ! @questionnaire.save
-      saveerr = 0
+
+    if qfounders_params_any(params['qfounder']) == :false
+      saveerr = 2    # no params['qfounder']
     else
-# no save errors for questionnaire, try saving qfounders
-     if params['qfounder'].nil?
+      if ! @questionnaire.save
         saveerr = 0
-     else
-      if params['qfounder'].any?
-        did_any_update = 1
+      else
+# no save errors for questionnaire, try saving qfounders
         params['qfounder'].each { |i, fdr|
-# if non-empty lastname string, save qfounder
-#         if fdr.fetch("lastname", "").match('[A-z]+')
-          do_update = 1
-          fdr.each { |j, fval|
-            if fval != ""   # check if any value is non-empty
-              do_update = 0
-            end
-          }
-          if do_update == 0
-            did_any_update = 0
+          if fdr_any(fdr) == :true
             @qfdr = Qfounder.new(fdr)
             @qfdr.questionnaire_id = @questionnaire.id
             if ! @qfdr.save
-              saveerr = 0
+              saveerr = 0  # saveerr = 1 or 2?
             end
-          end
+          end  # if fdr_any
         }
-        if did_any_update == 1
-# no non-empty qfounders, must have at least one
-          saveerr = 2
-        end
       end
-     end
-    end
+    end  # if-else qfounders_params_any
 
     respond_to do |format|
       if saveerr.nil?    # no errors saving questionnaire
@@ -136,17 +113,42 @@ class QuestionnairesController < ApplicationController
         format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
         format.xml  { render :xml => @questionnaire, :status => :created, :location => @questionnaire }
       else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
         if saveerr == 2
-# temporary fix until validate :qfounders.any? in questionnaire works
-          format.html { redirect_to edit_questionnaire_path(@questionnaire) }
-          format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
-          flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
+          flash[:notice] = '1 error prohibited this application from being saved:  Enter at least one Founder.'
         end
       end
     end
+  end
+
+# utility methods
+  def qfounders_params_any(paramq)
+# usually paramq = params['qfounder']
+    if ! paramq.nil?
+      if paramq.any?
+        paramq.each { |i, fdr|
+#         if fdr_any(fdr) == :true
+          fdr.each { |j, fval|
+# j=='willcode', fval='' or '1'  exclude?
+            if fval != ""   # check if any value is non-empty
+              return :true
+            end
+          }
+        }
+      end
+    end
+    return :false
+  end
+
+  def fdr_any(fdr)
+    fdr.each { |j, fval|
+# j=='willcode', fval='' or '1'  exclude?
+      if fval != ""   # check if any value is non-empty
+        return :true
+      end
+    }
+    return :false
   end
 
   # PUT /questionnaires/1
@@ -154,16 +156,18 @@ class QuestionnairesController < ApplicationController
   def update
 #   flash[:notice] = "flash update: "
     saveerr = nil
+
     @questionnaire = Questionnaire.find(params[:id])
 #   @questionnaire.user_id = User.find(?)
     if ! @questionnaire.update_attributes(params[:questionnaire])
       saveerr = 0
     else
+
 # no save errors for questionnaire, try saving qfounders
-     if params['qfounder'].nil?
-        saveerr = 0
-     else
-      if params['qfounder'].any?
+# test qfounders before or after updating questionnaire?
+      if qfounders_params_any(params['qfounder']) == :false
+        saveerr = 2    # no params['qfounder']
+      else
 
 # method works okay
 # set all previous qfounders into oldlist
@@ -172,43 +176,29 @@ class QuestionnairesController < ApplicationController
           oldlist << qf
         end
 # create/update new qfounders
-        did_any_update = 1
         params['qfounder'].each { |i, fdr|
-          do_update = 1
-          fdr.each { |j, fval|
-            if fval != ""   # check if any value is non-empty
-              do_update = 0
-            end
-          }
-          if do_update == 0
-            did_any_update = 0
+          if fdr_any(fdr) == :true
             oqf = oldlist.first
             if ! oqf.nil?   # update old founder
               if ! oqf.update_attributes(fdr)
-                saveerr = 0
+                saveerr = 0  # saveerr = 1 or 2?
               end
               oldlist.delete(oqf)
             else            # create new founder
               @qfdr = Qfounder.new(fdr)
               @qfdr.questionnaire_id = @questionnaire.id
               if ! @qfdr.save
-                saveerr = 0
+                saveerr = 0  # saveerr = 1 or 2?
               end
             end
-          end
+          end   # if fdr_any
         }
-        if did_any_update == 1
-# no non-empty qfounders updated, must have at least one
-          saveerr = 2
-        else
-          oldlist.each do |qf|
-            qf.destroy   # delete any remaining old founders
-          end
+        oldlist.each do |qf|
+          qf.destroy   # delete any remaining old founders
         end
 # end method
 
-      end  # if params['qfounder'].any?
-     end
+      end  # if-else qfounders_params_any
     end
 
     respond_to do |format|
@@ -222,7 +212,7 @@ class QuestionnairesController < ApplicationController
         format.html { render :action => "edit" }
 
         if saveerr == 2
-          flash[:notice] = 'Incomplete application.  Please enter at least one Founder.'
+          flash[:notice] = '1 error prohibited this application from being saved:  Enter at least one Founder.'
         end
         format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
       end
