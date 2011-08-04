@@ -46,10 +46,10 @@ class RegistrationsController < ApplicationController
 
 # don't actually need to save registration, as long as email sent?
         if @registration.save
-          if ! ques.nil?
+#         if ! ques.nil?
 # what happens if email delivery fails?
-            AcMailer.register_email(i.to_s, ques).deliver
-          end
+#           AcMailer.register_email(i.to_s, ques).deliver
+#         end
           savect += 1
         else
           saveerr = 0
