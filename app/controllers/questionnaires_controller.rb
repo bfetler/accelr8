@@ -32,7 +32,7 @@ class QuestionnairesController < ApplicationController
       self.setsortorder()      # sort columns by param
     else
 #     @accelerators = Accelerator.all  # sort by index
-      flash[:sortcolumn] = "name"  # default sort by name
+      flash[:sortcolumn] = "startdate"  # default sort by startdate
       flash[:sortorder] = "ASC"
     end
 #   only show Accelerators that accept FH applications, by sort column order

@@ -4,11 +4,11 @@
 
 <% if @accelerators.any? %>
 
-<div class="push-12 span-4 last">
+<div class="push-12 span-6 last">
   <%# if User.questionnaire.any? %>
     <%#= button_to ...  :id => User.questionnaire.last.id ... %>
   <% if Questionnaire.any? %>
-    <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "apply", :id => Questionnaire.last.id }, :method => :get, :class => "bigbutton" %>
+    <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "show", :id => Questionnaire.last.id }, :method => :get, :class => "bigbutton" %>
   <% else %>
     <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "new" }, :method => :get, :class => "bigbutton" %>
   <% end %>
@@ -35,13 +35,13 @@
       <%= link_to 'Due Date', { :action => "index", :column => "duedate"} %>
     </th>
     <th class="index center nowrap">
-      <%= link_to 'Will Accept Late', { :action => "index", :column => "acceptlate" } %><br/>
+      <%= link_to 'Accept Late', { :action => "index", :column => "acceptlate" } %><br/>
       <%= link_to 'Applications', { :action => "index", :column => "acceptlate"} %>
     </th>
-    <th class="index center nowrap">
-      <%= link_to 'Will Accept Founders', { :action => "index", :column => "acceptapp"} %><br/>
-      <%= link_to 'Hookup Applications', { :action => "index", :column => "acceptapp"} %>
-    </th>
+    <!--th class="index center nowrap">
+      <%#= link_to 'Accept Founders', { :action => "index", :column => "acceptapp"} %><br/>
+      <%#= link_to 'Hookup Applications', { :action => "index", :column => "acceptapp"} %>
+    </th!-->
     <th/>
   </tr>
 
@@ -51,7 +51,7 @@
       <% if accelerator.website.nil? || accelerator.website.empty? %>
         <%= accelerator.to_s %>
       <% else %>
-        <%= link_to accelerator.to_s, accelerator.website, :title => accelerator.website %>
+        <%= link_to accelerator.to_s, accelerator.website, :title => accelerator.website, :target => "_blank" %>
       <% end %>
     </td>
     <td class="index">
@@ -63,7 +63,12 @@
     </td>
     <td class="index"><%= accelerator.startdate %></td>
     <td class="index"><span class="nowrap"><%= accelerator.length %> weeks</span></td>
-    <td class="index description"><div class="notice round"><%= accelerator.description %></div></td>
+    <td class="index description"><div class="info round">
+      <%= accelerator.description %>
+      <!--span class="more_link"> ... more at </span!-->
+      <%#= link_to accelerator.website, accelerator.website, :title => accelerator.website, :class => "more_link", :target => "_blank" %>
+      ... <%= link_to " more", accelerator.website, :title => accelerator.website, :class => "more_link", :target => "_blank" %>
+    </div></td>
     <td class="index"><%= accelerator.duedate %></td>
     <td class="index center">
       <% if (accelerator.acceptlate.nil? || accelerator.acceptlate.empty?) %>
@@ -72,13 +77,13 @@
         <%= accelerator.acceptlate %>
       <% end %>
     </td>
-    <td class="index center">
-      <% if (accelerator.acceptapp.nil? || accelerator.acceptapp.empty?) %>
+    <!--td class="index center">
+      <%# if (accelerator.acceptapp.nil? || accelerator.acceptapp.empty?) %>
         No
-      <% else %>
-        <%= accelerator.acceptapp %>
-      <% end %>
-    </td>
+      <%# else %>
+        <%#= accelerator.acceptapp %>
+      <%# end %>
+    </td!-->
     <td class="index">
       <%# if is_admin? || (is_accelerator_user? && user.username == accelerator.owner) %>
         <%= button_to 'Edit', { :controller => "accelerators", :action => "edit", :id => accelerator.id }, :method => :get, :class => "small" %>
@@ -95,16 +100,11 @@
 <% end %>
 
 <ul class="clear accel">
-  <li class="accel_menu">
+  <li class="nostyle">
     <%# if is_admin? || is_accelerator_user? %>
-      <%= link_to 'Create New Accelerator', new_accelerator_path %>
+      <%#= link_to 'Create New Accelerator', new_accelerator_path %>
+      <%= button_to 'Create New Accelerator', { :controller => "accelerators", :action => "new" }, :method => :get %>
     <%# end %>
   </li>
-<!-- keep hidden, just browse to /registrations, need auth -->
-  <!--li class="accel_menu">
-    <%# if is_admin? %>
-      <%= link_to 'Show Registration List', registrations_path %>
-    <%# end %>
-  </li!-->
 </ul>
 

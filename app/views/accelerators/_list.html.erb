@@ -2,18 +2,18 @@
 
   <table>
     <tr>
-      <td class="apply_title">Accelerators</td>
+      <td class="apply_title">Apply to Accelerators</td>
       <td class="right">
         <% if @accelerators.any? %>
-          <%= f.submit value='Apply to Accelerators Now', :class => "bigbutton" %>
+          <%= f.submit value='Apply to Accelerators Now', :class => "bigbutton", :title => "Email application to selected accelerators" %>
         <% else %>
           <%= f.submit value='Apply to Accelerators Now', :disabled => true, :class => "bigbutton" %>
         <% end %>
       </td>
     </tr>
-    <tr>
-      <td colspan=2 id="notice" class="apply_notice"><%= notice %></td>
-    </tr>
+    <!--tr>
+      <td colspan=2 id="notice" class="apply_notice"><%#= notice %></td>
+    </tr!-->
   </table>
 
   <div class="field">
@@ -48,7 +48,7 @@
         <%= link_to 'Due Date', { :controller => "questionnaires", :action => "apply", :column => "duedate" }, :method => :get %>
       </th>
       <th class="index center nowrap">
-        <%= link_to 'Will Accept Late', { :controller => "questionnaires", :action => "apply", :column => "acceptlate" }, :method => :get %>
+        <%= link_to 'Accept Late', { :controller => "questionnaires", :action => "apply", :column => "acceptlate" }, :method => :get %>
         <br/>
         <%= link_to 'Applications', { :controller => "questionnaires", :action => "apply", :column => "acceptlate" }, :method => :get %>
       </th>
@@ -59,8 +59,7 @@
     <% @accelerators.each do |accelerator| %>
     <tr>
       <td class="index">
-        <%#= accelerator.to_s %>
-        <%= link_to accelerator.to_s, accelerator.website, :title => accelerator.website %>
+        <%= link_to accelerator.to_s, accelerator.website, :title => accelerator.website, :target => "_blank" %>
       </td>
       <td class="index">
         <% if (accelerator.country.nil? || accelerator.country.empty?) %>
@@ -71,7 +70,9 @@
       </td>
       <td class="index"><%= accelerator.startdate %></td>
       <td class="index"><span class="nowrap"><%= accelerator.length %> weeks</span></td>
-      <td class="index"><div class="notice round"><%= accelerator.description %></div></td>
+      <td class="index description"><div class="info round">
+        <%= accelerator.description %> ... <%= link_to " more", accelerator.website, :title => accelerator.website, :class => "more_link", :target => "_blank" %>
+      </div></td>
       <td class="index center"><%= accelerator.duedate %></td>
       <td class="index center">
         <% if (accelerator.acceptlate.nil? || accelerator.acceptlate.empty?) %>

@@ -6,7 +6,7 @@ class AcceleratorsController < ApplicationController
     if ! params[:column].nil?
       self.setsortorder()      # sort columns by param
     else
-      flash[:sortcolumn] = "name"  # default sort by name
+      flash[:sortcolumn] = "startdate"  # default sort by startdate
       flash[:sortorder] = "ASC"
     end
     @accelerators = Accelerator.order(flash[:sortcolumn]+" "+flash[:sortorder])

@@ -19,6 +19,14 @@ table.accel td.center, th.center
 table.accel td.description
 {
   width:45%;
+# font-size: 0.9em;
+}
+.more_link, a.more_link
+{
+  font-style:italic;
+# font-weight:bold;
+  font-size:1.05em;
+# color:black;
 }
 tr.nomargin, tr.nomargin td, tr.nomargin td input[type=text]
 {
@@ -98,8 +106,10 @@ ul li.nostyle
 }
 .bigarea
 {
-  width:585px;
-  height:185px;
+# width:585px;
+# height:185px;
+  width:500px;
+  height:90px;
 }
 .bigmargin
 {

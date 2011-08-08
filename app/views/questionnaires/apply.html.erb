@@ -1,50 +1,53 @@
-<h4><b>Accelerator Application Summary</b></h4>
+<h4><b>Application Summary</b></h4>
 
 <ul class="right">
-  <!--li class="nostyle">
-    <%#= link_to 'Application Details', @questionnaire %>
-  </li!-->
+  <li class="nostyle">
+    <%= link_to 'Show Full Application', @questionnaire %>
+  </li>
   <li class="nostyle">
     <%= link_to 'Edit Application', edit_questionnaire_path(@questionnaire) %>
   </li>
-  <li class="nostyle">
-    <%= link_to 'List Applications', questionnaires_path %>
-  </li>
+  <!--li class="nostyle">
+    <%#= link_to 'List Applications', questionnaires_path %>
+  </li!-->
 </ul>
 
-<p class="span-16 last">
+<p>
+<span class="span-16 last">
   <b>Company Name:</b>
   <%= @questionnaire.companyname %>
-</p>
-
-<p class="span-16 last">
+</span>
+<span class="span-16 last">
   <b>Founders:</b>
   <%= @questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %>
+</span>
 </p>
 
-<p class="span-16">
+<!--p class="span-18">
   <b>Description:</b>
-  <span class="info round span-16 last"><%= @questionnaire.description %></span>
+  <span class="info round span-18 last"><%#= @questionnaire.description %></span>
+</p!-->
+
+<p class="clear">
+<span class="span-16 last">To apply to Accelerators, do the following.</span>
+<ul class="clear">
+  <li class="left_margin">
+    Select the 'Apply Now' check box below for each Accelerator you are interested in.
+  </li>
+  <li class="left_margin">
+    Click 'Apply to Accelerators Now' to email your application to each Accelerator selected.
+  </li>
+</ul>
 </p>
 
 <!--ul class="right">
   <li class="accel_menu" style="width:94px">
-    <%#= link_to 'Email Myself a Test Application', '#' %>
+    <%#= link_to 'Email Test Application', '#', :title => "Email a Test Application to Founders" %>
   </li>
 </ul!-->
 
-<p class="clear span-16">To email full details of your application to Accelerators, do the following.</p>
+<p id="notice" class="clear apply_notice"><%= notice %></p>
 
-<ul class="push-1 ">
-  <li>
-    Select the 'Apply Now' check box below for each Accelerator you are interested in.
-  </li>
-  <li>
-    Click the 'Apply to Accelerators Now' button.
-  </li>
-</ul>
-
-<br/>
 <hr/>
 
 <%= render :partial => 'accelerators/list' %>
