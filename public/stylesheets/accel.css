@@ -89,6 +89,8 @@ ul li.nostyle
 }
 .apply_notice
 {
+  padding-top:10px;
+  padding-left:20px;
   font-size:0.9em;
 # color:#444;
 # color:#069;
@@ -97,7 +99,7 @@ ul li.nostyle
 .bigbutton
 {
   height:40px;
-  width:290px;
+  width:240px;
   font-size:1.0em;
 }
 .bigfont

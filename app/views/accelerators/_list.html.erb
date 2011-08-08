@@ -5,9 +5,9 @@
       <td class="apply_title">Apply to Accelerators</td>
       <td class="right">
         <% if @accelerators.any? %>
-          <%= f.submit value='Apply to Accelerators Now', :class => "bigbutton", :title => "Email application to selected accelerators" %>
+          <%= f.submit value='Submit Application', :class => "bigbutton", :title => "Email application to selected accelerators" %>
         <% else %>
-          <%= f.submit value='Apply to Accelerators Now', :disabled => true, :class => "bigbutton" %>
+          <%= f.submit value='Submit Application', :disabled => true, :class => "bigbutton" %>
         <% end %>
       </td>
     </tr>
