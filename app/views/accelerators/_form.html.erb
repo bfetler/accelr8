@@ -84,22 +84,22 @@
         <%= f.text_field :acceptlate, :size => 30 %>
       </td>
     </tr>
-    <tr class="field">
-      <td><%= f.label :acceptemail, "Application email address (if different from contact email):" %></td>
-      <td><%= f.text_field :acceptemail, :size => 30 %></td>
+    <!--tr class="field">
+      <td><%#= f.label :acceptemail, "Application email address (if different from contact email):" %></td>
+      <td><%#= f.text_field :acceptemail, :size => 30 %></td>
     </tr>
     <tr class="field">
       <td>
-        <!--b>We have read the
+        <b>We have read the
         <%#= link_to "Terms of Agreement", { :controller => "accelerators", :action => "terms" }, :method => :post %>
-        , and</b!-->
-        <%= f.label :acceptapp, "We will accept emailed applications from Founders Hookup:" %>
+        , and</b>
+        <%#= f.label :acceptapp, "will accept emailed applications from Founders Hookup:" %>
        </td>
       <td>
-        <!--br/-->
-        <%= f.check_box :acceptapp, {}, "Yes", "No" %>
+        <br/>
+        <%#= f.check_box :acceptapp, {}, "Yes", "No" %>
       </td>
-    </tr>
+    </tr!-->
   </table>
   <%#= f.hidden_field :acceptapp, :value => "No" %> <!-- rm for testing -->
   <div class="actions clear span-4">

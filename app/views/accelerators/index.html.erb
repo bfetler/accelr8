@@ -1,10 +1,11 @@
-<div class="span-4 bigfont last">
+<div class="span-4 bigfont">
   Accelerator List
 </div>
 
 <% if @accelerators.any? %>
 
-<div class="push-12 span-6 last">
+<!--div class="push-12 span-6"!-->
+<div class="right">
   <%# if User.questionnaire.any? %>
     <%#= button_to ...  :id => User.questionnaire.last.id ... %>
   <% if Questionnaire.any? %>
@@ -13,6 +14,12 @@
     <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "new" }, :method => :get, :class => "bigbutton" %>
   <% end %>
 </div>
+
+<% end %>
+
+<%= render 'devise_logout' %>
+
+<% if @accelerators.any? %>
 
 <table class="accel">
   <tr>
@@ -85,9 +92,10 @@
       <%# end %>
     </td!-->
     <td class="index">
-      <%# if is_admin? || (is_accelerator_user? && user.username == accelerator.owner) %>
+      <%# if is_admin? || %>
+      <% if (ac_user_signed_in? && (accelerator.owner == current_ac_user.name)) %>
         <%= button_to 'Edit', { :controller => "accelerators", :action => "edit", :id => accelerator.id }, :method => :get, :class => "small" %>
-      <%# end %>
+      <% end %>
     </td>
   </tr>
   <% end %>
@@ -101,10 +109,13 @@
 
 <ul class="clear accel">
   <li class="nostyle">
-    <%# if is_admin? || is_accelerator_user? %>
+    <%# if is_admin? || %>
+    <% if ac_user_signed_in? %>
       <%#= link_to 'Create New Accelerator', new_accelerator_path %>
       <%= button_to 'Create New Accelerator', { :controller => "accelerators", :action => "new" }, :method => :get %>
-    <%# end %>
+    <% end %>
   </li>
 </ul>
+
+<%= render 'devise_login' %>
 

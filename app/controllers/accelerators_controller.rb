@@ -1,4 +1,6 @@
 class AcceleratorsController < ApplicationController
+  before_filter :authenticate_ac_user!, :except => [:index, :setsortorder]
+# or before_filter is_admin?
 
   # GET /accelerators
   # GET /accelerators.xml
@@ -9,7 +11,8 @@ class AcceleratorsController < ApplicationController
       flash[:sortcolumn] = "startdate"  # default sort by startdate
       flash[:sortorder] = "ASC"
     end
-    @accelerators = Accelerator.order(flash[:sortcolumn]+" "+flash[:sortorder])
+#   @accelerators = Accelerator.order(flash[:sortcolumn]+" "+flash[:sortorder])
+    @accelerators = Accelerator.where("izzaproved = ?", "yEs").order(flash[:sortcolumn]+" "+flash[:sortorder])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -43,8 +46,14 @@ class AcceleratorsController < ApplicationController
     @accelerator = Accelerator.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @accelerator }
+#     if @accelerator.owner != current_ac_user.name  # or is_admin?
+# cannot show
+#       format.html { redirect_to :back }
+#       format.xml  { head :ok }
+#     else
+        format.html # show.html.erb
+        format.xml  { render :xml => @accelerator }
+#     end
     end
   end
 
@@ -61,6 +70,9 @@ class AcceleratorsController < ApplicationController
   # GET /accelerators/new.xml
   def new
     @accelerator = Accelerator.new
+    if ac_user_signed_in?
+      @accelerator.email = current_ac_user.email
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -71,12 +83,28 @@ class AcceleratorsController < ApplicationController
   # GET /accelerators/1/edit
   def edit
     @accelerator = Accelerator.find(params[:id])
+    if @accelerator.owner != current_ac_user.name  # && !is_admin?
+# cannot edit
+      respond_to do |format|
+        format.html { redirect_to accelerators_path }
+#       format.html { redirect_to :back }
+        format.xml  { head :ok }
+      end
+    end
   end
 
   # POST /accelerators
   # POST /accelerators.xml
   def create
     @accelerator = Accelerator.new(params[:accelerator])
+    if ac_user_signed_in?   # does it work?
+      @accelerator.owner = current_ac_user.name
+      @accelerator.izzaproved = "yEs"
+#   else if is_admin?
+    end
+# eventually admin will set izzaproved, default will be "nO"
+# misspelled words more difficult for a hacker to find?
+# izzaproved should not be visible from views
 
     respond_to do |format|
       if @accelerator.save
@@ -95,8 +123,16 @@ class AcceleratorsController < ApplicationController
   def update
     @accelerator = Accelerator.find(params[:id])
 
-    respond_to do |format|
+    did_update = nil
+    if @accelerator.owner == current_ac_user.name  # or is_admin?
+# can update
       if @accelerator.update_attributes(params[:accelerator])
+        did_update = :true
+      end
+    end
+
+    respond_to do |format|
+      if did_update == :true
 #       format.html { redirect_to(@accelerator, :notice => 'Accelerator was successfully updated.') }
         format.html { redirect_to(accelerators_path, :notice => 'Accelerator was successfully updated.') }
         format.xml  { head :ok }
@@ -112,13 +148,20 @@ class AcceleratorsController < ApplicationController
   # DELETE /accelerators/1.xml
   def destroy
     @accelerator = Accelerator.find(params[:id])
-    @accelerator.destroy
 
     respond_to do |format|
-      format.html { redirect_to(accelerators_url) }
-#     format.html # index.html.erb
-#     format.html { render :action => "index" }
-      format.xml  { head :ok }
+      if @accelerator.owner != current_ac_user.name  # or is_admin?
+# cannot destroy
+#       format.html { redirect_to accelerators_path }
+        format.html { redirect_to :back }
+        format.xml  { head :ok }
+      else
+        @accelerator.destroy
+        format.html { redirect_to(accelerators_url) }
+#       format.html # index.html.erb
+#       format.html { render :action => "index" }
+        format.xml  { head :ok }
+      end
     end
   end
 end

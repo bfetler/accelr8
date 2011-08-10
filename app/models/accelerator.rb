@@ -13,8 +13,8 @@ class Accelerator < ActiveRecord::Base
   validates :lastname,	:presence => true
   validates :email,	:format => { :with => email_regex }
   validates :description,	:presence => true,
-				:length => { :maximum => 400 }
-  validates :acceptlate, :length => { :maximum => 50 }
+				:length => { :maximum => 300 }
+  validates :acceptlate, :length => { :maximum => 100 }
   validates :offer,	:length => { :maximum => 100 }
   validates :equity,	:length => { :maximum => 100 }
 

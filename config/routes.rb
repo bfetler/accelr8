@@ -1,5 +1,7 @@
 Accelr8::Application.routes.draw do
 
+  devise_for :ac_users
+
   resources :accelerators do
 #   member do
 #     post 'terms'

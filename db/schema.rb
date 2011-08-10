@@ -10,7 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110803055908) do
+ActiveRecord::Schema.define(:version => 20110810015318) do
+
+  create_table "ac_users", :force => true do |t|
+    t.string   "email",                              :default => "", :null => false
+    t.string   "encrypted_password",  :limit => 128, :default => "", :null => false
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                      :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ac_users", ["email"], :name => "index_ac_users_on_email"
+  add_index "ac_users", ["name"], :name => "index_ac_users_on_name", :unique => true
 
   create_table "accelerators", :force => true do |t|
     t.string   "name"
@@ -34,6 +51,8 @@ ActiveRecord::Schema.define(:version => 20110803055908) do
     t.datetime "updated_at"
     t.string   "equity"
     t.string   "offer"
+    t.string   "owner"
+    t.string   "izzaproved"
   end
 
   create_table "qfounders", :force => true do |t|
