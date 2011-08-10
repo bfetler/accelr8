@@ -36,7 +36,8 @@ class QuestionnairesController < ApplicationController
       flash[:sortorder] = "ASC"
     end
 #   only show Accelerators that accept FH applications, by sort column order
-    @accelerators = Accelerator.where(:acceptapp => "Yes").order(flash[:sortcolumn]+" "+flash[:sortorder])
+#   @accelerators = Accelerator.where(:acceptapp => "Yes").order(flash[:sortcolumn]+" "+flash[:sortorder])
+    @accelerators = Accelerator.order(flash[:sortcolumn]+" "+flash[:sortorder])
 
     respond_to do |format|
       format.html # show.html.erb
