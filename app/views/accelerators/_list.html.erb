@@ -2,7 +2,7 @@
 
   <table>
     <tr>
-      <td class="apply_title">Apply to Accelerators</td>
+      <td class="apply_title">Accelerators</td>
       <td class="right">
         <% if @accelerators.any? %>
           <%= f.submit value='Submit Application', :class => "bigbutton", :title => "Email application to selected accelerators" %>
@@ -86,9 +86,9 @@
         <%= Registration.getlastmatch(quid, accelerator.id) %>
       </td>
       <td class="index center">
-        <% if accelerator.acceptapp == "Yes" %>
+        <%# if accelerator.acceptapp == "Yes" %>
           <%= check_box_tag "bx[" + accelerator.id.to_s + "]", "", false %>
-        <% end %>
+        <%# end %>
       </td>
     </tr>
     <% end %> <!-- accelerators.each -->

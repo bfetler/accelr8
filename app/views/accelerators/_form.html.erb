@@ -1,3 +1,7 @@
+<%= javascript_include_tag "http://www.google.com/jsapi" %>
+<%= javascript_include_tag "jqueryref" %>
+<%= javascript_include_tag "qfounder" %>
+
 <%= form_for(@accelerator) do |f| %>
   <% if @accelerator.errors.any? %>
     <div id="error_explanation" class="clear">
@@ -70,7 +74,7 @@
     <tr class="field">
       <td>
         <%#= f.text_area :description, :class => "span-14" %>
-        <%= f.text_area :description, :class => "bigarea" %>
+        <%= f.text_area :description, :id => "accel_des", :class => "bigarea" %>
       </td>
     </tr>
   </table>
