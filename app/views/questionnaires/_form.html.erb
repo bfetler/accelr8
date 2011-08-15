@@ -97,7 +97,9 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :businessplan, :class => "span-15" %>
+        <%= f.text_area :businessplan, :id => "business", :class => "span-15 charcount maxchar500" %>
+      </td>
+      <td class="nomargin"><span id="business_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
     <tr>

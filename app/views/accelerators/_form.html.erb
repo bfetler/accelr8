@@ -1,6 +1,6 @@
 <%= javascript_include_tag "http://www.google.com/jsapi" %>
 <%= javascript_include_tag "jqueryref" %>
-<%= javascript_include_tag "qfounder" %>
+<%= javascript_include_tag "accel" %>
 
 <%= form_for(@accelerator) do |f| %>
   <% if @accelerator.errors.any? %>
@@ -34,7 +34,7 @@
     </tr>
   </table>
   <table class="clear span-18">
-    <tr class="field nomargin">
+    <tr class="field nomargin even">
       <td><%= f.label :website %><span class="required">*</span></td>
       <td colspan=3><%= f.text_field :website, :size => 46 %></td>
     </tr>
@@ -73,8 +73,9 @@
     </tr>
     <tr class="field">
       <td>
-        <%#= f.text_area :description, :class => "span-14" %>
-        <%= f.text_area :description, :id => "accel_des", :class => "bigarea" %>
+        <%= f.text_area :description, :id => "dtext", :class => "bigarea charcount maxchar300" %>
+      </td>
+      <td><span id="dtext_ct" class="span-4 small dtextpad"></span>
       </td>
     </tr>
   </table>

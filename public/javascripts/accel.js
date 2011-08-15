@@ -6,9 +6,6 @@
     var len = $jq("table#fdr > * > tr.rmable").length;
     if (len < 2) {
       alert("Minimum 1 founder, cannot remove.");
-//    event.preventDefault();
-//    event.stopPropagation();
-//    event.stopImmediatePropagation();
       return false;
     }
     else
@@ -19,7 +16,7 @@
 
   $jq(document).ready(function(){
 
-// clone qfounders row
+// add qfounders row
       $jq("button#addrow").click(function(){
 // calculate number of items with tr (id qfdrX) in table
           var tlen = $jq("table#fdr > * > tr.rmable").length;
@@ -67,6 +64,41 @@
             var bnum = $(this).id.match("[0-9]+");
             $jq("tr#qfdr"+bnum+".rmable").remove();
       });
+
+// count characters, need two id's and classes
+//         output_id is input_id + "_ct"
+//         e.g. textarea id="mytext" class="charcount maxchar300"
+//              span id="mytext_ct"
+      $jq(".charcount").keyup(function(event) {
+          if (event.keyCode == '13') {
+            event.preventDefault();
+          }
+          var tid = new String( $jq(this).attr('id') );
+          var pid = tid + "_ct";    // create output id from input id
+//        read maxN class
+          var maxclass = new String( $jq(this).attr('class').match("maxchar[0-9]+") );
+          var maxct = new Number(maxclass.match("[0-9]+"));
+          var dval = new String( $jq(this).val() );
+
+          var remain = new Number(maxct - dval.length);
+          var msg = " characters left.";
+
+          if (remain == 1)
+          {
+            msg = " character left.";
+          }
+          else if (remain < 0)
+          {
+            var newval = dval.substr(0, maxct);
+            $jq(this).val(newval);
+            remain = "0";
+          }
+
+          msg = remain + msg;
+          var printelem = "#" + pid;
+          $jq(printelem).text( msg );
+
+      }).keyup();  // .keyup() here sends once when loading form
 
   });  // end $jq(document).ready
 
