@@ -7,13 +7,13 @@ class CreateQuestionnaires < ActiveRecord::Migration
       t.string :email
       t.string :website
       t.string :webvideo
-      t.string :description
-      t.string :team
-      t.string :businessplan
-      t.string :competition
-      t.string :other
-      t.string :invest
-      t.integer :willcode
+      t.text :description
+      t.text :team
+      t.text :businessplan
+      t.text :competition
+      t.text :other
+      t.text :invest
+      t.text :advisor
 
       t.timestamps
     end

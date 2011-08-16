@@ -1,6 +1,6 @@
 Accelr8::Application.routes.draw do
 
-  devise_for :ac_users
+  devise_for :accelerator_users
 
   resources :accelerators do
 #   member do
@@ -17,9 +17,9 @@ Accelr8::Application.routes.draw do
   end
 # match 'questionnaires/apply' => 'questionnaires#apply', :via => :get
 
-  resources :registrations, :only => [:index]
-  match 'registrations/createbatch' => 'registrations#createbatch', :via => :post
-  match 'registrations/destroybatch' => 'registrations#destroybatch', :via => :delete
+  resources :ac_registrations, :only => [:index]
+  match 'ac_registrations/createbatch' => 'ac_registrations#createbatch', :via => :post
+  match 'ac_registrations/destroybatch' => 'ac_registrations#destroybatch', :via => :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

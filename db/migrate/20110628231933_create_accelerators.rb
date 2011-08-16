@@ -14,9 +14,7 @@ class CreateAccelerators < ActiveRecord::Migration
       t.date :startdate
       t.date :enddate
       t.integer :length
-      t.string :description
-      t.string :offer
-      t.string :equity
+      t.text :description
       t.string :acceptlate
       t.string :acceptapp
       t.string :acceptemail

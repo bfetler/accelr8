@@ -1,4 +1,4 @@
-<%= form_for :registration, :url => { :action => 'createbatch', :controller => 'registrations' } do |f| %>
+<%= form_for :ac_registration, :url => { :action => 'createbatch', :controller => 'ac_registrations' } do |f| %>
 
   <table>
     <tr>
@@ -83,7 +83,7 @@
       </td>
       <td class="index center">
         <!-- don't need this column if email works? -->
-        <%= Registration.getlastmatch(quid, accelerator.id) %>
+        <%= AcRegistration.getlastmatch(quid, accelerator.id) %>
       </td>
       <td class="index center">
         <%# if accelerator.acceptapp == "Yes" %>

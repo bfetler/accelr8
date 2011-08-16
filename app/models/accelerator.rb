@@ -1,5 +1,5 @@
 class Accelerator < ActiveRecord::Base
-  has_many :registrations, :dependent => :destroy
+  has_many :ac_registrations, :dependent => :destroy
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -15,8 +15,8 @@ class Accelerator < ActiveRecord::Base
   validates :description,	:presence => true,
 				:length => { :maximum => 300 }
   validates :acceptlate, :length => { :maximum => 100 }
-  validates :offer,	:length => { :maximum => 100 }
-  validates :equity,	:length => { :maximum => 100 }
+# validates :offer,	:length => { :maximum => 100 }
+# validates :equity,	:length => { :maximum => 100 }
 
   def to_s
     if (self.season.nil? || self.season.empty?)

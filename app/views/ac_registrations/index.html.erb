@@ -2,9 +2,9 @@
 
 <p id="notice"><%= notice %></p>
 
-<% if Registration.any? %>
+<% if AcRegistration.any? %>
 
-  <%= form_for(:registration, :url => {:action => 'destroybatch'}, :html => {:method => :delete} ) do |f| %>
+  <%= form_for(:ac_registration, :url => {:action => 'destroybatch'}, :html => {:method => :delete} ) do |f| %>
 
   <table>
     <tr>
@@ -39,5 +39,5 @@ This action is for admin cleanup only, and will not "unsend" any emails.</p>
 
   <p class="push-1 last">No registrations found.</p>
 
-<% end %> <!-- Registration.any? -->
+<% end %> <!-- AcRegistration.any? -->
 

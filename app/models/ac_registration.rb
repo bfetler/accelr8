@@ -1,4 +1,4 @@
-class Registration < ActiveRecord::Base
+class AcRegistration < ActiveRecord::Base
   belongs_to :accelerator
   belongs_to :questionnaire
 

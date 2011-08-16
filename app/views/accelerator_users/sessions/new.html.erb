@@ -1,0 +1,24 @@
+<%= render :partial => "accelerator_users/shared/links" %>
+
+<h3>Accelerator Login</h3>
+
+<%= render :partial => "accelerator_users/shared/notices" %>
+
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+  <p><%= f.label :name, "Accelerator Name" %><br />
+  <%= f.text_field :name %></p> <!-- don't need name, just convenient -->
+
+  <p><%= f.label :email, "Accelerator Email" %><br />
+  <%= f.email_field :email %></p>
+
+  <p><%= f.label :password %><br />
+  <%= f.password_field :password %></p>
+
+  <% if devise_mapping.rememberable? -%>
+    <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
+  <% end -%>
+
+  <p><%= f.submit "Login" %></p>
+<% end %>
+

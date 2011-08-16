@@ -17,7 +17,7 @@
 
 <% end %>
 
-<%= render 'ac_users/shared/logout' %>
+<%= render 'accelerator_users/shared/logout' %>
 
 <% if @accelerators.any? %>
 
@@ -93,7 +93,7 @@
     </td!-->
     <td class="index">
       <%# if is_admin? || %>
-      <% if (ac_user_signed_in? && (accelerator.owner == current_ac_user.name)) %>
+      <% if (accelerator_user_signed_in? && (accelerator.owner == current_accelerator_user.name)) %>
         <%= button_to 'Edit', { :controller => "accelerators", :action => "edit", :id => accelerator.id }, :method => :get, :class => "small" %>
       <% end %>
     </td>
@@ -110,12 +110,12 @@
 <ul class="clear accel">
   <li class="nostyle">
     <%# if is_admin? || %>
-    <% if ac_user_signed_in? %>
+    <% if accelerator_user_signed_in? %>
       <%#= link_to 'Create New Accelerator', new_accelerator_path %>
       <%= button_to 'Create New Accelerator', { :controller => "accelerators", :action => "new" }, :method => :get %>
     <% end %>
   </li>
 </ul>
 
-<%= render 'ac_users/shared/login' %>
+<%= render 'accelerator_users/shared/login' %>
 

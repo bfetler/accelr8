@@ -1,9 +1,9 @@
-class RegistrationsController < ApplicationController
+class AcRegistrationsController < ApplicationController
   # GET /registrations
   # GET /registrations.xml
   def index
 #   if is_admin?
-    @registrations = Registration.all
+    @registrations = AcRegistration.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class RegistrationsController < ApplicationController
   # POST /registrations
   # POST /registrations.xml
 # def create    # original create
-#   @registration = Registration.new(params[:registration])
+#   @registration = AcRegistration.new(params[:registration])
 
 #   respond_to do |format|
 #     if @registration.save
@@ -40,7 +40,7 @@ class RegistrationsController < ApplicationController
       ques = Questionnaire.find(params['quid'])  # only needed for email
 
       params['bx'].each do |i|
-        @registration = Registration.new(params[:registration])
+        @registration = AcRegistration.new(params[:registration])
         @registration.questionnaire_id = params['quid']
         @registration.accelerator_id = i.to_s
 
@@ -104,7 +104,7 @@ class RegistrationsController < ApplicationController
   # DELETE /registrations/1
   # DELETE /registrations/1.xml
 # def destroy
-#   @registration = Registration.find(params[:id])
+#   @registration = AcRegistration.find(params[:id])
 #   @registration.destroy
 #
 #   respond_to do |format|
@@ -120,7 +120,7 @@ class RegistrationsController < ApplicationController
     if (!params['bx'].nil? && params['bx'].any?)
       params['bx'].each do |i|
         reg_id = i.to_s
-        @registration = Registration.find(reg_id)
+        @registration = AcRegistration.find(reg_id)
         @registration.destroy
       end
     end

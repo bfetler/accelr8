@@ -12,7 +12,14 @@
 
 ActiveRecord::Schema.define(:version => 20110810015318) do
 
-  create_table "ac_users", :force => true do |t|
+  create_table "ac_registrations", :force => true do |t|
+    t.integer  "accelerator_id"
+    t.integer  "questionnaire_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "accelerator_users", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
     t.string   "encrypted_password",  :limit => 128, :default => "", :null => false
     t.datetime "remember_created_at"
@@ -26,8 +33,8 @@ ActiveRecord::Schema.define(:version => 20110810015318) do
     t.datetime "updated_at"
   end
 
-  add_index "ac_users", ["email"], :name => "index_ac_users_on_email"
-  add_index "ac_users", ["name"], :name => "index_ac_users_on_name", :unique => true
+  add_index "accelerator_users", ["email"], :name => "index_accelerator_users_on_email", :unique => true
+  add_index "accelerator_users", ["name"], :name => "index_accelerator_users_on_name", :unique => true
 
   create_table "accelerators", :force => true do |t|
     t.string   "name"
@@ -43,14 +50,12 @@ ActiveRecord::Schema.define(:version => 20110810015318) do
     t.date     "startdate"
     t.date     "enddate"
     t.integer  "length"
-    t.text     "description", :limit => 255
+    t.text     "description"
     t.string   "acceptlate"
     t.string   "acceptapp"
     t.string   "acceptemail"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "equity"
-    t.string   "offer"
     t.string   "owner"
     t.string   "izzaproved"
   end
@@ -73,20 +78,13 @@ ActiveRecord::Schema.define(:version => 20110810015318) do
     t.string   "email"
     t.string   "website"
     t.string   "webvideo"
-    t.text     "description",  :limit => 255
-    t.text     "team",         :limit => 255
-    t.text     "businessplan", :limit => 255
-    t.text     "competition",  :limit => 255
-    t.text     "other",        :limit => 255
-    t.text     "invest",       :limit => 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "advisor",      :limit => 255
-  end
-
-  create_table "registrations", :force => true do |t|
-    t.integer  "accelerator_id"
-    t.integer  "questionnaire_id"
+    t.text     "description"
+    t.text     "team"
+    t.text     "businessplan"
+    t.text     "competition"
+    t.text     "other"
+    t.text     "invest"
+    t.text     "advisor"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
