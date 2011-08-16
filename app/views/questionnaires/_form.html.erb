@@ -63,9 +63,11 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :team, :class => "span-15" %>
+        <%= f.text_area :team, :id => "team", :class => "span-15 charcount maxchar500" %>
 <!-- 6 x 80 seems to be 6 x 55, try 6 x 120 => 6 x 82.5 ...
      huh! value of :cols is ignored!  -->
+      </td>
+      <td class="nomargin"><span id="team_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
     <tr>
@@ -77,19 +79,22 @@
     <tr>
       <td>
         <%#= f.text_area :description, :rows => 6, :cols => 80 %>
-        <%= f.text_area :description, :class => "span-15" %>
+        <%= f.text_area :description, :id => "describe", :class => "span-15 charcount maxchar500" %>
       </td>
-      <td/>
       <td>
-        <b><%= f.label :webvideo, "You may also submit a web video " %>
-        <br/>describing your company or project.</b>
-        <br/>
-        <%= f.text_field :webvideo, :size => 30 %> <br/>
-        Please keep video under 2 minutes.
+        <span id="describe_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
-  <table/>
-  <table class="clear span-24 last">
+    <tr>
+      <td>
+        <b><%= f.label :webvideo, "You may also submit a web video describing your company or project." %></b>
+        <br/><%= f.text_field :webvideo, :size => 65 %>
+      </td>
+      <td>
+        <br/>
+        <span class="span-6 small">Please keep video<br/>under 2 minutes.</span>
+      </td>
+    </tr>
     <tr>
       <td><b>
         <%= f.label :businessplan, "Please describe your business plan, customer base, and potential revenue stream." %>
@@ -110,7 +115,9 @@
     <tr>
       <td>
         <%#= f.text_area :competition, :rows => 6, :cols => 80 %>
-        <%= f.text_area :competition, :class => "span-15" %>
+        <%= f.text_area :competition, :id => "comp", :class => "span-15 charcount maxchar500" %>
+      </td>
+      <td class="nomargin"><span id="comp_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
     <tr>
@@ -120,7 +127,9 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :other, :class => "span-15" %>
+        <%= f.text_area :other, :id => "other", :class => "span-15 charcount maxchar500" %>
+      </td>
+      <td class="nomargin"><span id="other_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
     <tr>
@@ -130,7 +139,9 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :invest, :class => "span-15" %>
+        <%= f.text_area :invest, :id => "invest", :class => "span-15 charcount maxchar500" %>
+      </td>
+      <td class="nomargin"><span id="invest_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
     <tr>
@@ -140,7 +151,9 @@
     </tr>
     <tr>
       <td>
-        <%= f.text_area :advisor, :class => "span-15" %>
+        <%= f.text_area :advisor, :id => "advisor", :class => "span-15 charcount maxchar500" %>
+      </td>
+      <td class="nomargin"><span id="advisor_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
   </table>
