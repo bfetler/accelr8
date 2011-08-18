@@ -1,4 +1,6 @@
 class AcceleratorUser < ActiveRecord::Base
+  has_one :accelerator, :dependent => :destroy
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   # also :recoverable
@@ -10,6 +12,7 @@ class AcceleratorUser < ActiveRecord::Base
 
   validates :name, 	:presence => true,
 			:uniqueness => true
+# seems to validate :email automatically using devise
 # validates :email, 	:presence => true,
-#		:uniqueness => true
+#			:uniqueness => true
 end

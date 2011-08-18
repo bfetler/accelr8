@@ -84,7 +84,8 @@ class AcceleratorsController < ApplicationController
   def edit
     @accelerator = Accelerator.find(params[:id])
     if @accelerator.owner != current_accelerator_user.name  # && !is_admin?
-#   if @accelerator.owner != current_accelerator_user.email  # && !is_admin?
+#   if @accelerator.id != current_accelerator_user.accelerator.id ... ?
+#   if @accelerator.accelerator_user_id != current_accelerator_user.id
 # cannot edit
       respond_to do |format|
         format.html { redirect_to accelerators_path }
@@ -101,6 +102,7 @@ class AcceleratorsController < ApplicationController
     if accelerator_user_signed_in?   # does it work?
       @accelerator.owner = current_accelerator_user.name
 #     @accelerator.owner = current_accelerator_user.email
+#     @accelerator.accelerator_user_id = current_accelerator_user.id
       @accelerator.izzaproved = "yEs"
 #   else if is_admin?
     end

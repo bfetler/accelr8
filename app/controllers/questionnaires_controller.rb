@@ -98,6 +98,7 @@ class QuestionnairesController < ApplicationController
 # no save errors for questionnaire, try saving qfounders
         params['qfounder'].each { |i, fdr|
           if fdr_any(fdr) == :true
+#           if ! @questionnaire.qfounders.create(fdr) ...
             @qfdr = Qfounder.new(fdr)
             @qfdr.questionnaire_id = @questionnaire.id
             if ! @qfdr.save

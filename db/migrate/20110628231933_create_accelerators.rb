@@ -18,6 +18,7 @@ class CreateAccelerators < ActiveRecord::Migration
       t.string :acceptlate
       t.string :acceptapp
       t.string :acceptemail
+#     t.references :accelerator_user
 
       t.timestamps
     end
