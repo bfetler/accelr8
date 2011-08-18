@@ -1,8 +1,5 @@
-<!-- for devise login -->
 <div class="clear">
   <% if ! accelerator_user_signed_in? %>
-    <%#= link_to "Create New Accelerator Login", new_accelerator_user_registration_path %>
-    <!--span>or</span-->
     <%= link_to "Accelerator Login", new_accelerator_user_session_path %>
   <% end %>
 </div>
