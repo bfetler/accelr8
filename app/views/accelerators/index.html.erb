@@ -4,10 +4,8 @@
 
 <% if @accelerators.any? %>
 
-<!--div class="push-12 span-6"!-->
 <div class="right">
   <%# if User.questionnaire.any? %>
-    <%#= button_to ...  :id => User.questionnaire.last.id ... %>
   <% if Questionnaire.any? %>
     <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "show", :id => Questionnaire.last.id }, :method => :get, :class => "bigbutton" %>
   <% else %>
@@ -72,8 +70,6 @@
     <td class="index"><span class="nowrap"><%= accelerator.length %> weeks</span></td>
     <td class="index description"><div class="info round">
       <%= accelerator.description %>
-      <!--span class="more_link"> ... more at </span!-->
-      <%#= link_to accelerator.website, accelerator.website, :title => accelerator.website, :class => "more_link", :target => "_blank" %>
       ... <%= link_to " more", accelerator.website, :title => accelerator.website, :class => "more_link", :target => "_blank" %>
     </div></td>
     <td class="index"><%= accelerator.duedate %></td>
@@ -93,7 +89,7 @@
     </td!-->
     <td class="index">
       <%# if is_admin? || %>
-      <% if (accelerator_user_signed_in? && (accelerator.owner == current_accelerator_user.name)) %>
+      <% if (accelerator_user_signed_in? && (accelerator.accelerator_user_id == current_accelerator_user.id)) %>
         <%= button_to 'Edit', { :controller => "accelerators", :action => "edit", :id => accelerator.id }, :method => :get, :class => "small" %>
       <% end %>
     </td>
@@ -110,8 +106,7 @@
 <ul class="clear accel">
   <li class="nostyle">
     <%# if is_admin? || %>
-    <% if accelerator_user_signed_in? %>
-      <%#= link_to 'Create New Accelerator', new_accelerator_path %>
+    <% if accelerator_user_signed_in? && current_accelerator_user.accelerator.nil? %>
       <%= button_to 'Create New Accelerator', { :controller => "accelerators", :action => "new" }, :method => :get %>
     <% end %>
   </li>

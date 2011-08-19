@@ -1,6 +1,6 @@
 class AcceleratorsController < ApplicationController
   before_filter :authenticate_accelerator_user!, :except => [:index, :setsortorder]
-# or before_filter is_admin?
+# before_filter is_admin?
 
   # GET /accelerators
   # GET /accelerators.xml
@@ -11,7 +11,6 @@ class AcceleratorsController < ApplicationController
       flash[:sortcolumn] = "startdate"  # default sort by startdate
       flash[:sortorder] = "ASC"
     end
-#   @accelerators = Accelerator.order(flash[:sortcolumn]+" "+flash[:sortorder])
     @accelerators = Accelerator.where("izzaproved = ?", "yEs").order(flash[:sortcolumn]+" "+flash[:sortorder])
 
     respond_to do |format|
@@ -46,14 +45,8 @@ class AcceleratorsController < ApplicationController
     @accelerator = Accelerator.find(params[:id])
 
     respond_to do |format|
-#     if @accelerator.owner != current_accelerator_user.name  # or is_admin?
-# cannot show
-#       format.html { redirect_to :back }
-#       format.xml  { head :ok }
-#     else
-        format.html # show.html.erb
-        format.xml  { render :xml => @accelerator }
-#     end
+      format.html # show.html.erb
+      format.xml  { render :xml => @accelerator }
     end
   end
 
@@ -83,9 +76,7 @@ class AcceleratorsController < ApplicationController
   # GET /accelerators/1/edit
   def edit
     @accelerator = Accelerator.find(params[:id])
-    if @accelerator.owner != current_accelerator_user.name  # && !is_admin?
-#   if @accelerator.id != current_accelerator_user.accelerator.id ... ?
-#   if @accelerator.accelerator_user_id != current_accelerator_user.id
+    if @accelerator.accelerator_user_id != current_accelerator_user.id
 # cannot edit
       respond_to do |format|
         format.html { redirect_to accelerators_path }
@@ -99,10 +90,8 @@ class AcceleratorsController < ApplicationController
   # POST /accelerators.xml
   def create
     @accelerator = Accelerator.new(params[:accelerator])
-    if accelerator_user_signed_in?   # does it work?
-      @accelerator.owner = current_accelerator_user.name
-#     @accelerator.owner = current_accelerator_user.email
-#     @accelerator.accelerator_user_id = current_accelerator_user.id
+    if accelerator_user_signed_in?
+      @accelerator.accelerator_user_id = current_accelerator_user.id
       @accelerator.izzaproved = "yEs"
 #   else if is_admin?
     end
@@ -128,8 +117,8 @@ class AcceleratorsController < ApplicationController
     @accelerator = Accelerator.find(params[:id])
 
     did_update = nil
-    if @accelerator.owner == current_accelerator_user.name  # or is_admin?
-#   if @accelerator.owner == current_accelerator_user.email  # or is_admin?
+    if @accelerator.accelerator_user_id == current_accelerator_user.id
+#   or is_admin?
 # can update
       if @accelerator.update_attributes(params[:accelerator])
         did_update = :true
@@ -155,7 +144,8 @@ class AcceleratorsController < ApplicationController
     @accelerator = Accelerator.find(params[:id])
 
     respond_to do |format|
-      if @accelerator.owner != current_accelerator_user.name  # or is_admin?
+      if @accelerator.accelerator_user_id != current_accelerator_user.id
+#   or is_admin?
 # cannot destroy
 #       format.html { redirect_to accelerators_path }
         format.html { redirect_to :back }

@@ -22,14 +22,9 @@ class DeviseCreateAcUsers < ActiveRecord::Migration
     # add_index :accelerator_users, :confirmation_token,   :unique => true
     # add_index :accelerator_users, :unlock_token,         :unique => true
     # add_index :accelerator_users, :authentication_token, :unique => true
-
-    add_column :accelerators, :owner, :string
-    add_column :accelerators, :izzaproved, :string
   end
 
   def self.down
-    remove_column :accelerators, :izzaproved
-    remove_column :accelerators, :owner
     drop_table :accelerator_users
   end
 end

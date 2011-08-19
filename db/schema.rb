@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110810015318) do
+ActiveRecord::Schema.define(:version => 20110818234130) do
 
   create_table "ac_registrations", :force => true do |t|
     t.integer  "accelerator_id"
@@ -48,16 +48,15 @@ ActiveRecord::Schema.define(:version => 20110810015318) do
     t.string   "website"
     t.date     "duedate"
     t.date     "startdate"
-    t.date     "enddate"
     t.integer  "length"
     t.text     "description"
     t.string   "acceptlate"
     t.string   "acceptapp"
     t.string   "acceptemail"
+    t.string   "izzaproved"
+    t.integer  "accelerator_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "owner"
-    t.string   "izzaproved"
   end
 
   create_table "qfounders", :force => true do |t|
