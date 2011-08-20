@@ -1,7 +1,7 @@
 <div class="push-3 span-10 last">
   <% if accelerator_user_signed_in? %>
-    <%= current_accelerator_user.name %> accelerator logged in.
-    <%#= link_to "Edit", edit_accelerator_user_registration_path %>
+    <%= current_accelerator_user.name %> accelerator 
+    <%= link_to "logged in.", edit_accelerator_user_registration_path, :title => "Edit accelerator login" %>
     Not you?
     <%= link_to "Log out", destroy_accelerator_user_session_path, :method => :delete %>
   <% end %>

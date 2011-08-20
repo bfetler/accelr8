@@ -2,7 +2,6 @@
   <% if ! accelerator_user_signed_in? %>
     <%= link_to "Accelerator Login", new_accelerator_user_session_path %>
   <% else %>
-    <%= link_to "Edit Accelerator Login Account", edit_accelerator_user_registration_path, :class => "apply_notice bigmargin" %>
+    <%#= link_to "Edit Accelerator Login Account", edit_accelerator_user_registration_path %>
   <% end %>
 </div>
-

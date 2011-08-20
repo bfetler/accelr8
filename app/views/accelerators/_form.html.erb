@@ -16,37 +16,37 @@
   <% end %>
 
   <table class="clear span-18">
-    <tr class="field nomargin">
+    <tr class="field nomargin odd">
       <td><%= f.label :name %><span class="required">*</span></td>
       <td><%= f.text_field :name %></td>
       <td><%= f.label :season, "Season / Year" %></td>
       <td><%= f.text_field :season, :size => 20 %></td>
     </tr>
-    <tr class="field nomargin">
+    <tr class="field nomargin odd">
       <td><%= f.label :city %><span class="required">*</span></td>
       <td><%= f.text_field :city %></td>
       <td><%= f.label :state, "State or Province" %><span class="required">*</span></td>
       <td><%= f.text_field :state, :size => 20 %></td>
     </tr>
-    <tr class="field nomargin">
+    <tr class="field nomargin odd">
       <td><%= f.label :country %></td>
       <td><%= f.text_field :country, :size => 30 %></td>
     </tr>
   </table>
   <table class="clear span-18">
-    <tr class="field nomargin even">
+    <tr class="field nomargin odd">
       <td><%= f.label :website %><span class="required">*</span></td>
       <td colspan=3><%= f.text_field :website, :size => 46 %></td>
     </tr>
   </table>
   <table class="clear span-18">
-    <tr class="field nomargin">
+    <tr class="field nomargin odd">
       <td><%= f.label :startdate, "Start Date" %><span class="required">*</span></td>
       <td><%= f.date_select :startdate, options = { :start_year => Time.now.year }, :class => "nomargin" %></td>
       <td><%= f.label :length, "Length (weeks)" %><span class="required">*</span></td>
       <td><%= f.text_field :length, :size => 3 %></td>
     </tr>
-    <tr class="field nomargin">
+    <tr class="field nomargin odd">
       <td><%= f.label :duedate, "Application Due Date" %><span class="required">*</span></td>
       <td><%= f.date_select :duedate, options = { :start_year => Time.now.year }, :class => "nomargin" %></td>
       <td/>
@@ -54,24 +54,24 @@
     </tr>
   </table>
   <table class="clear span-18">
-    <tr class="field nomargin">
+    <tr class="field nomargin odd">
       <td><b>Contact:</b><span class="required"> </span></td>
       <td class="nowrap"><%= f.label :firstname, "First name" %><span class="required"> </span></td>
       <td><%= f.text_field :firstname, :size => 15 %></td>
       <td class="nowrap"><%= f.label :lastname, "Last name" %><span class="required">*</span></td>
       <td><%= f.text_field :lastname, :size => 15 %></td>
     </tr>
-    <tr class="field nomargin">
+    <tr class="field nomargin odd">
       <td/>
       <td><%= f.label :email %><span class="required">*</span></td>
       <td colspan=4><%= f.text_field :email, :size => 57 %></td>
     </tr>
   </table>
   <table class="clear span-18">
-    <tr class="field">
+    <tr class="field odd">
       <td><%= f.label :description, "Description: Please describe the accelerator in 2 - 3 sentences." %><span class="required">*</span></td>
     </tr>
-    <tr class="field">
+    <tr class="field odd">
       <td>
         <%= f.text_area :description, :id => "dtext", :class => "bigarea charcount maxchar300" %>
       </td>
@@ -80,7 +80,7 @@
     </tr>
   </table>
   <table class="clear span-18">
-    <tr class="field">
+    <tr class="field odd">
       <td>
         <%= f.label :acceptlate, "We will accept late applications (Yes / No / Explain):" %>
       </td>
@@ -89,11 +89,11 @@
         <%= f.text_field :acceptlate, :size => 30 %>
       </td>
     </tr>
-    <!--tr class="field">
+    <!--tr class="field odd">
       <td><%#= f.label :acceptemail, "Application email address (if different from contact email):" %></td>
       <td><%#= f.text_field :acceptemail, :size => 30 %></td>
     </tr>
-    <tr class="field">
+    <tr class="field odd">
       <td>
         <b>We have read the
         <%#= link_to "Terms of Agreement", { :controller => "accelerators", :action => "terms" }, :method => :post %>
