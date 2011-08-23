@@ -1,5 +1,6 @@
-<div class="span-4 bigfont">
-  Accelerator List
+
+<div class="span-5 bigfont">
+  Accelerator Directory
 </div>
 
 <% if @accelerators.any? %>
@@ -17,7 +18,32 @@
 
 <%= render 'accelerator_users/shared/logout' %>
 
+<p class="right">Founders may apply to Accelerators for funding.<br/>Click <i><b>more</b></i> in descriptions for further information.
+</p>
+
 <% if @accelerators.any? %>
+
+<p>
+<span>Country</span>
+<%# country_array = Accelerator.all.map { |a| [a.country, a.id] } %>
+<%#= select_tag(:country_id,
+  options_for_select( country_array ),
+  :class => "nomargin") %>
+<%#= select_tag(:country_id,
+  options_from_collection_for_select( Accelerator.all, :id, :country ),
+  :class => "nomargin") %>
+<%= select_tag(:country_id,
+  options_for_select( @country_list ),
+  :class => "nomargin") %>
+<span>State</span>
+<%= select_tag(:state_id,
+  options_for_select( @state_list ),
+  :class => "nomargin") %>
+<span>City</span>
+<%= select_tag(:city_id,
+  options_for_select( @city_list ),
+  :class => "nomargin") %>
+</p>
 
 <table class="accel">
   <tr>

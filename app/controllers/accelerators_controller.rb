@@ -5,6 +5,8 @@ class AcceleratorsController < ApplicationController
   # GET /accelerators
   # GET /accelerators.xml
   def index
+    make_location_lists()
+
     if ! params[:column].nil?
       self.setsortorder()      # sort columns by param
     else
@@ -16,6 +18,48 @@ class AcceleratorsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @accelerators }
+    end
+  end
+
+  def make_location_lists
+    accelerators = Accelerator.all
+    country_list = []
+    accelerators.each do |a|
+      insert_non_duplicate(a.country, a.id, country_list)
+    end
+    country_list = country_list.sort
+    country_list.insert(0, ['All', 0])
+    @country_list = country_list
+
+    state_list = []
+    accelerators.each do |a|
+      insert_non_duplicate(a.state, a.id, state_list)
+    end
+    state_list = state_list.sort
+    state_list.insert(0, ['All', 0])
+    @state_list = state_list
+# state_list should change depending on country selection
+
+    city_list = []
+    accelerators.each do |a|
+      insert_non_duplicate(a.city, a.id, city_list)
+    end
+    city_list = city_list.sort
+    city_list.insert(0, ['All', 0])
+    @city_list = city_list
+# city_list should change depending on state and country selection
+  end
+
+# utility to insert non-duplicate entries into list
+  def insert_non_duplicate(val, id, list)
+    found = nil
+    list.each do |c|
+      if (found.nil? && (c[0] == val))
+        found = 0
+      end
+    end
+    if found.nil? && !val.empty?
+      list << [val, id]
     end
   end
 

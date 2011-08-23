@@ -21,14 +21,6 @@ table.accel td.description
   width:45%;
 # font-size: 0.9em;
 }
-.more_link, a.more_link
-{
-  font-style:italic;
-# font-weight:bold;
-  font-size:1.05em;
-# color:black;
-# color:#BB00BB;
-}
 tr.nomargin, tr.nomargin td, tr.nomargin td input[type=text]
 {
   padding:2px;
@@ -42,6 +34,14 @@ select.nomargin, select.nomargin option
   padding-bottom:0px;
   margin-top:0px;
   margin-bottom:0px;
+}
+tbody tr.field:nth-child(even) td,
+tbody tr.field td  {
+# remove striping
+# tr.field tr.accel
+#       background: #e5ecf9;
+#       background: rgba(255,255,255,0);
+        background: white;
 }
 input.accelwidth
 {
@@ -57,6 +57,14 @@ input.accelwidth
   font-size:130%;
   font-weight:bold;
   font-style:italic;
+}
+.more_link, a.more_link
+{
+  font-style:italic;
+# font-weight:bold;
+  font-size:1.05em;
+# color:black;
+# color:#BB00BB;
 }
 ul.accel
 {
@@ -105,7 +113,7 @@ ul li.nostyle
 }
 .bigfont
 {
-  font-size:1.4em;
+  font-size:1.2em;
 }
 .bigarea
 {
