@@ -6,9 +6,6 @@
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
-  <p><%= f.label :name, "Accelerator Name" %><br />
-  <%= f.text_field :name %></p> <!-- don't need name, just convenient -->
-
   <p><%= f.label :email, "Accelerator Email" %><br />
   <%= f.email_field :email %></p>
 

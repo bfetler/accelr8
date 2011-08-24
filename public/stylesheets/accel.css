@@ -35,12 +35,10 @@ select.nomargin, select.nomargin option
   margin-top:0px;
   margin-bottom:0px;
 }
-tbody tr.field:nth-child(even) td,
-tbody tr.field td  {
-# remove striping
-# tr.field tr.accel
+tbody tr.accel:nth-child(even) td,
+tbody tr.accel td  {
+# remove blueprint striping
 #       background: #e5ecf9;
-#       background: rgba(255,255,255,0);
         background: white;
 }
 input.accelwidth

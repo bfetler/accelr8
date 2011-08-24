@@ -19,13 +19,22 @@ class AcceleratorsController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @accelerators }
     end
+#   flash[:notice] = ""
+#   if !params.nil? 
+#     if params.any?
+#       if params['country_id'].any?
+#         flash[:notice] += "selected country_id " + params['country_id']+"; "
+#       end
+#     end
+#   end
+#   flash[:notice] += "params "+params.inspect
   end
 
   def make_location_lists
     accelerators = Accelerator.all
     country_list = []
     accelerators.each do |a|
-      insert_non_duplicate(a.country, a.id, country_list)
+      add_non_duplicate(a.country, a.id, country_list)
     end
     country_list = country_list.sort
     country_list.insert(0, ['All', 0])
@@ -33,7 +42,7 @@ class AcceleratorsController < ApplicationController
 
     state_list = []
     accelerators.each do |a|
-      insert_non_duplicate(a.state, a.id, state_list)
+      add_non_duplicate(a.state, a.id, state_list)
     end
     state_list = state_list.sort
     state_list.insert(0, ['All', 0])
@@ -42,7 +51,7 @@ class AcceleratorsController < ApplicationController
 
     city_list = []
     accelerators.each do |a|
-      insert_non_duplicate(a.city, a.id, city_list)
+      add_non_duplicate(a.city, a.id, city_list)
     end
     city_list = city_list.sort
     city_list.insert(0, ['All', 0])
@@ -51,7 +60,7 @@ class AcceleratorsController < ApplicationController
   end
 
 # utility to insert non-duplicate entries into list
-  def insert_non_duplicate(val, id, list)
+  def add_non_duplicate(val, id, list)
     found = nil
     list.each do |c|
       if (found.nil? && (c[0] == val))

@@ -18,31 +18,35 @@
 
 <%= render 'accelerator_users/shared/logout' %>
 
-<p class="right">Founders may apply to Accelerators for funding.<br/>Click <i><b>more</b></i> in descriptions for further information.
+<p class="right" style="font-size:0.9em">
+Founders may apply to Accelerators for funding or advice.<br/>Click on the <i><b>name</b></i>, or <i><b>more</b></i> in descriptions for further information.
 </p>
 
 <% if @accelerators.any? %>
 
 <p>
-<span>Country</span>
-<%# country_array = Accelerator.all.map { |a| [a.country, a.id] } %>
-<%#= select_tag(:country_id,
-  options_for_select( country_array ),
-  :class => "nomargin") %>
-<%#= select_tag(:country_id,
-  options_from_collection_for_select( Accelerator.all, :id, :country ),
-  :class => "nomargin") %>
-<%= select_tag(:country_id,
-  options_for_select( @country_list ),
-  :class => "nomargin") %>
-<span>State</span>
-<%= select_tag(:state_id,
-  options_for_select( @state_list ),
-  :class => "nomargin") %>
-<span>City</span>
-<%= select_tag(:city_id,
-  options_for_select( @city_list ),
-  :class => "nomargin") %>
+<%= form_for :accelerators, :html => { :method => :get } do |f| %>
+  <span>Country</span>
+  <%# country_array = Accelerator.all.map { |a| [a.country, a.id] } %>
+  <%#= select_tag(:country_id,
+    options_for_select( country_array ),
+    :class => "nomargin") %>
+  <%#= select_tag(:country_id,
+    options_from_collection_for_select( Accelerator.all, :id, :country ),
+    :class => "nomargin") %>
+  <%= select_tag(:country_id,
+    options_for_select( @country_list ),
+    :class => "nomargin") %>
+  <span>State</span>
+  <%= select_tag(:state_id,
+    options_for_select( @state_list ),
+    :class => "nomargin") %>
+  <span>City</span>
+  <%= select_tag(:city_id,
+    options_for_select( @city_list ),
+    :class => "nomargin") %>
+  <%= f.submit value='Select' %>
+<% end %>
 </p>
 
 <table class="accel">
