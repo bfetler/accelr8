@@ -1,6 +1,6 @@
 Accelr8::Application.routes.draw do
 
-  devise_for :accelerator_users
+# devise_for :accelerator_users
 
   resources :accelerators do
 #   member do
@@ -8,6 +8,18 @@ Accelr8::Application.routes.draw do
 #   end
   end
   match 'accelerators/terms' => 'accelerators#terms', :via => :post
+
+  devise_for :accelerator_users
+
+# root :to => "accelerators#index"
+# accelerator_user_root :to => "accelerators#index"
+# accelerator_user_root_path :to => "accelerators#index"
+# match 'accelerator_user_root' => 'accelerators#index'
+# match 'accelerator_user_root', :to => 'accelerators#index'
+  match '/accelerator_user_root', :to => 'accelerators#index'
+# match '/after_sign_out', :to => 'accelerators#index'
+# match '/after_sign_out_path_for', :to => 'accelerators#index'
+# match '/after_sign_out_path_for_accelerator_user', :to => 'accelerators#index'
 
   resources :questionnaires do
     resources :qfounders
@@ -71,7 +83,8 @@ Accelr8::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root :to => "accelerators#index"
+# root :to => "accelerators#index"
+  root :to => "questionnaires#index"  # temp change for testing
 
   # See how all your routes lay out with "rake routes"
 
