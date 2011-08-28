@@ -1,7 +1,5 @@
 Accelr8::Application.routes.draw do
 
-# devise_for :accelerator_users
-
   resources :accelerators do
 #   member do
 #     post 'terms'
@@ -11,15 +9,9 @@ Accelr8::Application.routes.draw do
 
   devise_for :accelerator_users
 
-# root :to => "accelerators#index"
-# accelerator_user_root :to => "accelerators#index"
-# accelerator_user_root_path :to => "accelerators#index"
-# match 'accelerator_user_root' => 'accelerators#index'
 # match 'accelerator_user_root', :to => 'accelerators#index'
   match '/accelerator_user_root', :to => 'accelerators#index'
-# match '/after_sign_out', :to => 'accelerators#index'
-# match '/after_sign_out_path_for', :to => 'accelerators#index'
-# match '/after_sign_out_path_for_accelerator_user', :to => 'accelerators#index'
+  match '/accelerators' => 'accelerators#index', :as => :accelerator_user_root
 
   resources :questionnaires do
     resources :qfounders

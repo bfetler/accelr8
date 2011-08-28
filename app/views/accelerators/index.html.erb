@@ -1,7 +1,23 @@
-
 <div class="span-5 bigfont">
   Accelerator Directory
 </div>
+
+<% if @accelerators.any? %>
+
+<div class="right" style="font-size:0.9em">
+<!--span>Founders may apply to Accelerators for funding or advice.<br/></span!-->
+<span>Founders may apply to Accelerators for funding.<br/></span>
+<!--span>Click on the <i><b>name</b></i>, or <i><b>more</b></i> in descriptions for further information.</span!-->
+<!--span>Click on Accelerators below for more information.</span!-->
+<!--span>Click below for further information.</span!-->
+<!--span>Click on items below for further information.</span!-->
+<!--span>Click <i>Names</i> or in <i>Descriptions</i> for more details.</span!-->
+<span>Click <i><b>Names</b></i> or <i><b>more</b></i> in Descriptions for details.</span>
+</div>
+
+<% end %>
+
+<%= render 'accelerator_users/shared/logout' %>
 
 <% if @accelerators.any? %>
 
@@ -13,20 +29,6 @@
     <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "new" }, :method => :get, :class => "bigbutton" %>
   <% end %>
 </div>
-
-<% end %>
-
-<%= render 'accelerator_users/shared/logout' %>
-
-<p class="right" style="font-size:0.9em">
-<!--span>Founders may apply to Accelerators for funding or advice.<br/></span!-->
-<span>Founders may apply to Accelerators for funding.<br/></span>
-<!--span>Click on the <i><b>name</b></i>, or <i><b>more</b></i> in descriptions for further information.</span!-->
-<span>Click on items below for further information.</span>
-<!--span>Click below for further information.</span!-->
-</p>
-
-<% if @accelerators.any? %>
 
 <p>
 <%= form_for :accelerators, :html => { :method => :get } do |f| %>
