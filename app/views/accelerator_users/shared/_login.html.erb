@@ -1,6 +1,6 @@
 <div class="clear">
   <% if ! accelerator_user_signed_in? %>
-    <%= link_to "Accelerator Login", new_accelerator_user_session_path %>
+    <%= link_to "Accelerator Login", new_accelerator_user_session_path, :title => "Add / Edit Accelerator Directory" %>
   <%# else %>
     <%#= link_to "Edit Accelerator Login Account", edit_accelerator_user_registration_path %>
   <% end %>

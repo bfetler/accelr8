@@ -4,15 +4,11 @@
 
 <% if @accelerators.any? %>
 
-<div class="right" style="font-size:0.9em">
-<!--span>Founders may apply to Accelerators for funding or advice.<br/></span!-->
+<div class="right mediumfont">
 <span>Founders may apply to Accelerators for funding.<br/></span>
-<!--span>Click on the <i><b>name</b></i>, or <i><b>more</b></i> in descriptions for further information.</span!-->
-<!--span>Click on Accelerators below for more information.</span!-->
-<!--span>Click below for further information.</span!-->
-<!--span>Click on items below for further information.</span!-->
-<!--span>Click <i>Names</i> or in <i>Descriptions</i> for more details.</span!-->
-<span>Click <i><b>Names</b></i> or <i><b>more</b></i> in Descriptions for details.</span>
+<!--span>Click <i><b>Names</b></i> or <i><b>more</b></i> in Descriptions for details.</span!-->
+<span>Click on the links below for more information.</span>
+<!--span>Click on the links below for detailed descriptions.</span!-->
 </div>
 
 <% end %>
@@ -23,37 +19,12 @@
 
 <div class="right">
   <%# if User.questionnaire.any? %>
-  <% if Questionnaire.any? %>
-    <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "show", :id => Questionnaire.last.id }, :method => :get, :class => "bigbutton" %>
-  <% else %>
-    <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "new" }, :method => :get, :class => "bigbutton" %>
-  <% end %>
+  <%# if Questionnaire.any? %>
+    <%#= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "show", :id => Questionnaire.last.id }, :method => :get, :class => "bigbutton" %>
+  <%# else %>
+    <%#= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "new" }, :method => :get, :class => "bigbutton" %>
+  <%# end %>
 </div>
-
-<p>
-<%= form_for :accelerators, :html => { :method => :get } do |f| %>
-  <span>Country</span>
-  <%# country_array = Accelerator.all.map { |a| [a.country, a.id] } %>
-  <%#= select_tag(:country_id,
-    options_for_select( country_array ),
-    :class => "nomargin") %>
-  <%#= select_tag(:country_id,
-    options_from_collection_for_select( Accelerator.all, :id, :country ),
-    :class => "nomargin") %>
-  <%= select_tag(:country_id,
-    options_for_select( @country_list ),
-    :class => "nomargin") %>
-  <span>State</span>
-  <%= select_tag(:state_id,
-    options_for_select( @state_list ),
-    :class => "nomargin") %>
-  <span>City</span>
-  <%= select_tag(:city_id,
-    options_for_select( @city_list ),
-    :class => "nomargin") %>
-  <%= f.submit value='Select' %>
-<% end %>
-</p>
 
 <table class="accel">
   <tr>

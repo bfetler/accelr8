@@ -1,4 +1,4 @@
-<div class="push-1 span-9 last" style="font-size:0.9em">
+<div class="push-1 span-9 last mediumfont">
   <% if accelerator_user_signed_in? %>
     <%= current_accelerator_user.name %> accelerator 
     <%= link_to "logged in.", edit_accelerator_user_registration_path, :title => "Edit accelerator login" %>
@@ -7,6 +7,11 @@
   <% end %>
 </div>
 
-<p class="clear"><%= notice %></p>
-<p class=""><%= alert %></p>
+<div class="clear"></div>
+<% flash.each do |name, msg| %>
+  <% if [:notice, :alert].include?(name) %>
+    <%= content_tag :div, msg %>
+  <% end %>
+<% end %>
+<p/>
 

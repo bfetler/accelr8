@@ -5,29 +5,57 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="right">
-    <p><%= f.label :password, "New Password" %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password %></p>
+  <fieldset class="accel-form nomargin">
+    <legend>General Information</legend>
+    <table class="clear span-18" style="margin: 0 0 0 80px;">
+      <tr class="no_stripe nomargin">
+        <td class="span-6"><%= f.label :name, "Accelerator Name" %></td>
+        <td class="span-6"><%= f.text_field :name %></td>
+      </tr>
+      <tr class="no_stripe nomargin">
+        <td class="span-6"><%= f.label :email, "Accelerator Email" %></td>
+        <td class="span-6"><%= f.email_field :email %></td>
+      </tr>
+    </table>
+  </fieldset>
 
-    <p><%= f.label :password_confirmation, "New Password Confirmation" %><br />
-    <%= f.password_field :password_confirmation %></p>
-  </div>
+  <fieldset class="accel-form nomargin">
+    <legend>Reset Password Information</legend>
+    <table class="clear span-18" style="margin: 0 0 0 80px;">
+      <tr class="no_stripe nomargin">
+        <td class="span-6"><i>(leave blank if you don't want to change it)</i></td>
+      </tr>
+      <tr class="no_stripe nomargin">
+        <td class="span-6"><%= f.label :password, "New Password" %></td>
+        <td class="span-6"><%= f.password_field :password %></td>
+      </tr>
+      <tr class="no_stripe nomargin">
+        <td class="span-6"><%= f.label :password_confirmation, "New Password Confirmation" %></td>
+        <td class="span-6"><%= f.password_field :password_confirmation %></td>
+      </tr>
+    </table>
+  </fieldset>
 
-  <div>
-    <p><%= f.label :name, "Accelerator Name" %><br />
-    <%= f.text_field :name %></p>
-
-    <p><%= f.label :email, "Accelerator Email" %><br />
-    <%= f.email_field :email %></p>
-  </div>
-
-  <p><%= f.label :current_password %> <i>(needed to confirm all changes)</i><br />
-  <%= f.password_field :current_password %></p>
-
-  <p><%= f.submit "Update" %></p>
+  <fieldset class="accel-form nomargin">
+    <legend>Current Information</legend>
+    <table class="clear span-18" style="margin: 0 0 0 80px;">
+      <tr class="no_stripe nomargin">
+        <td class="span-6"><i>(needed to confirm all changes)</i></td>
+      </tr>
+      <tr class="no_stripe nomargin">
+        <td class="span-6"><%= f.label :current_password %><span class="required">*</span></td>
+        <td class="span-6"><%= f.password_field :current_password %></td>
+      </tr>
+    </table>
+  </fieldset>
+<br />
+  <p><%= f.submit "Update accelerator login account" %></p>
 <% end %>
+<%# raise resource_name.inspect %>
 
-<p class="right"><%= link_to "Cancel my accelerator login account", registration_path(resource_name), :confirm => "Are you sure you want to delete your\naccelerator and cancel your account?", :method => :delete %></p>
+<div class="right" style="margin-top: -47px">
+  <%= button_to "Cancel my accelerator login account", registration_path(resource_name), :confirm => "Are you sure you want to delete your\naccelerator and cancel your account?", :method => :delete %>
+</div>
 
-<%= link_to "Back", :back %>
+<%= link_to "Back to Accelerators", accelerators_path %>
 

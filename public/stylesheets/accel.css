@@ -21,7 +21,13 @@ table.accel td.description
   width:45%;
 # font-size: 0.9em;
 }
-tr.nomargin, tr.nomargin td, tr.nomargin td input[type=text]
+fieldset.nomargin
+{
+  margin-bottom: 1.0em;
+  padding: 0 0.9em 0.9em 0.9em;
+}
+tr.nomargin, tr.nomargin td, tr.nomargin td input[type=text],
+tr.nomargin td input[type=password]
 {
   padding:2px;
   margin:2px;
@@ -35,11 +41,14 @@ select.nomargin, select.nomargin option
   margin-top:0px;
   margin-bottom:0px;
 }
+tbody tr.no_stripe:nth-child(even) td,
+tbody tr.no_stripe td,
 tbody tr.accel:nth-child(even) td,
 tbody tr.accel td  {
 # remove blueprint striping
 #       background: #e5ecf9;
-        background: white;
+#       background: white;
+        background: none;
 }
 input.accelwidth
 {
@@ -108,11 +117,14 @@ ul li.nostyle
   height:40px;
   width:240px;
   font-size:1.0em;
-  margin-bottom:20px;
 }
 .bigfont
 {
   font-size:1.2em;
+}
+.mediumfont
+{
+  font-size:0.9em;
 }
 .bigarea
 {
