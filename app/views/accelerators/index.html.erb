@@ -4,11 +4,19 @@
 
 <% if @accelerators.any? %>
 
-<div class="right mediumfont">
+<!--div class="right mediumfont">
 <span>Founders may apply to Accelerators for funding.<br/></span>
 <!--span>Click <i><b>Names</b></i> or <i><b>more</b></i> in Descriptions for details.</span!-->
-<span>Click on the links below for more information.</span>
-<!--span>Click on the links below for detailed descriptions.</span!-->
+<!--span>Click on the links below for more information.</span>
+</div!-->
+
+<div class="right">
+  <%# if User.questionnaire.any? %>
+  <% if Questionnaire.any? %>
+    <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "show", :id => Questionnaire.last.id }, :method => :get, :class => "bigbutton" %>
+  <% else %>
+    <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "new" }, :method => :get, :class => "bigbutton" %>
+  <% end %>
 </div>
 
 <% end %>
@@ -16,15 +24,6 @@
 <%= render 'accelerator_users/shared/logout' %>
 
 <% if @accelerators.any? %>
-
-<div class="right">
-  <%# if User.questionnaire.any? %>
-  <%# if Questionnaire.any? %>
-    <%#= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "show", :id => Questionnaire.last.id }, :method => :get, :class => "bigbutton" %>
-  <%# else %>
-    <%#= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "new" }, :method => :get, :class => "bigbutton" %>
-  <%# end %>
-</div>
 
 <table class="accel">
   <tr>
