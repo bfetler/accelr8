@@ -42,13 +42,22 @@
   <table class="clear span-18">
     <tr class="accel nomargin">
       <td><%= f.label :startdate, "Start Date" %><span class="required">*</span></td>
-      <td><%= f.date_select :startdate, options = { :start_year => Time.now.year }, :class => "nomargin" %></td>
+      <td>
+        <%#= f.date_select :startdate, options = { :start_year => Time.now.year }, :class => "nomargin" %>
+        <%= f.date_select :startdate, options = { :default => 7.days.from_now }, :class => "nomargin" %>
+      </td>
       <td><%= f.label :length, "Length (weeks)" %><span class="required">*</span></td>
       <td><%= f.text_field :length, :size => 3 %></td>
     </tr>
     <tr class="accel nomargin">
       <td><%= f.label :duedate, "Application Due Date" %><span class="required">*</span></td>
-      <td><%= f.date_select :duedate, options = { :start_year => Time.now.year }, :class => "nomargin" %></td>
+      <td>
+        <%#= f.date_select :duedate, options = { :start_year => Time.now.year }, :class => "nomargin" %>
+        <%#= f.date_select :duedate, options = { :default => Time.now }, :class => "nomargin" %>
+        <%= f.date_select :duedate, options = { :default => 0.days.from_now }, :class => "nomargin" %>
+        <%#= f.date_select :duedate, options = { :default => -7.days.from_now }, :class => "nomargin" %>
+        <%#= f.date_select :duedate, options = { :default => 7.days.ago }, :class => "nomargin" %>
+      </td>
       <td/>
       <td/>
     </tr>
