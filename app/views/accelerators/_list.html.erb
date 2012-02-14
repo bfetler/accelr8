@@ -1,22 +1,19 @@
 <%= form_for :ac_registration, :url => { :action => 'createbatch', :controller => 'ac_registrations' } do |f| %>
 
-  <table>
+  <!--table>
     <tr>
       <td class="apply_title">Accelerators</td>
       <td class="right">
-        <% if @accelerators.any? %>
-          <%= f.submit value='Submit Application', :class => "bigbutton", :title => "Email application to selected accelerators" %>
-        <% else %>
-          <%= f.submit value='Submit Application', :disabled => true, :class => "bigbutton" %>
-        <% end %>
+        <%# if @accelerators.any? %>
+          <%#= f.submit value='Submit Application', :class => "bigbutton", :title => "Email application to selected accelerators" %>
+        <%# else %>
+          <%#= f.submit value='Submit Application', :disabled => true, :class => "bigbutton" %>
+        <%# end %>
       </td>
     </tr>
-    <!--tr>
-      <td colspan=2 id="notice" class="apply_notice"><%#= notice %></td>
-    </tr!-->
-  </table>
+  </table!-->
 
-  <div class="field">
+  <div class="field clear">
     <% quid = nil %>
     <% if ! @questionnaire.nil? %>
       <% quid = @questionnaire.id %>
@@ -94,6 +91,12 @@
     <% end %> <!-- accelerators.each -->
   </table>
   <% end %> <!-- accelerators.any? -->
+
+  <% if @accelerators.any? %>
+    <%= f.submit value='Submit Application', :class => "bigbutton right", :title => "Email application to selected accelerators" %>
+  <% else %>
+    <%= f.submit value='Submit Application', :disabled => true, :class => "bigbutton right" %>
+  <% end %>
 
 <% end %> <!-- form -->
 

@@ -1,13 +1,6 @@
-<h4><b>Accelerator Application</b></h4>
+<%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "apply", :id => @questionnaire }, :method => :get, :class => "bigbutton right" %>
 
-<ul class="clear right">
-  <li class="nostyle">
-    <%= link_to 'Edit Application', edit_questionnaire_path(@questionnaire) %>
-  </li>
-  <li class="nostyle">
-    <%= link_to 'Apply to Accelerators', apply_questionnaire_path(@questionnaire) %>
-  </li>
-</ul>
+<h4><b>Accelerator Application Details</b></h4>
 
 <p id="notice"><%= notice %></p>
 
@@ -83,4 +76,8 @@
   <b>Advisors / Mentors:</b>
   <%= @questionnaire.advisor %>
 </p>
+
+<div class="last clear"/>
+  <%= button_to 'Edit Application', { :controller => "questionnaires", :action => "edit", :id => @questionnaire }, :method => :get %>
+</div>
 
