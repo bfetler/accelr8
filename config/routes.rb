@@ -8,6 +8,7 @@ Accelr8::Application.routes.draw do
   match 'accelerators/terms' => 'accelerators#terms', :via => :post
 
   devise_for :accelerator_users
+  devise_for :users
 
 # match 'accelerator_user_root', :to => 'accelerators#index'
   match '/accelerator_user_root', :to => 'accelerators#index'

@@ -1,4 +1,5 @@
 class AcceleratorsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:setsortorder]
   before_filter :authenticate_accelerator_user!, :except => [:index, :setsortorder]
 # before_filter is_admin?
 

@@ -88,6 +88,7 @@ class QuestionnairesController < ApplicationController
     saveerr = nil
     @questionnaire = Questionnaire.new(params[:questionnaire])
 #   @questionnaire.user_id = User.find(?)
+    @questionnaire.user_id = current_user
 
     if qfounders_params_any(params['qfounder']) == :false
       saveerr = 2    # no params['qfounder']
@@ -288,6 +289,7 @@ class QuestionnairesController < ApplicationController
     @questionnaire.destroy
 # also destroys qfounders
 
+# flips to index.html, should flip to new.html?
     respond_to do |format|
       format.html { redirect_to(questionnaires_url) }
       format.xml  { head :ok }

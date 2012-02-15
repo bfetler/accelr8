@@ -1,7 +1,7 @@
 class Questionnaire < ActiveRecord::Base
   has_many :ac_registrations, :dependent => :destroy
   has_many :qfounders, :dependent => :destroy
-# belongs_to :user
+  belongs_to :user
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
