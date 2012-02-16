@@ -1,4 +1,6 @@
 class QuestionnairesController < ApplicationController
+  before_filter :authenticate_user!, :except => [:setsortorder, :qfounders_params_any, :fdr_any]
+
   # GET /questionnaires
   # GET /questionnaires.xml
   def index
@@ -88,7 +90,7 @@ class QuestionnairesController < ApplicationController
     saveerr = nil
     @questionnaire = Questionnaire.new(params[:questionnaire])
 #   @questionnaire.user_id = User.find(?)
-    @questionnaire.user_id = current_user
+    @questionnaire.user_id = current_user.id
 
     if qfounders_params_any(params['qfounder']) == :false
       saveerr = 2    # no params['qfounder']

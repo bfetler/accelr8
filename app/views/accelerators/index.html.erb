@@ -11,9 +11,14 @@
 </div!-->
 
 <div class="right">
+  <ul>
+    <li>User Id: <%= current_user.id %></li>
+    <li>User Quest: <%= @userquest %></li>
+  </ul>
   <%# if User.questionnaire.any? %>
-  <% if Questionnaire.any? %>
-    <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "show", :id => Questionnaire.last.id }, :method => :get, :class => "bigbutton" %>
+  <%# if Questionnaire.any? %>
+  <% if ! @userquest.nil? %>
+    <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "show", :id => @userquest.id }, :method => :get, :class => "bigbutton" %>
   <% else %>
     <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "new" }, :method => :get, :class => "bigbutton" %>
   <% end %>

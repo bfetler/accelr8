@@ -15,6 +15,8 @@ class AcceleratorsController < ApplicationController
       flash[:sortorder] = "ASC"
     end
     @accelerators = Accelerator.where("izzaproved = ?", "yEs").order(flash[:sortcolumn]+" "+flash[:sortorder])
+    @userquest = Questionnaire.where(["user_id = ?", current_user]).last
+#   @userquest is nil if Questionnaire not yet created for this user
 
     respond_to do |format|
       format.html # index.html.erb
