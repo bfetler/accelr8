@@ -1,39 +1,64 @@
 
 <!-- use a div or span? -->
-<ul class="right span-7 applybox round">
+<ul class="right span-7 applybox applycolor round">
   <li class="nostyle prepend-1">
     <i>To apply to accelerators:</i>
   </li>
+  <br/>
+  <!--fieldset class="applybox round"!-->
   <li class="nostyle">
     <span class="">
     Select <b>Apply Now</b> for accelerators you are interested in, then click <b>Submit Application</b> to email your application.
     </span>
   </li>
+  <!--/fieldset!-->
 </ul>
 
-<ul class="span-14 applybox round">
 <!-- use a table? -->
-  <li class="nostyle bigfont">
 <!-- use fieldset, legend? -->
+<ul class="span-14 applybox applycolor round">
+  <fieldset class="applybox round">
+    <legend><b><i>Accelerator Application</i></b></legend>
+    <li class="nostyle">
+      <span class="span-4"><b>Company Name:</b></span>
+      <span class="span-8 last"><%= @questionnaire.companyname %></span>
+    </li>
+    <li class="nostyle">
+      <span class="span-4"><b>Founders:</b></span>
+      <span class="span-8 last"><%= @questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %></span>
+    </li>
+    <li class="nostyle">
+      <span class="span-4 prepend-1 mediumfont">
+        <%= link_to 'View Application Details', @questionnaire %>
+      </span>
+      <span class="span-4 mediumfont last right">
+        <%#= link_to 'Email Test Application', '#', :title => "Email a Test Application to Founders" %>
+      </span>
+    </li>
+  </fieldset>
+</ul>
+
+<!--ul class="span-14 applybox round">
+  <li class="nostyle bigfont">
     <b><i>Accelerator Application</i></b>
   </li>
   <li class="nostyle">
     <span class="span-4"><b>Company Name:</b></span>
-    <span class="span-8 last"><%= @questionnaire.companyname %></span>
+    <span class="span-8 last"><%#= @questionnaire.companyname %></span>
   </li>
   <li class="nostyle">
     <span class="span-4"><b>Founders:</b></span>
-    <span class="span-8 last"><%= @questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %></span>
+    <span class="span-8 last"><%#= @questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %></span>
   </li>
   <li class="nostyle">
     <span class="span-6 prepend-1 mediumfont">
-      <%= link_to 'View Application Details', @questionnaire %>
+      <%#= link_to 'View Application Details', @questionnaire %>
     </span>
   </li>
   <!--li class="nostyle">
     <%#= link_to 'Email Test Application', '#', :title => "Email a Test Application to Founders" %>
-  </li!-->
-</ul>
+  </li>
+</ul!-->
 
 <br class="last clear"/>
 <span id="notice" class="clear"><i><%= notice %></i></span>

@@ -147,5 +147,9 @@ ul li.nostyle
 }
 .applybox {
   padding:10px;
+  margin:2px;
+# background:#fff6bf;
+}
+.applycolor {
   background:#fff6bf;
 }
