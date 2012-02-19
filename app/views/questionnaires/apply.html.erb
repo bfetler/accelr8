@@ -1,31 +1,57 @@
 
 <!-- use a div or span? -->
-<ul class="right span-7 applybox applycolor round">
-  <li class="nostyle prepend-1">
-    <i>To apply to accelerators:</i>
-  </li>
-  <br/>
+<!--div class="right span-7 applybox applycolor round">
+  <span class="nostyle mediumfont">
+    <b><i>To apply to accelerators:</i></b>
+  </span>
   <!--fieldset class="applybox round"!-->
-  <li class="nostyle">
-    <span class="">
+    <!--ul class="mediumfont">
+      <li>
+        Select <b>Apply Now</b> for accelerators you are interested in.
+      </li>
+      <li>
+        Click <b>Submit Application</b> to email your application.
+      </li>
+    <ul>
+  <!--/fieldset!-->
+<!--/div!-->
+
+<ul class="right span-6 applybox applycolor round">
+  <li class="nostyle ">
+    <b><i>To apply to accelerators:</i></b>
+  </li>
+  <!--fieldset class="applybox round"!-->
+  <!--li class="nostyle mediumfont">
     Select <b>Apply Now</b> for accelerators you are interested in, then click <b>Submit Application</b> to email your application.
-    </span>
+  </li!-->
+  <li class="nostyle mediumfont">
+    <ul>
+      <!--li class="nostyle ">
+        <b><i>To apply to accelerators:</i></b>
+      </li!-->
+      <li>
+        Select <b>Apply Now</b> for accelerators you are interested in.
+      </li>
+      <li>
+        Click <b>Submit Application</b> to email your application.
+      </li>
+    </ul>
   </li>
   <!--/fieldset!-->
 </ul>
 
 <!-- use a table? -->
 <!-- use fieldset, legend? -->
-<ul class="span-14 applybox applycolor round">
+<ul class="span-15 applybox applycolor round">
   <fieldset class="applybox round">
     <legend><b><i>Accelerator Application</i></b></legend>
     <li class="nostyle">
       <span class="span-4"><b>Company Name:</b></span>
-      <span class="span-8 last"><%= @questionnaire.companyname %></span>
+      <span class="span-10 last"><%= @questionnaire.companyname %></span>
     </li>
     <li class="nostyle">
       <span class="span-4"><b>Founders:</b></span>
-      <span class="span-8 last"><%= @questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %></span>
+      <span class="span-10 last"><%= @questionnaire.qfounders.map { |t| t.firstname + " " + t.lastname }.join(", ") %></span>
     </li>
     <li class="nostyle">
       <span class="span-4 prepend-1 mediumfont">

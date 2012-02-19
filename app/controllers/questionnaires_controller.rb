@@ -293,7 +293,9 @@ class QuestionnairesController < ApplicationController
 
 # flips to index.html, should flip to new.html?
     respond_to do |format|
-      format.html { redirect_to(questionnaires_url) }
+#     format.html { redirect_to(questionnaires_url) }
+#     format.html { redirect_to new_questionnaire_path }
+      format.html { redirect_to accelerators_path }
       format.xml  { head :ok }
     end
 #   flash[:notice] = "try destroy questionnaire"
