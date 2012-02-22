@@ -159,6 +159,15 @@ ul li.nostyle
 .usermargin {
   margin-left: 300px;
 }
+.container {
+  margin: 0px;
+  margin: 10px;
+  width: auto;
+# background: #cdf;
+}
+.navmargin {
+# margin-right: 80px;
+}
 .background_pix {
 # width: 900px;
 # height: 300px;
@@ -166,5 +175,7 @@ ul li.nostyle
   background: url('../images/GOOD-VIBES-Redwood-Forest.jpg');
 # background: url('../images/hudson-river-sloop-clearwater-lg.jpg');
 # background: url('../images/Redwood_Forest.jpg');
-  opacity: 0.7;
+  opacity: 0.8;
+# margin-top: 4px;
+  padding: 20px;
 }
