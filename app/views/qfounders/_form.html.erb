@@ -2,49 +2,50 @@
 <%= javascript_include_tag "jqueryref" %>
 <%= javascript_include_tag "accel" %>
 
-<table id="fdr">
-  <tr class="nomargin">
-    <%= fields_for :qfounder do |q_form| %>
-      <th title="Minimum 1 founder">
-        Founders:<span class="required">*</span>
-      </th>
-      <th><%= q_form.label :firstname, 'First name' %></th>
-      <th><%= q_form.label :lastname, 'Last name' %></th>
-      <th><%= q_form.label :role, 'Area of Expertise' %></th>
-      <th><%= q_form.label :willcode, 'Will Code' %></th>
-      <th><%= q_form.label :weblink, 'Linked-In Page / Web Site (if any)' %></th>
-      <td>
-        <button type="button" id="addrow" title="Minimum 1 founder">Add Founder</button>
-      </td>
-    <% end %>
-  </tr>
-  <% if @questionnaire.qfounders.any? %>
-    <% ix=0 %>
-    <%# for qfounder in @questionnaire.qfounders.order("lastname") %>
-    <% for qfounder in @questionnaire.qfounders %>
-      <%= fields_for qfounder, :index => ix do |q_form| %>
-        <tr class="rmable nomargin" id="qfdr<%= ix.to_s %>">
-          <td/>
-          <td><%= q_form.text_field :firstname, :size => 12 %></td>
-          <td><%= q_form.text_field :lastname, :size => 12 %></td>
-          <td><%= q_form.text_field :role, :size => 16 %></td>
-          <td>
-            <% qfx='qfounder['+ix.to_s+']' %>
-            <%= hidden_field qfx, :willcode %>
-            <% if qfounder.willcode == 1 %>
-              <%= check_box_tag qfx+'[willcode]', '1', true, :class => "chk" %>
-            <% else %>
-              <%= check_box_tag qfx+'[willcode]', '1', false, :class => "chk" %>
-            <% end %>
-          </td>
-          <td><%= q_form.text_field :weblink, :size => 30 %></td>
-          <td>
-              <button type="button" class="rmable" id="rmit<%= ix.to_s %>">Remove</button>
-          </td>
-        </tr>
-      <% ix += 1 %>
+<fieldset class="accel-form nomargin">
+  <legend title="Minimum 1 founder">
+    Founders<span class="required">*</span>
+  </legend>
+  <table id="fdr">
+    <tr class="nomargin no_stripe">
+      <%= fields_for :qfounder do |q_form| %>
+        <th><%= q_form.label :firstname, 'First name' %></th>
+        <th><%= q_form.label :lastname, 'Last name' %></th>
+        <th><%= q_form.label :role, 'Area of Expertise' %></th>
+        <th><%= q_form.label :willcode, 'Will Code' %></th>
+        <th><%= q_form.label :weblink, 'Linked-In Page / Web Site (if any)' %></th>
+        <td>
+          <button type="button" id="addrow" title="Minimum 1 founder">Add Founder</button>
+        </td>
+      <% end %>
+    </tr>
+    <% if @questionnaire.qfounders.any? %>
+      <% ix=0 %>
+      <%# for qfounder in @questionnaire.qfounders.order("lastname") %>
+      <% for qfounder in @questionnaire.qfounders %>
+        <%= fields_for qfounder, :index => ix do |q_form| %>
+          <tr class="rmable nomargin no_stripe" id="qfdr<%= ix.to_s %>">
+            <td><%= q_form.text_field :firstname, :size => 12 %></td>
+            <td><%= q_form.text_field :lastname, :size => 12 %></td>
+            <td><%= q_form.text_field :role, :size => 16 %></td>
+            <td>
+              <% qfx='qfounder['+ix.to_s+']' %>
+              <%= hidden_field qfx, :willcode %>
+              <% if qfounder.willcode == 1 %>
+                <%= check_box_tag qfx+'[willcode]', '1', true, :class => "chk" %>
+              <% else %>
+                <%= check_box_tag qfx+'[willcode]', '1', false, :class => "chk" %>
+              <% end %>
+            </td>
+            <td><%= q_form.text_field :weblink, :size => 30 %></td>
+            <td>
+                <button type="button" class="rmable" id="rmit<%= ix.to_s %>">Remove</button>
+            </td>
+          </tr>
+        <% ix += 1 %>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</table>
+  </table>
+</fieldset>
 <br/>

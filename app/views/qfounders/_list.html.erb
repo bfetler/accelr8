@@ -1,5 +1,5 @@
 <table class="span-22">
-  <tr>
+  <tr class="no_stripe">
     <th>Founders:</th>
     <th>Name</th>
     <th>Area of Expertise</th>
@@ -8,7 +8,7 @@
   </tr>
   <%# for qfounder in @questionnaire.qfounders.order("lastname") do %>
   <% for qfounder in @questionnaire.qfounders do %>
-    <tr class="nomargin">
+    <tr class="nomargin no_stripe">
       <td></td>
       <td><%= qfounder.firstname %> <%= qfounder.lastname %></td>
       <td><%= qfounder.role %></td>

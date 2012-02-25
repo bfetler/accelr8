@@ -50,6 +50,11 @@ tbody tr.accel td  {
 #       background: white;
         background: none;
 }
+td.addpad {
+# margin-top:20px;
+# margin-bottom:20px;
+  padding-top:20px;
+}
 input.accelwidth
 {
   width:180px;
@@ -153,16 +158,20 @@ ul li.nostyle
 .applycolor {
   background:#fff6bf;
 }
-.usercolor {
-  color:#aea;
-}
-.usermargin {
-  margin-left: 300px;
+div.userbox {
+# background: #cdf;
+  background: #abd;
+# background: #89b;
+# background: url('../images/GOOD-VIBES-Redwood-Forest.jpg');
+# background: url('../images/Redwood_Forest.jpg');
+# background: url('../images/clearwater_sloop.jpg');
+  margin: 10px 200px 10px 200px;
+  padding: 20px 20px 10px 20px;
 }
 .container {
-  margin: 0px;
-  margin: 10px;
-  width: auto;
+# margin: 0px;
+# margin: 10px;
+# width: auto;
 # background: #cdf;
 }
 .navmargin {
@@ -172,7 +181,7 @@ ul li.nostyle
 # width: 900px;
 # height: 300px;
 # background: url('/images/GOOD-VIBES-Redwood-Forest.jpg') no-repeat;
-  background: url('../images/GOOD-VIBES-Redwood-Forest.jpg');
+# background: url('../images/GOOD-VIBES-Redwood-Forest.jpg');
 # background: url('../images/hudson-river-sloop-clearwater-lg.jpg');
 # background: url('../images/Redwood_Forest.jpg');
   opacity: 0.8;

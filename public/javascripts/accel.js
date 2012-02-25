@@ -30,8 +30,8 @@
           var ct = new Number(lastid.match("[0-9]+")) + 1;
 
 // append elements
-          var elem = '<tr class="rmable nomargin" id="qfdr'+ct+'">';
-          elem += '<td></td>';
+          var elem = '<tr class="rmable nomargin no_stripe" id="qfdr'+ct+'">';
+//        elem += '<td></td>';
           elem += '<td><input id="qfounder_'+ct+'_firstname" name="qfounder['+ct+'][firstname]" size="12" type="text" value="" /></td>';
           elem += '<td><input id="qfounder_'+ct+'_lastname" name="qfounder['+ct+'][lastname]" size="12" type="text" value="" /></td>';
           elem += '<td><input id="qfounder_'+ct+'_role" name="qfounder['+ct+'][role]" size="16" type="text" value="" /></td>';

@@ -1,22 +1,23 @@
-<!--div style="background:#acd;"!-->
-<div class="background_pix">
-
 <%= render :partial => "users/shared/links" %>
 
-<h3 class="usercolor usermargin">User Sign In</h3>
+<div class="userbox round">
+
+<h3>User Sign In</h3>
+
+<%= render :partial => "users/shared/notices" %>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <p class="usermargin"><%= f.label :email, :class => "usercolor" %><br />
+  <p><%= f.label :email %><br />
   <%= f.email_field :email %></p>
 
-  <p class="usermargin"><%= f.label :password, :class => "usercolor" %><br />
+  <p><%= f.label :password %><br />
   <%= f.password_field :password %></p>
 
   <% if devise_mapping.rememberable? -%>
-    <p class="usermargin"><%= f.check_box :remember_me %> <%= f.label :remember_me, :class => "usercolor" %></p>
-  <% end -%>
+    <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
+  <% end %>
 
-  <p class="usermargin"><%= f.submit "Welcome, Sign in" %></p>
+  <p><%= f.submit "Welcome, Sign in" %></p>
 <% end %>
 
 </div>
