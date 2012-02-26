@@ -1,26 +1,28 @@
-<table class="span-22">
-  <tr class="no_stripe">
-    <th>Founders:</th>
-    <th>Name</th>
-    <th>Area of Expertise</th>
-    <th>Will Code</th>
-    <th>Linked-In Page / Web Site (if any)</th>
-  </tr>
-  <%# for qfounder in @questionnaire.qfounders.order("lastname") do %>
-  <% for qfounder in @questionnaire.qfounders do %>
-    <tr class="nomargin no_stripe">
-      <td></td>
-      <td><%= qfounder.firstname %> <%= qfounder.lastname %></td>
-      <td><%= qfounder.role %></td>
-      <td>
-        <% if (! qfounder.willcode.nil?) && (qfounder.willcode == 1) %>
-          Yes
-        <% else %>
-          No
-        <% end %>
-      </td>
-      <td><%= link_to qfounder.weblink, qfounder.weblink, :target => "_blank" %></td>
+<fieldset class="accel-form nomargin">
+<legend>Founders</legend>
+  <table class="span-22">
+    <tr class="no_stripe">
+      <th>Name</th>
+      <th>Area of Expertise</th>
+      <th>Will Code</th>
+      <th>Linked-In Page / Web Site (if any)</th>
     </tr>
-  <% end %>
-</table>
-<br/>
+    <%# for qfounder in @questionnaire.qfounders.order("lastname") do %>
+    <% for qfounder in @questionnaire.qfounders do %>
+      <tr class="nomargin no_stripe">
+        <td><%= qfounder.firstname %> <%= qfounder.lastname %></td>
+        <td><%= qfounder.role %></td>
+        <td>
+          <% if (! qfounder.willcode.nil?) && (qfounder.willcode == 1) %>
+            Yes
+          <% else %>
+            No
+          <% end %>
+        </td>
+        <td>
+          <%= link_to qfounder.weblink, qfounder.weblink, :target => "_blank" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</fieldset>

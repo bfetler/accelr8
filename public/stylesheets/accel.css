@@ -50,14 +50,10 @@ tbody tr.accel td  {
 #       background: white;
         background: none;
 }
-td.addpad {
+.addpad {
 # margin-top:20px;
 # margin-bottom:20px;
   padding-top:20px;
-}
-input.accelwidth
-{
-  width:180px;
 }
 .nowrap
 {
@@ -149,6 +145,13 @@ ul li.nostyle
 {
   margin:2px;
   padding:100px 2px 2px 2px;
+}
+.header_apptest {
+  color: white;
+  margin: auto;
+  padding-left: 100px;
+  padding-top: 20px;
+  width:250px;
 }
 .applybox {
   padding:10px;

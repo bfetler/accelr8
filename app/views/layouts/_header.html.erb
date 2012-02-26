@@ -22,7 +22,7 @@
         <tr style='background-color: transparent;'>
           <td class='signin_row'>
             <ul>
-              <% unless params[:controller].eql?("devise/registrations") %>
+              <% unless controller_name == "registrations" %>
                 <li><%= link_to "Edit User", edit_user_registration_path %></li>
               <% end %>
               <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
@@ -40,6 +40,9 @@
       </ul>
     <% end %>
   </nav>
+
+  <h2 class="header_apptest"><i>Application Test</i></h2>
+
   </div> 
 </header>
 

@@ -27,12 +27,12 @@
     <legend>Company Information</legend>
     <table class="clear span-20">
       <tr class="nomargin no_stripe">
-        <td><b class="nowrap">Company or Project Name:</b><span class="required">*</span></td>
-        <td colspan=4><%= f.text_field :companyname, :size => 67 %></td>
+        <td><b class="nowrap">Company Name:</b><span class="required">*</span></td>
+        <td colspan=4><%= f.text_field :companyname, :size => 72 %></td>
       </tr>
       <tr class="nomargin no_stripe">
         <td class="nowrap"><%= f.label :website, "Website (if any)" %></td>
-        <td colspan=4><%= f.text_field :website, :size => 67 %></td>
+        <td colspan=4><%= f.text_field :website, :size => 72 %></td>
       </tr>
       <tr class="nomargin no_stripe">
         <td class="nowrap">
@@ -40,17 +40,17 @@
         </td>
         <td class="nowrap"><%= f.label :firstname, "First name" %></td>
         <td>
-          <%= f.text_field :firstname, :class => "accelwidth" %>
+          <%= f.text_field :firstname, :size => 20 %>
         </td>
         <td class="nowrap"><%= f.label :lastname, "Last name" %></td>
         <td>
-          <%= f.text_field :lastname, :class => "accelwidth" %>
+          <%= f.text_field :lastname, :size => 20 %>
         </td>
       </tr>
       <tr class="nomargin no_stripe">
         <td/>
         <td><%= f.label :email %></td>
-        <td colspan=3><%= f.text_field :email, :size => 57 %></td>
+        <td colspan=3><%= f.text_field :email, :size => 62 %></td>
       </tr>
     </table>
   </fieldset>
@@ -58,13 +58,15 @@
   <br/>
   <%= render :partial => 'qfounders/form', :locals => {:form => f} %>
 
+<fieldset class="accel-form nomargin">
+<legend>Questionnaire</legend>
   <table class="clear span-20 last">
-    <tr>
+    <tr class="no_stripe">
       <td class="addpad"><b>
         <%= f.label :team, "Can you tell us about the founders team background?" %>
       </b></td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td>
         <%= f.text_area :team, :id => "team", :class => "span-15 charcount maxchar500" %>
 <!-- 6 x 80 seems to be 6 x 55, try 6 x 120 => 6 x 82.5 ...
@@ -73,13 +75,13 @@
       <td class="nomargin"><span id="team_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td class="addpad"><b class="nowrap">
         <%= f.label :description, "Please describe your company or project in 2-3 sentences." %><span class="required">*</span>
       </b></td>
       <td/>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td>
         <%#= f.text_area :description, :rows => 6, :cols => 80 %>
         <%= f.text_area :description, :id => "describe", :class => "span-15 charcount maxchar500" %>
@@ -88,37 +90,34 @@
         <span id="describe_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
-    <tr>
-      <td> </td>
-    </tr>
-    <tr>
+    <tr class="no_stripe">
       <td class="addpad">
         <b><%= f.label :webvideo, "You may also submit a web video describing your company or project." %></b>
         <br/><%= f.text_field :webvideo, :size => 65 %>
       </td>
       <td>
         <br/>
-        <span class="span-6 small">Please keep video<br/>under 2 minutes.</span>
+        <span class="span-6 small addpad">Please keep video under 2 minutes.</span>
       </td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td class="addpad"><b>
         <%= f.label :businessplan, "Please describe your business plan, customer base, and potential revenue stream." %>
       </b></td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td>
         <%= f.text_area :businessplan, :id => "business", :class => "span-15 charcount maxchar500" %>
       </td>
       <td class="nomargin"><span id="business_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td class="addpad"><b>
         <%= f.label :competition, "Who are your competitors, if any, and how your product is different from theirs?" %>
       </b></td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td>
         <%#= f.text_area :competition, :rows => 6, :cols => 80 %>
         <%= f.text_area :competition, :id => "comp", :class => "span-15 charcount maxchar500" %>
@@ -126,36 +125,36 @@
       <td class="nomargin"><span id="comp_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td class="addpad"><b>
         <%= f.label :other, "If the founders have contributed to other significant projects, please describe." %>
       </b></td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td>
         <%= f.text_area :other, :id => "other", :class => "span-15 charcount maxchar500" %>
       </td>
       <td class="nomargin"><span id="other_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td class="addpad"><b>
         <%= f.label :invest, "If you have any investors, please describe." %>
       </b></td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td>
         <%= f.text_area :invest, :id => "invest", :class => "span-15 charcount maxchar500" %>
       </td>
       <td class="nomargin"><span id="invest_ct" class="span-4 small ctpad"></span>
       </td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td class="addpad"><b>
         <%= f.label :advisor, "If you have advisors or mentors working with you, please describe." %>
       </b></td>
     </tr>
-    <tr>
+    <tr class="no_stripe">
       <td>
         <%= f.text_area :advisor, :id => "advisor", :class => "span-15 charcount maxchar500" %>
       </td>
@@ -163,6 +162,7 @@
       </td>
     </tr>
   </table>
+</fieldset>
 
   <br/>
   <div class="actions span-6">

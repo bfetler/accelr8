@@ -4,80 +4,101 @@
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Company Name:</b>
-  <%= @questionnaire.companyname %>
-</p>
-
-<p>
-  <b>Website:</b>
-  <% if (@questionnaire.website.nil? || @questionnaire.website.empty?) %>
-     None
-  <% else %>
-    <%= link_to @questionnaire.website, @questionnaire.website, :target => "_blank" %>
-  <% end %>
-</p>
-
-<table class="accel span-16">
-  <tr class="nomargin no_stripe">
-    <td class="span-3"><b>Contact:</b></td>
-    <td class="span-2">Name:</td>
-    <td class="span-11 last"><%= @questionnaire.firstname + " " + @questionnaire.lastname %></td>
-  </tr>
-  <tr class="nomargin no_stripe">
-    <td class="clear span-3"/>
-    <td class="span-2">Email:</td>
-    <td class="span-11 last"><%= @questionnaire.email %></td>
-  </tr>
-</table>
+<fieldset class="accel-form nomargin">
+  <legend>Company Information</legend>
+  <table class="accel span-20">
+    <tr class="nomargin no_stripe">
+      <td><br/></td>
+    </tr>
+    <tr class="nomargin no_stripe">
+      <td class="span-4"><b>Company Name:</b></td>
+      <td class="span-16 last clear">
+        <%= @questionnaire.companyname %>
+      </td>
+      <td/>
+    </tr>
+    <tr class="nomargin no_stripe">
+      <td><br/></td>
+    </tr>
+    <tr class="nomargin no_stripe">
+      <td class="span-4"><b>Website:</b></td>
+      <td class="span-16 last clear">
+        <% if (@questionnaire.website.nil? || @questionnaire.website.empty?) %>
+           None
+        <% else %>
+          <%= link_to @questionnaire.website, @questionnaire.website, :target => "_blank" %>
+        <% end %>
+      </td>
+      <td/>
+    </tr>
+  </table>
+  <table class="accel span-20">
+    <tr class="nomargin no_stripe">
+      <td class="span-4"><b>Contact:</b></td>
+      <td class="span-2">Name:</td>
+      <td class="span-14 last clear"><%= @questionnaire.firstname + " " + @questionnaire.lastname %></td>
+    </tr>
+    <tr class="nomargin no_stripe">
+      <td class="span-4"/>
+      <td class="span-2">Email:</td>
+      <td class="span-14 last clear"><%= @questionnaire.email %></td>
+    </tr>
+  </table>
+</fieldset>
 
 <%= render :partial => "qfounders/list" %>
 
-<p class="span-18 last">
-  <b>Founder Team Background:</b>
-  <%= @questionnaire.team %>
-</p>
+<fieldset class="accel-form nomargin">
+  <legend>Questionnaire</legend>
+  <br/>
 
-<p class="span-18 last">
-  <b>Description:</b>
-  <%= @questionnaire.description %>
-</p>
+  <p class="span-18 last">
+    <b>Founder Team Background:</b>
+    <%= @questionnaire.team %>
+  </p>
 
-<p class="span-18 last">
-  <b>Web Video:</b>
-  <% if (@questionnaire.webvideo.nil? || @questionnaire.webvideo.empty?) %>
-     None
-  <% else %>
-    <%= link_to @questionnaire.webvideo, @questionnaire.webvideo, :target => "_blank" %>
-  <% end %>
-</p>
+  <p class="span-18 last">
+    <b>Description:</b>
+    <%= @questionnaire.description %>
+  </p>
 
-<p class="span-18 last">
-  <b>Business Plan:</b>
-  <%= @questionnaire.businessplan %>
-</p>
+  <p class="span-18 last">
+    <b>Web Video:</b>
+    <% if (@questionnaire.webvideo.nil? || @questionnaire.webvideo.empty?) %>
+       None
+    <% else %>
+      <%= link_to @questionnaire.webvideo, @questionnaire.webvideo, :target => "_blank" %>
+    <% end %>
+  </p>
 
-<p class="span-18 last">
-  <b>Competition:</b>
-  <%= @questionnaire.competition %>
-</p>
+  <p class="span-18 last">
+    <b>Business Plan:</b>
+    <%= @questionnaire.businessplan %>
+  </p>
 
-<p class="span-18 last">
-  <b>Other Founder Projects:</b>
-  <%= @questionnaire.other %>
-</p>
+  <p class="span-18 last">
+    <b>Competition:</b>
+    <%= @questionnaire.competition %>
+  </p>
 
-<p class="span-18 last">
-  <b>Investors:</b>
-  <%= @questionnaire.invest %>
-</p>
+  <p class="span-18 last">
+    <b>Other Founder Projects:</b>
+    <%= @questionnaire.other %>
+  </p>
 
-<p class="span-18 last">
-  <b>Advisors / Mentors:</b>
-  <%= @questionnaire.advisor %>
-</p>
+  <p class="span-18 last">
+    <b>Investors:</b>
+    <%= @questionnaire.invest %>
+  </p>
+
+  <p class="span-18 last">
+    <b>Advisors / Mentors:</b>
+    <%= @questionnaire.advisor %>
+  </p>
+</fieldset>
 
 <div class="last clear"/>
+  <br/>
   <%= button_to 'Edit Application', { :controller => "questionnaires", :action => "edit", :id => @questionnaire }, :method => :get %>
 </div>
 
