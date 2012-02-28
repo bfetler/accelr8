@@ -146,6 +146,9 @@ ul li.nostyle
   margin:2px;
   padding:100px 2px 2px 2px;
 }
+.info {
+  border:1px solid #92cae4;
+}
 .header_test {
   font-style: italic;
   color: white;
@@ -157,7 +160,7 @@ ul li.nostyle
 .header_note {
   color: white;
   margin: auto;
-  padding-left: 60px;
+  padding-left: 40px;
   padding-top: 0px;
   width:300px;
 }
@@ -175,10 +178,11 @@ a.header_link:hover {
 .applybox {
   padding:10px;
   margin:2px;
-# background:#fff6bf;
+  border-color:#a8a8a8;
 }
 .applycolor {
-  background:#fff6bf;
+# background:#fff6bf;
+  background:#d5dde8;
 }
 div.userbox {
 # background: #cdf;
