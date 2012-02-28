@@ -25,14 +25,14 @@
 
   <fieldset class="accel-form nomargin">
     <legend>Company Information</legend>
-    <table class="clear span-20">
+    <table class="clear span-22 last">
       <tr class="nomargin no_stripe">
         <td><b class="nowrap">Company Name:</b><span class="required">*</span></td>
-        <td colspan=4><%= f.text_field :companyname, :size => 72 %></td>
+        <td colspan=4><%= f.text_field :companyname, :size => 80 %></td>
       </tr>
       <tr class="nomargin no_stripe">
         <td class="nowrap"><%= f.label :website, "Website (if any)" %></td>
-        <td colspan=4><%= f.text_field :website, :size => 72 %></td>
+        <td colspan=4><%= f.text_field :website, :size => 80 %></td>
       </tr>
       <tr class="nomargin no_stripe">
         <td class="nowrap">
@@ -40,17 +40,17 @@
         </td>
         <td class="nowrap"><%= f.label :firstname, "First name" %></td>
         <td>
-          <%= f.text_field :firstname, :size => 20 %>
+          <%= f.text_field :firstname, :size => 23 %>
         </td>
         <td class="nowrap"><%= f.label :lastname, "Last name" %></td>
         <td>
-          <%= f.text_field :lastname, :size => 20 %>
+          <%= f.text_field :lastname, :size => 23 %>
         </td>
       </tr>
       <tr class="nomargin no_stripe">
         <td/>
         <td><%= f.label :email %></td>
-        <td colspan=3><%= f.text_field :email, :size => 62 %></td>
+        <td colspan=3><%= f.text_field :email, :size => 70 %></td>
       </tr>
     </table>
   </fieldset>
@@ -60,7 +60,7 @@
 
 <fieldset class="accel-form nomargin">
 <legend>Questionnaire</legend>
-  <table class="clear span-20 last">
+  <table class="clear span-22 last">
     <tr class="no_stripe">
       <td class="addpad"><b>
         <%= f.label :team, "Can you tell us about the founders team background?" %>

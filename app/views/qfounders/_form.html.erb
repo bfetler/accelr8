@@ -6,16 +6,19 @@
   <legend title="Minimum 1 founder">
     Founders<span class="required">*</span>
   </legend>
-  <table id="fdr">
+  <table id="fdr" class="clear span-22 last">
     <tr class="nomargin no_stripe">
       <%= fields_for :qfounder do |q_form| %>
         <th><%= q_form.label :firstname, 'First name' %></th>
         <th><%= q_form.label :lastname, 'Last name' %></th>
         <th><%= q_form.label :role, 'Area of Expertise' %></th>
-        <th><%= q_form.label :willcode, 'Will Code' %></th>
+        <th>
+          <%#= q_form.label :willcode, 'Will Code' %>
+          <label>Will<br/>Code</label>
+        </th>
         <th><%= q_form.label :weblink, 'Linked-In Page / Web Site (if any)' %></th>
         <td>
-          <button type="button" id="addrow" title="Minimum 1 founder">Add Founder</button>
+          <button type="button" id="addrow" title="Minimum 1 founder">Add<br/>Founder</button>
         </td>
       <% end %>
     </tr>

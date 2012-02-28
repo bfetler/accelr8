@@ -146,12 +146,31 @@ ul li.nostyle
   margin:2px;
   padding:100px 2px 2px 2px;
 }
-.header_apptest {
+.header_test {
+  font-style: italic;
   color: white;
   margin: auto;
   padding-left: 100px;
   padding-top: 20px;
   width:250px;
+}
+.header_note {
+  color: white;
+  margin: auto;
+  padding-left: 60px;
+  padding-top: 0px;
+  width:300px;
+}
+a.header_link {
+  font-weight: bold;
+  font-style: italic;
+  color: white;
+}
+a.header_link:visited {
+  color: white;
+}
+a.header_link:hover {
+  text-decoration: underline;
 }
 .applybox {
   padding:10px;

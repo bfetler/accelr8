@@ -17,17 +17,14 @@ class Accelerator < ActiveRecord::Base
 				:length => { :maximum => 300 }
   validates :acceptlate, :length => { :maximum => 100 }
 
-  validate do
-    errors.add(:base, "Application Due Date must be on or before Start Date") unless startdate >= duedate
-  end
+# validate do
+#   errors.add(:base, "Application due date must be on or before start date") unless startdate >= duedate
+# end
 
-# validate :duedate_before_startdate
+  validate :duedate_before_startdate
 
   def duedate_before_startdate
-#   errors.add(:base, "Start date must be later than due date") unless 3.between?(4, 5)
-#   errors.add(:base, "Start date must be later than due date") unless 4 >= 3
-    errors.add(:base, "Application due date must be on or before start date") unless startdate >= duedate
-# hmm... unless We will accept late applications?
+    errors.add(:base, "Application Due Date must be on or before Start Date") unless startdate >= duedate
   end
 
   def to_s

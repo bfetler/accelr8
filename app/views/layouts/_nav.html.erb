@@ -1,14 +1,13 @@
 <div style='clear: both; height: 0px;'>&nbsp;</div>
 <%# if user_signed_in? %>
-<%# if user_signed_in? || !(controller_name=='registrations' && action_name=='edit') %>
 <% if !( !user_signed_in? || (controller_name=='registrations' && action_name=='edit') ) %>
   <ul id="navbar">
     <li><%= link_to "Browse Profiles", "#" %></li>
     <li><%= link_to "Rank Candidates", "#" %></li>
     <li><%= link_to "My Profile", "#" %></li>
     <li><%= link_to "Accelerators", accelerators_path %></li>
-    <li><%= link_to "Events", 'http://events.foundershookup.com' %></li>
-    <li><%= link_to "Wisdom", 'http://wisdom.foundershookup.com' %></li>
+    <li><%= link_to "Events", '#' %></li>
+    <li><%= link_to "Wisdom", '#' %></li>
   </ul>
 <% end %>
 
