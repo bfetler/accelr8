@@ -1,6 +1,6 @@
 class AcceleratorsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:setsortorder]
-  before_filter :authenticate_accelerator_user!, :except => [:index, :setsortorder]
+  before_filter :authenticate_user!, :except => [:setsortorder, :home]
+  before_filter :authenticate_accelerator_user!, :except => [:index, :setsortorder, :home]
 # before_filter is_admin?
 
   # GET /accelerators
@@ -95,6 +95,10 @@ class AcceleratorsController < ApplicationController
     end
     flash[:sortcolumn] = params[:column]
   end    # setcolumn utility
+
+  def home
+    render :layout => false
+  end
 
   # GET /accelerators/1
   # GET /accelerators/1.xml

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Accelr8</title>
+  <%#= stylesheet_link_tag :all %>
+  <%#= stylesheet_link_tag 'scaffold' %>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+  <%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
+  <!--[if lt IE 8]>
+    <%= stylesheet_link_tag 'blueprint/ie', :media => 'screen, projection' %>
+  <![endif]-->
+  <%= stylesheet_link_tag 'custom',  :media => 'screen' %>
+  <%= stylesheet_link_tag 'accel',   :media => 'screen' %>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body class="homebox">
+
+  <div style='width:10%; margin:20% 0 0 40%;'>
+    <% logo = image_tag("ideaware/misc/fh_logo.png", :alt => "Founders Hookup",
+                        :class => "fh_logo") %>
+    <%= link_to logo, new_user_session_path %>
+  </div>
+
+</body>
+</html>

@@ -6,6 +6,7 @@ Accelr8::Application.routes.draw do
 #   end
   end
   match 'accelerators/terms' => 'accelerators#terms', :via => :post
+  match '/home' => 'accelerators#home', :as => 'home'
 
   devise_for :accelerator_users
   devise_for :users
@@ -78,6 +79,7 @@ Accelr8::Application.routes.draw do
   # root :to => "welcome#index"
   root :to => "accelerators#index"
 # root :to => "questionnaires#index"  # temp change for testing
+# root :to => "accelerators#home"
 
   # See how all your routes lay out with "rake routes"
 
