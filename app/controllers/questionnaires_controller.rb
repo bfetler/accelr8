@@ -115,7 +115,8 @@ class QuestionnairesController < ApplicationController
     respond_to do |format|
       if saveerr.nil?    # no errors saving questionnaire
 #       format.html { redirect_to(@questionnaire, :notice => 'Accelerator Application was successfully created.') }
-        format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
+#       format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
+        format.html { render :action => "show" }
         format.xml  { render :xml => @questionnaire, :status => :created, :location => @questionnaire }
       else
         format.html { render :action => "new" }
@@ -209,7 +210,8 @@ class QuestionnairesController < ApplicationController
     respond_to do |format|
       if saveerr.nil?    # no errors saving questionnaire
 #       format.html { redirect_to(@questionnaire, :notice => 'Application was successfully updated.') }
-        format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
+#       format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
+        format.html { render :action => "show" }
         format.xml  { head :ok }
       else
 #       format.html { redirect_to :back }
