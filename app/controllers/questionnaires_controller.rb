@@ -42,7 +42,7 @@ class QuestionnairesController < ApplicationController
     @accelerators = Accelerator.order(flash[:sortcolumn]+" "+flash[:sortorder])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # apply.html.erb
       format.xml  { render :xml => @questionnaire }
     end
   end

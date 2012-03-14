@@ -1,16 +1,24 @@
 class AcMailer < ActionMailer::Base
-  default :from => "support@foundershookup.com"
+  include SendGrid
+  sendgrid_category :use_subject_lines
+  sendgrid_enable   :ganalytics, :opentrack
+
+  default :from => "test_support@foundershookup.com"
 # could have a different from address
 
 # to get email to work, how do we to set up a mail server?
+# SendGrid
 
 # method name matches file names in app/views/ac_mailer
   def register_email(ac_id, ques)
+
+    sendgrid_category "accelerator"
     @questionnaire = ques
     @accel = Accelerator.find(ac_id)
     if (! @accel.nil? && ! @questionnaire.nil?)
       @url = "http://foundershookup.com"
-      @support_email = "support@foundershookup.com"
+#     @support_email = "support@foundershookup.com"
+      @support_email = "bfetler@gmail.com"
       @support_phone = "+1-415-309-8860"
 
 # set accelerator email address

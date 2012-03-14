@@ -4,6 +4,8 @@ gem 'rails', '3.0.7'
 
 gem 'devise', '1.4.2'
 
+gem 'sendgrid', '1.0.1'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
