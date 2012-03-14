@@ -16,6 +16,16 @@
         <%= @questionnaire.companyname %>
       </td>
       <td/>
+      <td>
+        <%= form_for :ac_registration, :url => { :action => 'testemail', :controller => 'ac_registrations' } do |f| %>
+          <% quid = nil %>
+          <% if ! @questionnaire.nil? %>
+            <% quid = @questionnaire.id %>
+          <% end %>
+          <%= hidden_field_tag 'quid', quid %>
+          <%= f.submit value='Email Test Application', :class => "right", :title => "Email test application" %>
+        <% end %>
+      </td>
     </tr>
     <tr class="nomargin no_stripe">
       <td><br/></td>

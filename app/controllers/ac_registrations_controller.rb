@@ -1,4 +1,5 @@
 class AcRegistrationsController < ApplicationController
+
   # GET /registrations
   # GET /registrations.xml
   def index
@@ -27,6 +28,18 @@ class AcRegistrationsController < ApplicationController
 #     end
 #   end
 # end
+
+  def testemail       # test email application
+    if (params['quid'] != '-1' )
+      ques = Questionnaire.find(params['quid'])  # only needed for email
+      AcMailer.send_test_email(ques.email).deliver
+      respond_to do |format|
+        format.html { redirect_to(:back) }
+        flash[:notice] = "Test email: id " + ques.id.to_s
+        flash[:notice] += ", email " + ques.email
+      end
+    end
+  end
 
   # POST /registrations
   # POST /registrations.xml

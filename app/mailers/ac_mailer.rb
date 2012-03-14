@@ -9,6 +9,12 @@ class AcMailer < ActionMailer::Base
 # to get email to work, how do we to set up a mail server?
 # SendGrid
 
+  def send_test_email(q_email)
+    mail( :to => q_email,
+      :subject => "accelerator test email"
+    )
+  end
+
 # method name matches file names in app/views/ac_mailer
   def register_email(ac_id, ques)
 

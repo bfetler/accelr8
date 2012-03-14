@@ -27,6 +27,7 @@ Accelr8::Application.routes.draw do
 # match 'questionnaires/apply' => 'questionnaires#apply', :via => :get
 
   resources :ac_registrations, :only => [:index]
+  match 'ac_registrations/testemail' => 'ac_registrations#testemail', :via => :post
   match 'ac_registrations/createbatch' => 'ac_registrations#createbatch', :via => :post
   match 'ac_registrations/destroybatch' => 'ac_registrations#destroybatch', :via => :delete
 
