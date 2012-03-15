@@ -62,7 +62,9 @@ class AcRegistrationsController < ApplicationController
 #         @registration.accelerator_id = accel.id  # fails
           i.map { |t, v|
             if t.any?
-              @registration.accelerator_id = t
+              accel = Accelerator.find(t)
+              @registration.accelerator_id = accel.id  # fails
+#             @registration.accelerator_id = t
             end
           }
 # on heroku (postgres):  use 1st, always 0.  
