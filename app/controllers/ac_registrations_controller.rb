@@ -32,7 +32,8 @@ class AcRegistrationsController < ApplicationController
   def testemail       # test email application
     if (params['quid'] != '-1' )
       ques = Questionnaire.find(params['quid'])  # only needed for email
-      AcMailer.send_test_email(ques.email).deliver
+#     AcMailer.send_test_email(ques.email).deliver
+      AcMailer.test_email(ques).deliver
       respond_to do |format|
         format.html { redirect_to(:back) }
         flash[:notice] = "Test email: id " + ques.id.to_s
@@ -55,13 +56,15 @@ class AcRegistrationsController < ApplicationController
       params['bx'].each do |i|
         @registration = AcRegistration.new(params[:registration])
         @registration.questionnaire_id = params['quid']
-        @registration.accelerator_id = i.to_s
+#       @registration.accelerator_id = i.to_s
+        @registration.accelerator_id = i
 
 # don't actually need to save registration, as long as email sent?
         if @registration.save
           if ! ques.nil?
 # what happens if email delivery fails?
             AcMailer.register_email(i.to_s, ques).deliver
+#           AcMailer.register_email(i, ques).deliver
           end
           savect += 1
         else
@@ -79,6 +82,9 @@ class AcRegistrationsController < ApplicationController
 #         rstr += ' successfully created.'
           flash[:notice] = "  " + Questionnaire.find(params['quid']).companyname
           flash[:notice] += " application sent to: "
+          params['bx'].each do |i|
+            flash[:notice] += i.to_s + " "
+          end
           flash[:notice] += params['bx'].map { |t, v|
             acc = Accelerator.find(t)
             if (acc.season.nil? || acc.season.empty?)
