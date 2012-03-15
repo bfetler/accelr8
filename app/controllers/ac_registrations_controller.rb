@@ -57,7 +57,16 @@ class AcRegistrationsController < ApplicationController
         @registration = AcRegistration.new(params[:registration])
         @registration.questionnaire_id = params['quid']
 #       @registration.accelerator_id = i.to_s
-        @registration.accelerator_id = i
+#         @registration.accelerator_id = i  # fails, always 1
+#         accel = Accelerator.find(i)
+#         @registration.accelerator_id = accel.id  # fails
+          i.map { |t, v|
+            if t.any?
+              @registration.accelerator_id = t
+            end
+          }
+# on heroku (postgres):  use 1st, always 0.  
+# on local (sqlite3), 1st always correct.  
 
 # don't actually need to save registration, as long as email sent?
         if @registration.save
@@ -65,6 +74,7 @@ class AcRegistrationsController < ApplicationController
 # what happens if email delivery fails?
             AcMailer.register_email(i.to_s, ques).deliver
 #           AcMailer.register_email(i, ques).deliver
+# if using AcMailer, heroku gives "page you were looking for doesn't exist"
           end
           savect += 1
         else
@@ -83,7 +93,10 @@ class AcRegistrationsController < ApplicationController
           flash[:notice] = "  " + Questionnaire.find(params['quid']).companyname
           flash[:notice] += " application sent to: "
           params['bx'].each do |i|
-            flash[:notice] += i.to_s + " "
+            flash[:notice] += " X" + i.to_s + "X "
+            i.map { |t, v|
+              flash[:notice] += " M" + t + "M "
+            }
           end
           flash[:notice] += params['bx'].map { |t, v|
             acc = Accelerator.find(t)
@@ -94,6 +107,7 @@ class AcRegistrationsController < ApplicationController
             end
           }.join(", ")
           flash[:notice] += "."
+          flash[:notice] += " BX count " + params['bx'].count.to_s + " " + params['bx'].inspect
 
         else  # if saveerr.nil?  # some errors in saving registration
           format.html { redirect_to(:back) }
