@@ -17,6 +17,10 @@ class AcMailer < ActionMailer::Base
 
   def test_email(ques)
     @questionnaire = ques
+    @url = "http://foundershookup.com"
+    @support_email = "test_support@foundershookup.com"
+    @support_phone = "+1-415-309-8860"
+
     mail( :to => ques.email,
       :subject => "accelerator test email"
     )
@@ -30,8 +34,7 @@ class AcMailer < ActionMailer::Base
     @accel = Accelerator.find(ac_id)
     if (! @accel.nil? && ! @questionnaire.nil?)
       @url = "http://foundershookup.com"
-#     @support_email = "support@foundershookup.com"
-      @support_email = "bfetler@gmail.com"
+      @support_email = "test_support@foundershookup.com"
       @support_phone = "+1-415-309-8860"
 
 # set accelerator email address

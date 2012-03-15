@@ -5,84 +5,20 @@
   </head>
   <body>
 
-<h3>Founders Hookup Application</h3>
-<br/>
-<p>The following is an application to accelerator <%= @accel.name %>
-   from <%= @questionnaire.companyname %> via Founders Hookup.
-</p>
-<br/>
-
-<p>
-  <b>Company Name:</b>
-  <%= @questionnaire.companyname %>
-</p>
-
-<p>
-  <b>Website:</b>
-  <% if (@questionnaire.website.nil? || @questionnaire.website.empty?) %>
-     None
+  <h3>Founders Hookup Accelerator Application</h3>
+  <br/>
+  <% if !@accel.nil? %>
+    <p>The following is an application to accelerator <%= @accel.name %>
+       from <%= @questionnaire.companyname %> via Founders Hookup.
+    </p>
   <% else %>
-    <%= link_to @questionnaire.website, @questionnaire.website %>
+    <p>The following is a test application 
+       from <%= @questionnaire.companyname %> via Founders Hookup.
+    </p>
   <% end %>
-</p>
+  <br/>
 
-<p>
-  <b>Contact:</b>
-  <span>Name:</span>
-  <%= @questionnaire.firstname + " " + @questionnaire.lastname + ", " %>
-  <span> Email:</span>
-  <%= @questionnaire.email %>
-</p>
+  <%= render :partial => "qinfo" %>
 
-<%= render :partial => "qfounders/list" %>
-
-<p>
-  <b>Founder Team Background:</b>
-  <%= @questionnaire.team %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @questionnaire.description %>
-</p>
-
-<p>
-  <b>Web Video:</b>
-  <% if (@questionnaire.webvideo.nil? || @questionnaire.webvideo.empty?) %>
-     None
-  <% else %>
-    <%= link_to @questionnaire.webvideo, @questionnaire.webvideo %>
-  <% end %>
-</p>
-
-<p>
-  <b>Business Plan:</b>
-  <%= @questionnaire.businessplan %>
-</p>
-
-<p>
-  <b>Competition:</b>
-  <%= @questionnaire.competition %>
-</p>
-
-<p>
-  <b>Other Significant Founder Projects:</b>
-  <%= @questionnaire.other %>
-</p>
-
-<p>
-  <b>Investors:</b>
-  <%= @questionnaire.invest %>
-</p>
-
-<p>
-  <b>Advisors / Mentors:</b>
-  <%= @questionnaire.advisor %>
-</p>
-
-<br/>
-<p>Thank you for using Founders Hookup!  If you have any questions or comments, please contact us at <%= @support_email %>, or call <%= @support_phone %>.  Please visit us online at <%= link_to @url, @url %>.
-</p>
-    
   </body>
 </html>
