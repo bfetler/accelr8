@@ -53,20 +53,21 @@ class AcRegistrationsController < ApplicationController
 
       ques = Questionnaire.find(params['quid'])  # only needed for email
 
-      params['bx'].each do |i|
+#     params['bx'].each do |i|
+      params['bx'].each_key do |i|
         @registration = AcRegistration.new(params[:registration])
         @registration.questionnaire_id = params['quid']
-#       @registration.accelerator_id = i.to_s
-#         @registration.accelerator_id = i  # fails, always 1
+#         @registration.accelerator_id = i.to_s
+        @registration.accelerator_id = i  # fails, always 1
 #         accel = Accelerator.find(i)
 #         @registration.accelerator_id = accel.id  # fails
-          i.map { |t, v|
-            if t.any?
-              accel = Accelerator.find(t)
-              @registration.accelerator_id = accel.id  # fails
+#         i.map { |t, v|
+#           if t.any?
+#             accel = Accelerator.find(t)
+#             @registration.accelerator_id = accel.id  # fails
 #             @registration.accelerator_id = t
-            end
-          }
+#           end
+#         }
 # on heroku (postgres):  use 1st, always 0.  
 # on local (sqlite3), 1st always correct.  
 
@@ -74,7 +75,7 @@ class AcRegistrationsController < ApplicationController
         if @registration.save
           if ! ques.nil?
 # what happens if email delivery fails?
-            AcMailer.register_email(i.to_s, ques).deliver
+#           AcMailer.register_email(i.to_s, ques).deliver
 #           AcMailer.register_email(i, ques).deliver
 # if using AcMailer, heroku gives "page you were looking for doesn't exist"
           end
@@ -92,20 +93,29 @@ class AcRegistrationsController < ApplicationController
           format.xml  { render(:xml => ques, :status => :created, :location => ques) }
 #         (savect<1.5) ? rstr += 'Registration' : rstr += 'Registrations'
 #         rstr += ' successfully created.'
-          flash[:notice] = "  " + Questionnaire.find(params['quid']).companyname
+#         flash[:notice] = "  " + Questionnaire.find(params['quid']).companyname
+          flash[:notice] = "  " + ques.companyname
           flash[:notice] += " application sent to: "
+          params['bx'].each_key do |i|
+            flash[:notice] += " A" + i.to_s + "A "
+          end
           params['bx'].each do |i|
             flash[:notice] += " X" + i.to_s + "X "
             i.map { |t, v|
               flash[:notice] += " M" + t + "M "
             }
+#           i.each { |j|
+#             flash[:notice] += " M" + j + "M "
+#           }
           end
           flash[:notice] += params['bx'].map { |t, v|
             acc = Accelerator.find(t)
-            if (acc.season.nil? || acc.season.empty?)
-              acc.name
-            else
-              acc.name + " (" + acc.season + ")"
+            if !acc.nil?
+              if (acc.season.nil? || acc.season.empty?)
+                acc.name
+              else
+                acc.name + " (" + acc.season + ")"
+              end
             end
           }.join(", ")
           flash[:notice] += "."
