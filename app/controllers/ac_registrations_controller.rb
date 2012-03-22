@@ -42,6 +42,26 @@ class AcRegistrationsController < ApplicationController
     end
   end
 
+  def makeacfile(acfile, ques)  # create acfile
+    dname = File.dirname(acfile)
+#   if !dname.exists?
+#     mkdir(dname)
+#   end
+    rmacfile(acfile)  # make sure it doesn't exist
+    f = File.open(acfile, mode="w+")
+    f.write("Accelerator Application File\n\n")
+    f.write("Company name:  " + ques.companyname + "\n")
+    f.write("  Contact name:  " + ques.firstname + " " + ques.lastname + "\n")
+    f.write("  Contact email: " + ques.email + "\n")
+    f.close
+  end
+
+  def rmacfile(acfile)  # remove acfile
+    if File.exists?(acfile)
+      File.delete(acfile)
+    end
+  end
+
   # POST /registrations
   # POST /registrations.xml
   def createbatch       # create batch registrations
@@ -50,27 +70,49 @@ class AcRegistrationsController < ApplicationController
 #     params['bx'] etc. => some registration check boxes selected
       savect  = 0
       saveerr = nil
+      acfile = "public/acfile_"
 
-      ques = Questionnaire.find(params['quid'])  # only needed for email
+      ques = Questionnaire.find(params['quid'])  # needed for email
+      if !ques.nil?
+        acc_names  = []
+        acc_emails = []
 
-      params['bx'].each_key do |i|
-        @registration = AcRegistration.new(params[:registration])
-        @registration.questionnaire_id = params['quid']
-        @registration.accelerator_id = i
+#       flash[:notice] += params['bx'].map { |t, v|
+        params['bx'].each_key do |i|
+          acc = Accelerator.find(i)
+          if !acc.nil?
+            acc_names << acc.to_s
+            if ((!acc.acceptapp.nil?   && acc.acceptapp == "Yes") &&
+                (!acc.acceptemail.nil? && !acc.acceptemail.empty?))
+              acc_emails << acc.acceptemail
+            else
+              acc_emails << acc.email
+            end
 
+            @registration = AcRegistration.new(params[:registration])
+            @registration.questionnaire_id = params['quid']
+            @registration.accelerator_id = i
 # don't actually need to save registration, as long as email sent?
-        if @registration.save
-          if ! ques.nil?
+            if @registration.save
 # what happens if email delivery fails?
-#           AcMailer.register_email(i.to_s, ques).deliver
-            AcMailer.register_email(i, ques).deliver
+#             AcMailer.register_email_old(i, ques).deliver
 # if using AcMailer, heroku gives "page you were looking for doesn't exist"
-          end
-          savect += 1
-        else
-          saveerr = 0
-        end   # if @registration.save
-      end   # params['bx'].each_key do |i|
+              savect += 1
+            else
+              saveerr = 0
+            end   # if @registration.save
+
+          end  # !acc.nil?
+        end  # params['bx'].each_key do |i|
+
+        if saveerr.nil? && acc_emails.length > 0
+          makeacfile(acfile, ques)  # needs timestamp
+          AcMailer.register_email(ques, acc_emails).deliver
+          AcMailer.quest_email(ques, acc_names, acfile).deliver
+#         rmacfile(acfile)
+        end
+
+      end  # !ques.nil?
 
 #     rstr = ''
       respond_to do |format|
@@ -80,19 +122,18 @@ class AcRegistrationsController < ApplicationController
           format.xml  { render(:xml => ques, :status => :created, :location => ques) }
 #         (savect<1.5) ? rstr += 'Registration' : rstr += 'Registrations'
 #         rstr += ' successfully created.'
-          flash[:notice] = "  " + ques.companyname
-          flash[:notice] += " application sent to: "
-          flash[:notice] += params['bx'].map { |t, v|
-            acc = Accelerator.find(t)
-            if !acc.nil?
-              if (acc.season.nil? || acc.season.empty?)
-                acc.name
-              else
-                acc.name + " (" + acc.season + ")"
-              end
-            end
-          }.join(", ")
-          flash[:notice] += "."
+          flash[:notice] = ques.companyname + " application sent to: "
+          flash[:notice] += acc_names.join(", ") + "."
+#         flash[:notice] += params['bx'].map { |t, v|
+#           acc = Accelerator.find(t)
+#           if !acc.nil?
+#             acc.to_s
+#           end
+#         }.join(", ")
+#         flash[:notice] += "."
+          flash[:notice] += " accemails: " + acc_emails.join(", ")
+          flash[:notice] += ". qemail: " + ques.email
+#         flash[:notice] += ". acfile " + File.absolute_path(acfile)
 
         else  # if saveerr.nil?  # some errors in saving registration
           format.html { redirect_to(:back) }

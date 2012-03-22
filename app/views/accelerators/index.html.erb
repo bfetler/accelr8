@@ -46,14 +46,11 @@
       <%= link_to 'Length', { :action => "index", :column => "length"}, :method => :get %>
     </th>
     <th class="index">Description</th>
-    <th class="index center nowrap">
-      <%= link_to 'Application', { :action => "index", :column => "duedate"} %>
-      <br/>
-      <%= link_to 'Due Date', { :action => "index", :column => "duedate"} %>
+    <th class="index center">
+      <%= link_to 'Application Due Date', { :action => "index", :column => "duedate"} %>
     </th>
-    <th class="index center nowrap">
-      <%= link_to 'Accept Late', { :action => "index", :column => "acceptlate" } %><br/>
-      <%= link_to 'Applications', { :action => "index", :column => "acceptlate"} %>
+    <th class="index center">
+      <%= link_to 'Accept Late Applications', { :action => "index", :column => "acceptlate" } %>
     </th>
     <!--th class="index center nowrap">
       <%#= link_to 'Accept Founders', { :action => "index", :column => "acceptapp"} %><br/>

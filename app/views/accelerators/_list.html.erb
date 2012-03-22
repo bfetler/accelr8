@@ -39,15 +39,11 @@
       <th class="index">
         Description
       </th>
-      <th class="index center nowrap">
-        <%= link_to 'Application', { :controller => "questionnaires", :action => "apply", :column => "duedate" }, :method => :get %>
-        <br/>
-        <%= link_to 'Due Date', { :controller => "questionnaires", :action => "apply", :column => "duedate" }, :method => :get %>
+      <th class="index center">
+        <%= link_to 'Application Due Date', { :controller => "questionnaires", :action => "apply", :column => "duedate" }, :method => :get %>
       </th>
-      <th class="index center nowrap">
-        <%= link_to 'Accept Late', { :controller => "questionnaires", :action => "apply", :column => "acceptlate" }, :method => :get %>
-        <br/>
-        <%= link_to 'Applications', { :controller => "questionnaires", :action => "apply", :column => "acceptlate" }, :method => :get %>
+      <th class="index center">
+        <%= link_to 'Accept Late Applications', { :controller => "questionnaires", :action => "apply", :column => "acceptlate" }, :method => :get %>
       </th>
       <th class="index center">Application<br/>Sent</th>
       <th class="index center">Apply<br/>Now</th>

@@ -14,10 +14,9 @@
 </p>
 
 <p>
-  <b>Contact:</b>
-  <span>Name:</span>
-  <%= @questionnaire.firstname + " " + @questionnaire.lastname + ", " %>
-  <span> Email:</span>
+  <b>Contact Name:</b>
+  <%= @questionnaire.firstname + " " + @questionnaire.lastname + "  " %>
+  <b> Email: </b>
   <%= @questionnaire.email %>
 </p>
 
@@ -68,6 +67,9 @@
 </p>
 
 <br/>
-<p>Thank you for using Founders Hookup!  Visit us online at <%= link_to @url, @url %>.  If you have any questions or comments, please contact us at <%= @support_email %> or call <%= @support_phone %>.  
+<p>Thank you for using Founders Hookup!  Visit us online at <%= link_to @url, @url %>.  
+</p>
+<p>
+If you have any questions or comments, please contact us at <%= @support_email %> or call <%= @support_phone %>.  
 </p>
 
