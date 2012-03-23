@@ -49,13 +49,16 @@ class AcRegistrationsController < ApplicationController
 #   end
     rmacfile(acfile)  # make sure it doesn't exist
     f = File.open(acfile, mode="w+")
-    f.write("Accelerator Application File\n\n")
-    f.write("Company name:  " + ques.companyname + "\n")
-    f.write("  Contact name:  " + ques.firstname + " " + ques.lastname + "\n")
-    f.write("  Contact email: " + ques.email + "\n")
-#   render :file => _full_path_name_ ???
-#   @questionnaire = ques
-#   render :file => "app/views/ac_mailer/quest_email.text.erb"
+#   f.write("Accelerator Application File\n\n")
+#   f.write("Company name:  " + ques.companyname + "\n")
+#   f.write("  Contact name:  " + ques.firstname + " " + ques.lastname + "\n")
+#   f.write("  Contact email: " + ques.email + "\n")
+    @questionnaire = ques
+##  render :file => _full_path_name_ ???
+##  render :file => "app/views/ac_mailer/quest_email.text.erb"
+#   acout = render_to_string :template => "ac_mailer/txt_quest.text"
+#   f.write(acout)
+    f.write( render_to_string :template => "ac_mailer/txt_quest.text" )
     f.close
   end
 

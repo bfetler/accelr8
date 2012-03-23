@@ -36,7 +36,8 @@ class AcMailer < ActionMailer::Base
 #     f = File.open(acfile, mode="w+")
 #     f.write("Accelerator Application File\n")
 #     f.write("Yadda yadda yadda\n")
-#     acout = render :template => "ac_mailer/quest_email.text"
+#     acout = render :template => "ac_mailer/txt_quest.text"
+#     acout = render_to_string :template => "ac_mailer/txt_quest.text"
 #     f.write(acout)
 #     f.close
 
