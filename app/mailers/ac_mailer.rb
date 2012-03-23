@@ -32,8 +32,24 @@ class AcMailer < ActionMailer::Base
 
       @acnames = acc_names  # set accelerator names in view
 
+#     acfile = 'public/acfile_'
+#     f = File.open(acfile, mode="w+")
+#     f.write("Accelerator Application File\n")
+#     f.write("Yadda yadda yadda\n")
+#     acout = render :template => "ac_mailer/quest_email.text"
+#     f.write(acout)
+#     f.close
+
+# hints from Jonah:
+#  look for source files in /usr/local/lib/ruby/gems/1.8/gems/
+#  check bundle show rails -> path names
+#  Dir makes directories
+#  tmpfile makes temporary files in /sysxxx (may not work on heroku?)
+
       if (! @questionnaire.email.nil? && ! @questionnaire.email.empty?)
         attachments['application.txt'] = File.read(acfile)
+# jonah: try
+#  above File.read( render :template ) ?? don't even need to write a file?
         mail(:to => @questionnaire.email,
              :subject => "accelerator application")
       else  # application email not set (can't happen, it's required)

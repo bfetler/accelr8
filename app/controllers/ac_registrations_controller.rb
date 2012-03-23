@@ -53,6 +53,9 @@ class AcRegistrationsController < ApplicationController
     f.write("Company name:  " + ques.companyname + "\n")
     f.write("  Contact name:  " + ques.firstname + " " + ques.lastname + "\n")
     f.write("  Contact email: " + ques.email + "\n")
+#   render :file => _full_path_name_ ???
+#   @questionnaire = ques
+#   render :file => "app/views/ac_mailer/quest_email.text.erb"
     f.close
   end
 
@@ -107,7 +110,7 @@ class AcRegistrationsController < ApplicationController
 
         if saveerr.nil? && acc_emails.length > 0
           makeacfile(acfile, ques)  # needs timestamp
-          AcMailer.register_email(ques, acc_emails).deliver
+#         AcMailer.register_email(ques, acc_emails).deliver
           AcMailer.quest_email(ques, acc_names, acfile).deliver
 #         rmacfile(acfile)
         end

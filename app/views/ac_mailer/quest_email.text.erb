@@ -1,0 +1,51 @@
+ 
+Founders Hookup Application
+
+The following application is from <%= @questionnaire.companyname %> via Founders Hookup.
+ 
+===============================================
+
+  Company Name: <%= @questionnaire.companyname %>
+
+<% if (@questionnaire.website.nil? || @questionnaire.website.empty?) %>
+  Website:   None
+<% else %>
+  Website:   <%= @questionnaire.website %>
+<% end %>
+
+  Contact Name:  <%= @questionnaire.firstname + " " + @questionnaire.lastname %>
+  Contact Email: <%= @questionnaire.email %>
+
+  Founders:
+    Name		Area of Expertise	Will code	Linked-In Page / Web Site (if any)
+  <% for qfounder in @questionnaire.qfounders do %>
+    <%= qfounder.firstname %> <%= qfounder.lastname %>	<%= qfounder.role %>		<% if (! qfounder.willcode.nil?) && (qfounder.willcode == 1) %> Yes <% else %> No <% end %>	<%= qfounder.weblink %>
+  <% end %>
+
+
+  Founder Team Background:
+  <%= @questionnaire.team %>
+
+  Description:
+  <%= @questionnaire.description %>
+
+  Web Video: <% if (@questionnaire.webvideo.nil? || @questionnaire.webvideo.empty?) %> None <% else %> <%= @questionnaire.webvideo %> <% end %>
+
+  Business Plan:
+  <%= @questionnaire.businessplan %>
+
+  Competition:
+  <%= @questionnaire.competition %>
+
+  Other Significant Founder Projects:
+  <%= @questionnaire.other %>
+
+  Investors:
+  <%= @questionnaire.invest %>
+
+  Advisors / Mentors:
+  <%= @questionnaire.advisor %>
+
+
+===============================================
+
