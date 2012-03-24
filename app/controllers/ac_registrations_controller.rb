@@ -42,13 +42,13 @@ class AcRegistrationsController < ApplicationController
     end
   end
 
-  def makeacfile(acfile, ques)  # create acfile
-    dname = File.dirname(acfile)
+  def makeacfile(acc_file, ques)  # create acc_file
+#   dname = File.dirname(acc_file)
 #   if !dname.exists?
 #     mkdir(dname)
 #   end
-    rmacfile(acfile)  # make sure it doesn't exist
-    f = File.open(acfile, mode="w+")
+    rmacfile(acc_file)  # make sure it doesn't exist
+    f = File.open(acc_file, mode="w+")
 #   f.write("Accelerator Application File\n\n")
 #   f.write("Company name:  " + ques.companyname + "\n")
 #   f.write("  Contact name:  " + ques.firstname + " " + ques.lastname + "\n")
@@ -59,13 +59,15 @@ class AcRegistrationsController < ApplicationController
 #   acout = render_to_string :template => "ac_mailer/txt_quest.text"
 #   f.write(acout)
     f.write( render_to_string :template => "ac_mailer/txt_quest.text" )
+#   trim leading 'http://' from web links?
     f.close
   end
 
-  def rmacfile(acfile)  # remove acfile
-    if File.exists?(acfile)
-      File.delete(acfile)
+  def rmacfile(acc_file)  # remove acc_file
+    if File.exists?(acc_file)
+      File.delete(acc_file)
     end
+#   fails?
   end
 
   # POST /registrations
@@ -76,7 +78,7 @@ class AcRegistrationsController < ApplicationController
 #     params['bx'] etc. => some registration check boxes selected
       savect  = 0
       saveerr = nil
-      acfile = "public/acfile_"
+      acc_file = "public/acc_file_"  # plus timestamp etc.
 
       ques = Questionnaire.find(params['quid'])  # needed for email
       if !ques.nil?
@@ -112,10 +114,10 @@ class AcRegistrationsController < ApplicationController
         end  # params['bx'].each_key do |i|
 
         if saveerr.nil? && acc_emails.length > 0
-          makeacfile(acfile, ques)  # needs timestamp
-#         AcMailer.register_email(ques, acc_emails).deliver
-          AcMailer.quest_email(ques, acc_names, acfile).deliver
-#         rmacfile(acfile)
+          makeacfile(acc_file, ques)  # needs timestamp
+          AcMailer.register_email(ques, acc_emails, acc_file).deliver
+          AcMailer.quest_email(ques, acc_names, acc_file).deliver
+          rmacfile(acc_file)
         end
 
       end  # !ques.nil?
@@ -139,7 +141,7 @@ class AcRegistrationsController < ApplicationController
 #         flash[:notice] += "."
           flash[:notice] += " accemails: " + acc_emails.join(", ")
           flash[:notice] += ". qemail: " + ques.email
-#         flash[:notice] += ". acfile " + File.absolute_path(acfile)
+#         flash[:notice] += ". acc_file " + File.absolute_path(acc_file)
 
         else  # if saveerr.nil?  # some errors in saving registration
           format.html { redirect_to(:back) }

@@ -21,7 +21,7 @@ class AcMailer < ActionMailer::Base
     )
   end
 
-  def quest_email(ques, acc_names, acfile)
+  def quest_email(ques, acc_names, acc_file)
 
     sendgrid_category "accelerator"
     @questionnaire = ques
@@ -32,8 +32,8 @@ class AcMailer < ActionMailer::Base
 
       @acnames = acc_names  # set accelerator names in view
 
-#     acfile = 'public/acfile_'
-#     f = File.open(acfile, mode="w+")
+#     acc_file = 'public/acc_file'
+#     f = File.open(acc_file, mode="w+")
 #     f.write("Accelerator Application File\n")
 #     f.write("Yadda yadda yadda\n")
 #     acout = render :template => "ac_mailer/txt_quest.text"
@@ -42,13 +42,13 @@ class AcMailer < ActionMailer::Base
 #     f.close
 
 # hints from Jonah:
-#  look for source files in /usr/local/lib/ruby/gems/1.8/gems/
 #  check bundle show rails -> path names
-#  Dir makes directories
-#  tmpfile makes temporary files in /sysxxx (may not work on heroku?)
+#  look for source files in /usr/local/lib/ruby/gems/1.8/gems/
+#  Dir makes directories if needed
+#  make temporary files (tmpfile) e.g. in /tmp (may not work on heroku?)
 
       if (! @questionnaire.email.nil? && ! @questionnaire.email.empty?)
-        attachments['application.txt'] = File.read(acfile)
+        attachments['application.txt'] = File.read(acc_file)
 # jonah: try
 #  above File.read( render :template ) ?? don't even need to write a file?
         mail(:to => @questionnaire.email,
@@ -61,7 +61,7 @@ class AcMailer < ActionMailer::Base
     end
   end
 
-  def register_email(ques, acc_emails)
+  def register_email(ques, acc_emails, acc_file)
 # what do I want it to do?  send one or multiple emails?
 
     sendgrid_category "accelerator"
@@ -76,6 +76,7 @@ class AcMailer < ActionMailer::Base
 #     ac_email = (acc_emails << @questionnaire.email).join(", ")
 
       if (! ac_email.nil? && ! ac_email.empty?)
+        attachments['application.txt'] = File.read(acc_file)
 # cannot call mail() twice in one deliver, goes to text
         mail(:to => ac_email,
              :subject => "founders hookup application")
