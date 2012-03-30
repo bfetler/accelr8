@@ -54,8 +54,6 @@ class AcRegistrationsController < ApplicationController
 #   f.write("  Contact name:  " + ques.firstname + " " + ques.lastname + "\n")
 #   f.write("  Contact email: " + ques.email + "\n")
     @questionnaire = ques
-##  render :file => _full_path_name_ ???
-##  render :file => "app/views/ac_mailer/quest_email.text.erb"
 #   acout = render_to_string :template => "ac_mailer/txt_quest.text"
 #   f.write(acout)
     f.write( render_to_string :template => "ac_mailer/txt_quest.text" )
@@ -67,7 +65,7 @@ class AcRegistrationsController < ApplicationController
     if File.exists?(acc_file)
       File.delete(acc_file)
     end
-#   fails?
+#   doesn't always work?
   end
 
   # POST /registrations
