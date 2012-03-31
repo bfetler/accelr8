@@ -42,6 +42,8 @@ class AcMailer < ActionMailer::Base
 
       if (! @questionnaire.email.nil? && ! @questionnaire.email.empty?)
         attachments['application.txt'] = File.read(acc_file)
+        headers['X-SMTPAPI'] = '{"category": "accelerator", "filters": {"opentrack": {"settings": {"enable":1}} }}'  #remove filters, extra char from attachment
+
         mail(:to => @questionnaire.email,
              :subject => "accelerator application")
       else  # application email not set (can't happen, it's required)
@@ -81,9 +83,13 @@ class AcMailer < ActionMailer::Base
 # cannot call mail() twice in one deliver, goes to text
 
 # below doesn't seem to work, syntax?
-#   X-SMTPAPI: {"filters": {"ganalytics": {"settings": {"enable":0}}, "opentrack": {"settings": {"enable":0}} }}
-#   headers({'X-SMTPAPI' => {'filters': {'ganalytics': {'settings': {'enable':0} }, 'opentrack': {'settings': {'enable':0} } }  } })
-#   smtp_settings( 'filters': {'ganalytics': {'settings': {'enable':0} }, 'opentrack': {'settings': {'enable':0} } }  )
+#       X-SMTPAPI: {"filters": {"ganalytics": {"settings": {"enable":0}}, "opentrack": {"settings": {"enable":0}} }}
+#       headers({'X-SMTPAPI' => {'filters': {'ganalytics': {'settings': {'enable':0} }, 'opentrack': {'settings': {'enable':0} } }  } })
+#       smtp_settings( 'filters': {'ganalytics': {'settings': {'enable':0} }, 'opentrack': {'settings': {'enable':0} } }  )
+#       X-SMTPAPI: {"category": "accelerator", "filters": {"opentrack": {"settings": {"enable":1}} }}
+
+#       headers['X-SMTPAPI'] = '{"filters": {"ganalytics": {"settings": {"enable":0}}, "opentrack": {"settings": {"enable":0}} }}'
+        headers['X-SMTPAPI'] = '{"category": "accelerator", "filters": {"opentrack": {"settings": {"enable":1}} }}'  #remove filters, extra char from attachment
 
         mail(:to => ac_email,
              :subject => "founders hookup application")
