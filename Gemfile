@@ -15,8 +15,14 @@ gem 'sendgrid', '1.0.1'
 group :production do
   gem 'pg'
 end
-group :development, :test do
+group :development do
   gem 'sqlite3-ruby', '1.2.5'
+  gem 'rspec-rails', '2.9.0'
+end
+group :test do
+  gem 'sqlite3-ruby', '1.2.5'
+  gem 'rspec', '2.9.0'
+  gem 'webrat', '0.7.3'
 end
 
 # Use unicorn as the web server
