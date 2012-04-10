@@ -23,6 +23,7 @@ group :test do
   gem 'sqlite3-ruby', '1.2.5'
   gem 'rspec', '2.9.0'
   gem 'webrat', '0.7.3'
+  gem 'factory_girl_rails', '1.4.0'
 end
 
 # Use unicorn as the web server

@@ -2,11 +2,16 @@ require 'spec_helper'
 
 describe AcceleratorsController do
 
-  before(:each) do
-    @attr = { :email => "fred.flintstone.com",
-              :password => "abc123"
-            }
-  end
+# before(:each) do
+#   @user = { :email => "fred@flintstone.com",
+#             :password => "abc123"
+#           }
+#   sign_in @user
+# end
+
+  let(:user) { FactoryGirl.create(:user) }
+
+  before { sign_in user }
 
   describe "GET 'index'" do
     it "should be successful" do
