@@ -1,70 +1,89 @@
+<fieldset class="accel-form nomargin">
+  <legend>Company Information</legend>
 
-<p>
-  <b>Company Name:</b>
-  <%= @questionnaire.companyname %>
-</p>
+  <table>
+    <tr>
+      <td><b>Company Name:</b></td>
+      <td colspan=2><%= @questionnaire.companyname %></td>
+      <td/>
+    </tr>
+    <tr>
+      <td><b>Website:</b></td>
+      <td colspan=2>
+        <% if (@questionnaire.website.nil? || @questionnaire.website.empty?) %>
+           None
+        <% else %>
+          <%= link_to @questionnaire.website, @questionnaire.website, :target => "_blank" %>
+        <% end %>
+      </td>
+      <td/>
+    </tr>
+    <tr>
+      <td><b>Contact:</b></td>
+      <td>Name: </td>
+      <td><%= @questionnaire.firstname + " " + @questionnaire.lastname %></td>
+    </tr>
+    <tr>
+      <td/>
+      <td>Email: </td>
+      <td><%= @questionnaire.email %></td>
+    </tr>
+  </table>
 
-<p>
-  <b>Website:</b>
-  <% if (@questionnaire.website.nil? || @questionnaire.website.empty?) %>
-     None
-  <% else %>
-    <%= link_to @questionnaire.website, @questionnaire.website %>
-  <% end %>
-</p>
-
-<p>
-  <b>Contact Name:</b>
-  <%= @questionnaire.firstname + " " + @questionnaire.lastname + "  " %>
-  <b> Email: </b>
-  <%= @questionnaire.email %>
-</p>
-
+</fieldset>
+<br/>
+ 
 <%= render :partial => "qfounders/list" %>
 
-<p>
-  <b>Founder Team Background:</b>
-  <%= @questionnaire.team %>
-</p>
+<br/>
+<fieldset class="accel-form nomargin">
+  <legend>Questionnaire</legend>
 
-<p>
-  <b>Description:</b>
-  <%= @questionnaire.description %>
-</p>
+  <p>
+    <b>Founder Team Background:</b>
+    <%= @questionnaire.team %>
+  </p>
 
-<p>
-  <b>Web Video:</b>
-  <% if (@questionnaire.webvideo.nil? || @questionnaire.webvideo.empty?) %>
-     None
-  <% else %>
-    <%= link_to @questionnaire.webvideo, @questionnaire.webvideo %>
-  <% end %>
-</p>
+  <p>
+    <b>Description:</b>
+    <%= @questionnaire.description %>
+  </p>
 
-<p>
-  <b>Business Plan:</b>
-  <%= @questionnaire.businessplan %>
-</p>
+  <p>
+    <b>Web Video:</b>
+    <% if (@questionnaire.webvideo.nil? || @questionnaire.webvideo.empty?) %>
+       None
+    <% else %>
+      <%= link_to @questionnaire.webvideo, @questionnaire.webvideo %>
+    <% end %>
+  </p>
 
-<p>
-  <b>Competition:</b>
-  <%= @questionnaire.competition %>
-</p>
+  <p>
+    <b>Business Plan:</b>
+    <%= @questionnaire.businessplan %>
+  </p>
 
-<p>
-  <b>Other Significant Founder Projects:</b>
-  <%= @questionnaire.other %>
-</p>
+  <p>
+    <b>Competition:</b>
+    <%= @questionnaire.competition %>
+  </p>
 
-<p>
-  <b>Investors:</b>
-  <%= @questionnaire.invest %>
-</p>
+  <p>
+    <b>Other Significant Founder Projects:</b>
+    <%= @questionnaire.other %>
+  </p>
 
-<p>
-  <b>Advisors / Mentors:</b>
-  <%= @questionnaire.advisor %>
-</p>
+  <p>
+    <b>Investors:</b>
+    <%= @questionnaire.invest %>
+  </p>
+
+  <p>
+    <b>Advisors / Mentors:</b>
+    <%= @questionnaire.advisor %>
+  </p>
+
+</fieldset>
 
 <br/>
 <p>Thank you for using Founders Hookup!  Visit us online at <%= link_to @url, @url %>.  

@@ -6,17 +6,16 @@
   <body>
 
   <h3>Founders Hookup Accelerator Application</h3>
-  <br/>
   <% if !@acnames.nil? %>
-    <p>The following application from <%= @questionnaire.companyname %> was sent via Founders Hookup to Accelerators:
+    <p>The application below was sent via Founders Hookup to Accelerators:
+    </p>
     <ul>
       <% @acnames.each do |acname| %>
         <li> <%= acname %> </li>
       <% end %>
     </ul>
-    </p>
   <% else %>
-    <p>The following application from <%= @questionnaire.companyname %> was sent via Founders Hookup.
+    <p>The application below was sent via Founders Hookup.
     </p>
   <% end %>
   <br/>
