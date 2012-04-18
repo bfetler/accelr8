@@ -8,7 +8,7 @@ describe User do
             }
   end
 
-  it "should be successful" do
+  it "should create user" do
     User.create!(@attr)
   end
 
