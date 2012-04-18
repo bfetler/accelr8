@@ -52,13 +52,14 @@ class AcRegistrationsController < ApplicationController
   def testemail       # test email application
     if (params['quid'] != '-1' )
       ques = Questionnaire.find(params['quid'])  # only needed for email
-      acc_file = "public/acc_file_"  # plus timestamp etc.
-      makeacfile(acc_file, ques)  # needs timestamp
+      acc_file = "tmp/acc_file_" + Time.now.strftime('%Y%m%dT%H%M%S')
+      makeacfile(acc_file, ques)
       AcMailer.test_email(ques, acc_file).deliver
       rmacfile(acc_file)
       respond_to do |format|
         format.html { redirect_to(:back) }
         flash[:notice] = ques.companyname + " test application sent to: " + ques.email + "."
+        flash[:notice] += " Time: " + Time.now.strftime('%Y%m%dT%H%M%S')
       end
     end
   end
@@ -76,8 +77,8 @@ class AcRegistrationsController < ApplicationController
       if !ques.nil?
         acc_names  = []
 #       acc_emails = []
-        acc_file = "tmp/acc_file_"  # plus timestamp etc.
-        makeacfile(acc_file, ques)  # needs timestamp
+        acc_file = "tmp/acc_file_" + Time.now.strftime('%Y%m%dT%H%M%S')
+        makeacfile(acc_file, ques)
 
 #       flash[:notice] += params['bx'].map { |t, v|
         params['bx'].each_key do |i|

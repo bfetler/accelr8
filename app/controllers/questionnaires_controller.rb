@@ -164,7 +164,6 @@ class QuestionnairesController < ApplicationController
     saveerr = nil
 
     @questionnaire = Questionnaire.find(params[:id])
-#   @questionnaire.user_id = User.find(?)
     if ! @questionnaire.update_attributes(params[:questionnaire])
       saveerr = 0
     else
@@ -225,64 +224,6 @@ class QuestionnairesController < ApplicationController
       end
     end
 
-#   if params['qfounder'].nil?   # doesn't show, needs validation
-#     flash[:notice] = "Warning: application must contain at least one founder!"
-#   end
-
-# output flash debug msg only, action above format
-#   flash[:notice] = "questionnaire update "
-#   if params['qfounder'].any?
-
-# method works okay - flash output
-#       flash[:notice] += " OLD OLD "
-#       oldlist = []
-# set all previous qfounders into oldlist
-#       @questionnaire.qfounders.each do |qf|
-#         oldlist << qf
-###       flash[:notice] += " old " + qf.lastname
-#       end
-# create/update new qfounders
-#       did_any_update = 1
-#       params['qfounder'].each { |i, fdr|
-#         flash[:notice] += "; fdr" + i.to_s + " "
-#         do_update = 1
-#         fdr.each { |j, fval|
-#           flash[:notice] += fval + " "
-#           if fval != ""   # check if any value is non-empty
-#             do_update = 0
-#           end
-#         }
-#         if do_update == 0
-#           did_any_update = 0
-#           oqf = oldlist.first
-#           if ! oqf.nil?   # update old founder
-#             flash[:notice] += " update fdr " + oqf.lastname + " > " + fdr.fetch("lastname") + " "
-###             if ! oqf.update_attributes(fdr)
-###               saveerr = 0
-###             end
-#             oldlist.delete(oqf)
-#           else            # create new founder
-#             flash[:notice] += " create fdr " + fdr.fetch("lastname") + " "
-###             @qfdr = Qfounder.new(fdr)
-###             @qfdr.questionnaire_id = @questionnaire.id
-###             if ! @qfdr.save
-###               saveerr = 0
-###             end
-#           end
-#         end
-#       }  # end params['qfounder'].each
-#       flash[:notice] += " oldlist.size " + oldlist.size.to_s + " "
-#       oldlist.each do |oqf|
-#         flash[:notice] += "del " + oqf.id.to_s + " "
-#       end
-#       flash[:notice] += "; did_any_update " + did_any_update.to_s + " "
-# end method
-
-#   end
-
-#   flash[:notice] += params['qfounder'].count.to_s + " xx " + params['questionnaire'].inspect
-#   flash[:notice] += params['qfounder'].count.to_s + " xx " + params.inspect
-#   flash[:notice] = "flash update: " + params['questionnaire'].inspect
   end
 
 
