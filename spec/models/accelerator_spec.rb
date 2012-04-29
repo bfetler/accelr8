@@ -31,6 +31,34 @@ describe Accelerator do
     long_desc_accel.should_not be_valid
   end
 
+  it "should require a city" do
+    noname_accel = Accelerator.new(@attr.merge(:city => ""))
+    noname_accel.should_not be_valid
+  end
+
+  it "should require a state" do
+    noname_accel = Accelerator.new(@attr.merge(:state => ""))
+    noname_accel.should_not be_valid
+  end
+
+  it "should require a length" do
+    noname_accel = Accelerator.new(@attr.merge(:length => ""))
+    noname_accel.should_not be_valid
+  end
+
+  it "should require a lastname" do
+    noname_accel = Accelerator.new(@attr.merge(:lastname => ""))
+    noname_accel.should_not be_valid
+  end
+
+  it "should accept duedate before startdate" do
+    date_accel = Accelerator.new(@attr.merge(
+                    :duedate => 0.days.from_now,
+                    :startdate => 1.days.from_now
+                 ))
+    date_accel.should be_valid
+  end
+
   it "should reject duedate after startdate" do
     date_accel = Accelerator.new(@attr.merge(
                     :duedate => 0.days.from_now,
