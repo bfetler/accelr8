@@ -83,6 +83,7 @@ class AcRegistrationsController < ApplicationController
         acc_names  = []
         acc_emails = []
 
+        puts 'controller bx: ' + params['bx'].inspect
 #       flash[:notice] += params['bx'].map { |t, v|
         params['bx'].each_key do |i|
           acc = Accelerator.find(i)
@@ -103,8 +104,10 @@ class AcRegistrationsController < ApplicationController
 # what happens if email delivery fails?
 #             AcMailer.register_email_old(i, ques).deliver
 # if using AcMailer, heroku gives "page you were looking for doesn't exist"
+puts "  registration " + acc.to_s + " saved"
               savect += 1
             else
+puts "  registration " + acc.to_s + " save failed"
               saveerr = 0
             end   # if @registration.save
 
@@ -123,6 +126,7 @@ class AcRegistrationsController < ApplicationController
 #     rstr = ''
       respond_to do |format|
         if saveerr.nil?   # no errors in saving registration
+puts "ctrl saveerr nil, should be success"
 #         format.html { redirect_to(apply_questionnaire_path(ques)) }
           format.html { redirect_to(:back) }
           format.xml  { render(:xml => ques, :status => :created, :location => ques) }
@@ -142,6 +146,7 @@ class AcRegistrationsController < ApplicationController
 #         flash[:notice] += ". acc_file " + File.absolute_path(acc_file)
 
         else  # if saveerr.nil?  # some errors in saving registration
+puts "ctrl saveerr not nil, should fail"
           format.html { redirect_to(:back) }
           format.xml  { render :xml => ques.errors, :status => :unprocessable_entity }
           flash[:notice] = "Error creating registrations.  Please contact Founders Hookup for assistance."
@@ -149,6 +154,7 @@ class AcRegistrationsController < ApplicationController
       end   # respond_to do |format|
 
     else  # if !params['bx'].nil?  # no registration check boxes selected
+puts "ctrl params[bx] nil, should fail"
       respond_to do |format|
         format.html { redirect_to(:back) }
         format.xml  { render(:xml => ques, :status => :created, :location => ques) }
@@ -158,12 +164,13 @@ class AcRegistrationsController < ApplicationController
 
 # flash[:notice] = rstr
 # flash debug messages
-#   if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
-#     flash[:notice] += " BX count " + params['bx'].count.to_s + " " + params['bx'].inspect
+    if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
+      flash[:notice] += " BX count " + params['bx'].count.to_s + " " + params['bx'].inspect
 
-#   end   # if !params['bx'].nil?
+    end   # if !params['bx'].nil?
 #   end  # is_admin
 
+puts "ctrl end createbatch"
   end  # def createbatch
 
   # DELETE /registrations/1
