@@ -83,8 +83,7 @@ class AcRegistrationsController < ApplicationController
         acc_names  = []
         acc_emails = []
 
-        puts 'controller bx: ' + params['bx'].inspect
-#       flash[:notice] += params['bx'].map { |t, v|
+#       puts 'controller bx: ' + params['bx'].inspect
         params['bx'].each_key do |i|
           acc = Accelerator.find(i)
           if !acc.nil?
@@ -104,10 +103,8 @@ class AcRegistrationsController < ApplicationController
 # what happens if email delivery fails?
 #             AcMailer.register_email_old(i, ques).deliver
 # if using AcMailer, heroku gives "page you were looking for doesn't exist"
-puts "  registration " + acc.to_s + " saved"
               savect += 1
             else
-puts "  registration " + acc.to_s + " save failed"
               saveerr = 0
             end   # if @registration.save
 
@@ -126,7 +123,6 @@ puts "  registration " + acc.to_s + " save failed"
 #     rstr = ''
       respond_to do |format|
         if saveerr.nil?   # no errors in saving registration
-puts "ctrl saveerr nil, should be success"
 #         format.html { redirect_to(apply_questionnaire_path(ques)) }
           format.html { redirect_to(:back) }
           format.xml  { render(:xml => ques, :status => :created, :location => ques) }
@@ -170,7 +166,6 @@ puts "ctrl params[bx] nil, should fail"
     end   # if !params['bx'].nil?
 #   end  # is_admin
 
-puts "ctrl end createbatch"
   end  # def createbatch
 
   # DELETE /registrations/1
