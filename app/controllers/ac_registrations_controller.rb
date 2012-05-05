@@ -139,7 +139,6 @@ class AcRegistrationsController < ApplicationController
 #         flash[:notice] += ". acc_file " + File.absolute_path(acc_file)
 
         else  # if saveerr.nil?  # some errors in saving registration
-puts "ctrl saveerr not nil, should fail"
           format.html { redirect_to(:back) }
           format.xml  { render :xml => ques.errors, :status => :unprocessable_entity }
           flash[:notice] = "Error creating registrations.  Please contact Founders Hookup for assistance."
@@ -147,7 +146,6 @@ puts "ctrl saveerr not nil, should fail"
       end   # respond_to do |format|
 
     else  # if !params['bx'].nil?  # no registration check boxes selected
-puts "ctrl params[bx] nil, should fail"
       respond_to do |format|
         format.html { redirect_to(:back) }
         format.xml  { render(:xml => ques, :status => :created, :location => ques) }
