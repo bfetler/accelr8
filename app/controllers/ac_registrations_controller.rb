@@ -80,7 +80,7 @@ class AcRegistrationsController < ApplicationController
         acc_file = "tmp/acc_file_" + Time.now.strftime('%Y%m%dT%H%M%S')
         makeacfile(acc_file, ques)
 
-#       flash[:notice] += params['bx'].map { |t, v|
+#       puts 'controller bx: ' + params['bx'].inspect
         params['bx'].each_key do |i|
           acc = Accelerator.find(i)
           if !acc.nil?
@@ -139,6 +139,7 @@ class AcRegistrationsController < ApplicationController
 #         flash[:notice] += ". acc_file " + File.absolute_path(acc_file)
 
         else  # if saveerr.nil?  # some errors in saving registration
+puts "ctrl saveerr not nil, should fail"
           format.html { redirect_to(:back) }
           format.xml  { render :xml => ques.errors, :status => :unprocessable_entity }
           flash[:notice] = "Error creating registrations.  Please contact Founders Hookup for assistance."
@@ -146,6 +147,7 @@ class AcRegistrationsController < ApplicationController
       end   # respond_to do |format|
 
     else  # if !params['bx'].nil?  # no registration check boxes selected
+puts "ctrl params[bx] nil, should fail"
       respond_to do |format|
         format.html { redirect_to(:back) }
         format.xml  { render(:xml => ques, :status => :created, :location => ques) }
@@ -155,10 +157,10 @@ class AcRegistrationsController < ApplicationController
 
 # flash[:notice] = rstr
 # flash debug messages
-#   if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
-#     flash[:notice] += " BX count " + params['bx'].count.to_s + " " + params['bx'].inspect
+    if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
+      flash[:notice] += " BX count " + params['bx'].count.to_s + " " + params['bx'].inspect
 
-#   end   # if !params['bx'].nil?
+    end   # if !params['bx'].nil?
 #   end  # is_admin
 
   end  # def createbatch
