@@ -29,11 +29,15 @@ class AcRegistrationsController < ApplicationController
 #   end
 # end
 
+  def get_acc_filename
+    acc_file = "tmp/maild/acc_file_" + Time.now.strftime('%Y%m%dT%H%M%S')
+  end
+
   def makeacfile(acc_file, ques)  # create acc_file
-#   dname = File.dirname(acc_file)
-#   if !dname.exists?
-#     mkdir(dname)
-#   end
+    dname = File.dirname(acc_file)
+    if !File.exists?(dname)
+      Dir.mkdir(dname)
+    end
     rmacfile(acc_file)  # make sure it doesn't exist
     f = File.open(acc_file, mode="w+")
     @questionnaire = ques
@@ -52,14 +56,13 @@ class AcRegistrationsController < ApplicationController
   def testemail       # test email application
     if (params['quid'] != '-1' )
       ques = Questionnaire.find(params['quid'])  # only needed for email
-      acc_file = "tmp/acc_file_" + Time.now.strftime('%Y%m%dT%H%M%S')
+      acc_file = get_acc_filename
       makeacfile(acc_file, ques)
       AcMailer.test_email(ques, acc_file).deliver
       rmacfile(acc_file)
       respond_to do |format|
         format.html { redirect_to(:back) }
         flash[:notice] = ques.companyname + " test application sent to: " + ques.email + "."
-        flash[:notice] += " Time: " + Time.now.strftime('%Y%m%dT%H%M%S')
       end
     end
   end
@@ -77,7 +80,7 @@ class AcRegistrationsController < ApplicationController
       if !ques.nil?
         acc_names  = []
 #       acc_emails = []
-        acc_file = "tmp/acc_file_" + Time.now.strftime('%Y%m%dT%H%M%S')
+        acc_file = get_acc_filename
         makeacfile(acc_file, ques)
 
 #       flash[:notice] += params['bx'].map { |t, v|
