@@ -30,8 +30,8 @@ describe AcRegistrationsController do
       it "should create three registrations" do
         lambda do
 #         accelerators.each { |a| puts '      ' + a.id.to_s + ': ' + a.name + ': ' + a.email }
-          bhash = Hash.new
-          accelerators.each { |a| bhash[a.id.to_s] = "" }
+          bhash = Hash.new{ |h, k| h[k] = "" }
+          accelerators.each { |a| bhash[a.id.to_s] }
 #         bhash = Hash[* accelerators.map { |a| [ a.id.to_s, "" ] }.flatten ]
 #         puts 'ctrl test bx: ' + bhash.inspect
 

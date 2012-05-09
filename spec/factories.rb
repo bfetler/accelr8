@@ -2,13 +2,16 @@ FactoryGirl.define do
   factory :user do
 #   sequence(:name) { |n| "Person #{n}" }
 #   sequence(:email) { |n| "person_#{n}@example.com"}
-    email "my.email@foo.com"
+    email    "my.email@foo.com"
     password "foobar"
     password_confirmation "foobar"
+  end
 
-#   factory :admin do
-#     admin true
-#   end
+  factory :accelerator_user do
+    name     "Angel Accelerator"
+    email    "angel@accelerator.com"
+    password "apassword"
+    password_confirmation "apassword"
   end
 
   factory :questionnaire do
@@ -25,6 +28,7 @@ FactoryGirl.define do
     other        "Other projects."
     invest       "Investors."
     advisor      "Advisors."
+# missing qfounder
   end
 
   factory :accelerator do
@@ -39,11 +43,6 @@ FactoryGirl.define do
     lastname "Flintstone"
     description "Flinstone accelerator."
     acceptlate "no"
-  end
-
-  factory :ac_registration do
-    questionnaire { Factory(:questionnaire) }
-    accelerator { Factory(:accelerator) }
   end
 
 end

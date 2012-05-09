@@ -3,17 +3,17 @@ require 'spec_helper'
 describe Accelerator do
 
   before(:each) do
-    @attr = { :name => "testaccel",
-              :city => "San Francisco",
-              :state => "CA",
-              :startdate => 7.days.from_now,
-              :duedate => 0.days.from_now,
-              :length => "8",
-              :website => "http://www.google.com",
-              :lastname => "Flintstone",
-              :email => "fred@flintstone.com",
-              :description => "Flinstone accelerator.",
-              :acceptlate => "no"
+    @attr = { :name        => "testaccel",
+              :city        => "San Francisco",
+              :state       => "CA",
+              :startdate   => 7.days.from_now,
+              :duedate     => 0.days.from_now,
+              :length      => "8",
+              :website     => "http://www.google.com",
+              :lastname    => "Flintstone",
+              :email       => "fred@flintstone.com",
+              :description => "Flintstone accelerator.",
+              :acceptlate  => "no"
             }
   end
 
@@ -32,18 +32,18 @@ describe Accelerator do
   end
 
   it "should require a city" do
-    noname_accel = Accelerator.new(@attr.merge(:city => ""))
-    noname_accel.should_not be_valid
+    nocity_accel = Accelerator.new(@attr.merge(:city => ""))
+    nocity_accel.should_not be_valid
   end
 
   it "should require a state" do
-    noname_accel = Accelerator.new(@attr.merge(:state => ""))
-    noname_accel.should_not be_valid
+    nostate_accel = Accelerator.new(@attr.merge(:state => ""))
+    nostate_accel.should_not be_valid
   end
 
   it "should require a length" do
-    noname_accel = Accelerator.new(@attr.merge(:length => ""))
-    noname_accel.should_not be_valid
+    nolength_accel = Accelerator.new(@attr.merge(:length => ""))
+    nolength_accel.should_not be_valid
   end
 
   it "should require a lastname" do
