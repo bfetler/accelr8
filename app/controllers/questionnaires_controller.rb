@@ -36,13 +36,6 @@ class QuestionnairesController < ApplicationController
 #   @accelerators = Accelerator.where(:acceptapp => "Yes").order(@sortcolumn+" "+@sortorder)
     @accelerators = Accelerator.order(@sortcolumn+" "+@sortorder)
 
-#   swap sortorder
-    if @sortorder=="DESC"
-      @sortorder="ASC"
-    else
-      @sortorder="DESC"
-    end
-
     respond_to do |format|
       format.html # apply.html.erb
       format.xml  { render :xml => @questionnaire }
@@ -50,26 +43,20 @@ class QuestionnairesController < ApplicationController
     end
   end
 
-# utility to set column sort order by param
-# copy of method from accelerators_controller
+# utility to set column sort order by param, see accelerators_controller
   def setsortorder
+#   default sort by ASC startdate
     if params[:column].nil?
-      @sortcolumn = "startdate"  # default sort by ASC startdate
-      @sortorder = "ASC"
+      @sortcolumn = "startdate"
     else
-      if params[:order].nil?
-        @sortorder="ASC"
-      else
-        @sortorder = params[:order]
-      end
-# if column changed, reset to ASC, compare to previous saved state
-      if (! flash[:sortcolumn].nil?) && (flash[:sortcolumn] != params[:column])
-        @sortorder="ASC"
-      end
       @sortcolumn = params[:column]
     end
-    flash[:sortcolumn] = @sortcolumn  # save state in flash
-  end    # setcolumn utility
+    if params[:order].nil?
+      @sortorder = "ASC"
+    else
+      @sortorder = params[:order]
+    end
+  end   # setsortorder
 
   # GET /questionnaires/new
   # GET /questionnaires/new.xml

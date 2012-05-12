@@ -1,23 +1,10 @@
-
 <div class="span-5 bigfont">
   Accelerator Directory
 </div>
 
 <% if @accelerators.any? %>
 
-<!--div class="right mediumfont">
-<span>Founders may apply to Accelerators for funding.<br/></span>
-<span>Click <i><b>Names</b></i> or <i><b>more</b></i> in Descriptions for details.</span>
-<span>Click on the links below for more information.</span>
-</div!-->
-
 <div class="right">
-  <!--ul>
-    <li>User Id: <%#= current_user.id %></li>
-    <li>User Quest: <%#= @userquest %></li>
-  </ul!-->
-  <%# if User.questionnaire.any? %>
-  <%# if Questionnaire.any? %>
   <% if ! @userquest.nil? %>
     <%= button_to 'Apply to Accelerators', { :controller => "questionnaires", :action => "show", :id => @userquest.id }, :method => :get, :class => "bigbutton" %>
   <% else %>
@@ -31,26 +18,29 @@
 
 <% if @accelerators.any? %>
 
+<% col = @sortcolumn %>
+<% order = @sortorder=="DESC" ? "ASC" : "DESC" %>
+
 <table class="accel">
   <tr>
     <th class="index">
-      <%= link_to 'Name', { :action => "index", :column => "name"}, :method => :get %>
+      <%= link_to 'Name', { :action => "index", :column => "name", :order => col=="name" ? order : "ASC" }, :method => :get %>
     </th>
     <th class="index">
-      <%= link_to 'Location', { :action => "index", :column => "city"}, :method => :get %>
+      <%= link_to 'Location', { :action => "index", :column => "city", :order => col=="city" ? order : "ASC" }, :method => :get %>
     </th>
     <th class="index">
-      <%= link_to 'Start Date', { :action => "index", :column => "startdate"}, :method => :get %>
+      <%= link_to 'Start Date', { :action => "index", :column => "startdate", :order => col=="startdate" ? order : "ASC" }, :method => :get %>
     </th>
     <th class="index">
-      <%= link_to 'Length', { :action => "index", :column => "length"}, :method => :get %>
+      <%= link_to 'Length', { :action => "index", :column => "length", :order => col=="length" ? order : "ASC" }, :method => :get %>
     </th>
     <th class="index">Description</th>
     <th class="index center">
-      <%= link_to 'Application Due Date', { :action => "index", :column => "duedate"} %>
+      <%= link_to 'Application Due Date', { :action => "index", :column => "duedate", :order => col=="duedate" ? order : "ASC" } %>
     </th>
     <th class="index center">
-      <%= link_to 'Accept Late Applications', { :action => "index", :column => "acceptlate" } %>
+      <%= link_to 'Accept Late Applications', { :action => "index", :column => "acceptlate", :order => col=="acceptlate" ? order : "ASC"  } %>
     </th>
     <!--th class="index center nowrap">
       <%#= link_to 'Accept Founders', { :action => "index", :column => "acceptapp"} %><br/>

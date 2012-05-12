@@ -6,15 +6,9 @@ class AcceleratorsController < ApplicationController
   # GET /accelerators
   # GET /accelerators.xml
   def index
-    make_location_lists()
 
-    if ! params[:column].nil?
-      self.setsortorder()      # sort columns by param
-    else
-      flash[:sortcolumn] = "startdate"  # default sort by startdate
-      flash[:sortorder] = "ASC"
-    end
-    @accelerators = Accelerator.where("izzaproved = ?", "yEs").order(flash[:sortcolumn]+" "+flash[:sortorder])
+    setsortorder()      # sort columns by param
+    @accelerators = Accelerator.where("izzaproved = ?", "yEs").order(@sortcolumn+" "+@sortorder)
     @userquest = Questionnaire.where(["user_id = ?", current_user]).last
 #   @userquest is nil if Questionnaire not yet created for this user
 #   what if no Questionnaire, Questionnaire.all = [] ?
@@ -23,78 +17,21 @@ class AcceleratorsController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @accelerators }
     end
-#   flash[:notice] = ""
-#   if !params.nil? 
-#     if params.any?
-#       if params['country_id'].any?
-#         flash[:notice] += "selected country_id " + params['country_id']+"; "
-#       end
-#     end
-#   end
-#   flash[:notice] += "params "+params.inspect
-  end
-
-  def make_location_lists
-    accelerators = Accelerator.all
-    country_list = []
-    accelerators.each do |a|
-      add_non_duplicate(a.country, a.id, country_list)
-    end
-    country_list = country_list.sort
-    country_list.insert(0, ['All', 0])
-    @country_list = country_list
-
-    state_list = []
-    accelerators.each do |a|
-      add_non_duplicate(a.state, a.id, state_list)
-    end
-    state_list = state_list.sort
-    state_list.insert(0, ['All', 0])
-    @state_list = state_list
-# state_list should change depending on country selection
-
-    city_list = []
-    accelerators.each do |a|
-      add_non_duplicate(a.city, a.id, city_list)
-    end
-    city_list = city_list.sort
-    city_list.insert(0, ['All', 0])
-    @city_list = city_list
-# city_list should change depending on state and country selection
-  end
-
-# utility to insert non-duplicate entries into list
-  def add_non_duplicate(val, id, list)
-    found = nil
-    list.each do |c|
-      if (found.nil? && (c[0] == val))
-        found = 0
-      end
-    end
-    if found.nil? && !val.empty?
-      list << [val, id]
-    end
   end
 
 # utility to set column sort order by param
-  def setsortorder
-    if flash[:sortorder].nil?
-      flash[:sortorder]="ASC"
-    else  # swap sort order
-      if flash[:sortorder]=="DESC"
-        flash[:sortorder]="ASC"
-      else
-        flash[:sortorder]="DESC"
-      end
+  def setsortorder  # default sort by ASC startdate
+    if params[:column].nil?
+      @sortcolumn = "startdate"
+    else
+      @sortcolumn = params[:column]
     end
-    if ! flash[:sortcolumn].nil?
-#     if column changed, reset to ASC
-      if flash[:sortcolumn] != params[:column]
-        flash[:sortorder]="ASC"
-      end
+    if params[:order].nil?
+      @sortorder = "ASC"
+    else
+      @sortorder = params[:order]
     end
-    flash[:sortcolumn] = params[:column]
-  end    # setcolumn utility
+  end    # setsortorder
 
   def home
     render :layout => false

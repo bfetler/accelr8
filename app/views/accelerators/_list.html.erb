@@ -8,32 +8,33 @@
     <%= hidden_field_tag 'quid', quid %>
   </div>
 
-  <%# col = @sortcolumn %>
-  <% sortorder = @sortorder %>
-
   <% if @accelerators.any? %>
+
+  <% col = @sortcolumn %>
+  <% order = @sortorder=="DESC" ? "ASC" : "DESC" %>
+
   <table class="accel">
     <tr>
       <th class="index">
-        <%= link_to 'Name', { :controller => "questionnaires", :action => "apply", :column => "name", :order => sortorder }, :method => :get %>
+        <%= link_to 'Name', { :controller => "questionnaires", :action => "apply", :column => "name", :order => col=="name" ? order : "ASC" }, :method => :get %>
       </th>
       <th class="index">
-        <%= link_to 'Location', { :controller => "questionnaires", :action => "apply", :column => "city", :order => sortorder }, :method => :get %>
+        <%= link_to 'Location', { :controller => "questionnaires", :action => "apply", :column => "city", :order => col=="city" ? order : "ASC" }, :method => :get %>
       </th>
       <th class="index">
-        <%= link_to 'Start Date', { :controller => "questionnaires", :action => "apply", :column => "startdate", :order => sortorder }, :method => :get %>
+        <%= link_to 'Start Date', { :controller => "questionnaires", :action => "apply", :column => "startdate", :order => col=="startdate" ? order : "ASC" }, :method => :get %>
       </th>
       <th class="index">
-        <%= link_to 'Length', { :controller => "questionnaires", :action => "apply", :column => "length", :order => sortorder }, :method => :get %>
+        <%= link_to 'Length', { :controller => "questionnaires", :action => "apply", :column => "length", :order => col=="length" ? order : "ASC" }, :method => :get %>
       </th>
       <th class="index">
         Description
       </th>
       <th class="index center">
-        <%= link_to 'Application Due Date', { :controller => "questionnaires", :action => "apply", :column => "duedate", :order => sortorder }, :method => :get %>
+        <%= link_to 'Application Due Date', { :controller => "questionnaires", :action => "apply", :column => "duedate", :order => col=="duedate" ? order : "ASC" }, :method => :get %>
       </th>
       <th class="index center">
-        <%= link_to 'Accept Late Applications', { :controller => "questionnaires", :action => "apply", :column => "acceptlate", :order => sortorder }, :method => :get %>
+        <%= link_to 'Accept Late Applications', { :controller => "questionnaires", :action => "apply", :column => "acceptlate", :order => col=="acceptlate" ? order : "ASC" }, :method => :get %>
       </th>
       <th class="index center">Application<br/>Sent</th>
       <th class="index center">Apply<br/>Now</th>
