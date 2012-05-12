@@ -71,7 +71,7 @@ class AcRegistrationsController < ApplicationController
   # POST /registrations.xml
   def createbatch       # create batch registrations
 #   if is_admin?
-    if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
+    if (!params['bx'].nil? && params['bx'].any? && !params['quid'].nil? && params['quid'] != '-1' )
 #     params['bx'] etc. => some registration check boxes selected
       savect  = 0
       saveerr = nil
