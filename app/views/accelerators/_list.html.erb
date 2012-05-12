@@ -1,18 +1,5 @@
 <%= form_for :ac_registration, :url => { :action => 'createbatch', :controller => 'ac_registrations' } do |f| %>
 
-  <!--table>
-    <tr>
-      <td class="apply_title">Accelerators</td>
-      <td class="right">
-        <%# if @accelerators.any? %>
-          <%#= f.submit value='Submit Application', :class => "bigbutton", :title => "Email application to selected accelerators" %>
-        <%# else %>
-          <%#= f.submit value='Submit Application', :disabled => true, :class => "bigbutton" %>
-        <%# end %>
-      </td>
-    </tr>
-  </table!-->
-
   <div class="field clear">
     <% quid = nil %>
     <% if ! @questionnaire.nil? %>
@@ -21,29 +8,32 @@
     <%= hidden_field_tag 'quid', quid %>
   </div>
 
+  <%# col = @sortcolumn %>
+  <% sortorder = @sortorder %>
+
   <% if @accelerators.any? %>
   <table class="accel">
     <tr>
       <th class="index">
-        <%= link_to 'Name', { :controller => "questionnaires", :action => "apply", :column => "name" }, :method => :get %>
+        <%= link_to 'Name', { :controller => "questionnaires", :action => "apply", :column => "name", :order => sortorder }, :method => :get %>
       </th>
       <th class="index">
-        <%= link_to 'Location', { :controller => "questionnaires", :action => "apply", :column => "city" }, :method => :get %>
+        <%= link_to 'Location', { :controller => "questionnaires", :action => "apply", :column => "city", :order => sortorder }, :method => :get %>
       </th>
       <th class="index">
-        <%= link_to 'Start Date', { :controller => "questionnaires", :action => "apply", :column => "startdate" }, :method => :get %>
+        <%= link_to 'Start Date', { :controller => "questionnaires", :action => "apply", :column => "startdate", :order => sortorder }, :method => :get %>
       </th>
       <th class="index">
-        <%= link_to 'Length', { :controller => "questionnaires", :action => "apply", :column => "length" }, :method => :get %>
+        <%= link_to 'Length', { :controller => "questionnaires", :action => "apply", :column => "length", :order => sortorder }, :method => :get %>
       </th>
       <th class="index">
         Description
       </th>
       <th class="index center">
-        <%= link_to 'Application Due Date', { :controller => "questionnaires", :action => "apply", :column => "duedate" }, :method => :get %>
+        <%= link_to 'Application Due Date', { :controller => "questionnaires", :action => "apply", :column => "duedate", :order => sortorder }, :method => :get %>
       </th>
       <th class="index center">
-        <%= link_to 'Accept Late Applications', { :controller => "questionnaires", :action => "apply", :column => "acceptlate" }, :method => :get %>
+        <%= link_to 'Accept Late Applications', { :controller => "questionnaires", :action => "apply", :column => "acceptlate", :order => sortorder }, :method => :get %>
       </th>
       <th class="index center">Application<br/>Sent</th>
       <th class="index center">Apply<br/>Now</th>

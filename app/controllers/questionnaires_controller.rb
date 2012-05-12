@@ -27,45 +27,48 @@ class QuestionnairesController < ApplicationController
   # GET /questionnaires/1
   # GET /questionnaires/1.xml
   def apply
+# used by accelerator/_list.html.erb
+
     @questionnaire = Questionnaire.find(params[:id])
 
-# used by accelerator/_list.html.erb
-    if ! params[:column].nil?
-      self.setsortorder()      # sort columns by param
-    else
-#     @accelerators = Accelerator.all  # sort by index
-      flash[:sortcolumn] = "startdate"  # default sort by startdate
-      flash[:sortorder] = "ASC"
-    end
+    setsortorder()      # sort columns by param
 #   only show Accelerators that accept FH applications, by sort column order
-#   @accelerators = Accelerator.where(:acceptapp => "Yes").order(flash[:sortcolumn]+" "+flash[:sortorder])
-    @accelerators = Accelerator.order(flash[:sortcolumn]+" "+flash[:sortorder])
+#   @accelerators = Accelerator.where(:acceptapp => "Yes").order(@sortcolumn+" "+@sortorder)
+    @accelerators = Accelerator.order(@sortcolumn+" "+@sortorder)
+
+#   swap sortorder
+    if @sortorder=="DESC"
+      @sortorder="ASC"
+    else
+      @sortorder="DESC"
+    end
 
     respond_to do |format|
       format.html # apply.html.erb
       format.xml  { render :xml => @questionnaire }
+#     flash[:notice] = params.inspect
     end
   end
 
 # utility to set column sort order by param
 # copy of method from accelerators_controller
   def setsortorder
-    if flash[:sortorder].nil?
-      flash[:sortorder]="ASC"
-    else  # swap sort order
-      if flash[:sortorder]=="DESC"
-        flash[:sortorder]="ASC"
+    if params[:column].nil?
+      @sortcolumn = "startdate"  # default sort by ASC startdate
+      @sortorder = "ASC"
+    else
+      if params[:order].nil?
+        @sortorder="ASC"
       else
-        flash[:sortorder]="DESC"
+        @sortorder = params[:order]
       end
-    end
-    if ! flash[:sortcolumn].nil?
-#     if column changed, reset to ASC
-      if flash[:sortcolumn] != params[:column]
-        flash[:sortorder]="ASC"
+# if column changed, reset to ASC, compare to previous saved state
+      if (! flash[:sortcolumn].nil?) && (flash[:sortcolumn] != params[:column])
+        @sortorder="ASC"
       end
+      @sortcolumn = params[:column]
     end
-    flash[:sortcolumn] = params[:column]
+    flash[:sortcolumn] = @sortcolumn  # save state in flash
   end    # setcolumn utility
 
   # GET /questionnaires/new
@@ -84,6 +87,10 @@ class QuestionnairesController < ApplicationController
     @questionnaire = Questionnaire.find(params[:id])
   end
 
+# Paul V. comment on create:
+#   Can't validate qfounders on questionnaire if ques not created yet.
+#   Is there a way to model.validate without calling model.save?
+
   # POST /questionnaires
   # POST /questionnaires.xml
   def create
@@ -95,6 +102,7 @@ class QuestionnairesController < ApplicationController
     if qfounders_params_any(params['qfounder']) == :false
       saveerr = 2    # no params['qfounder']
     else
+# Paul says: ques.save only after qfounders parsed w/ no errors
       if ! @questionnaire.save
         saveerr = 0
       else
