@@ -16,6 +16,7 @@ class Accelerator < ActiveRecord::Base
   validates :description,	:presence => true,
 				:length => { :maximum => 300 }
   validates :acceptlate, :length => { :maximum => 100 }
+# maximum should match _form.html.erb view
 
 # validate do
 #   errors.add(:base, "Application due date must be on or before start date") unless startdate >= duedate

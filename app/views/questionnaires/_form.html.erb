@@ -57,6 +57,7 @@
 
   <br/>
   <%= render :partial => 'qfounders/form', :locals => {:form => f} %>
+  <% textboxclass = "span-15 charcount maxchar" + Questionnaire.getmaxlen %>
 
 <fieldset class="accel-form nomargin clear span-22 last">
 <legend>Questionnaire</legend>
@@ -68,7 +69,7 @@
     </tr>
     <tr class="no_stripe">
       <td>
-        <%= f.text_area :team, :id => "team", :class => "span-15 charcount maxchar500" %>
+        <%= f.text_area :team, :id => "team", :class => textboxclass %>
 <!-- 6 x 80 seems to be 6 x 55, try 6 x 120 => 6 x 82.5 ...
      huh! value of :cols is ignored!  -->
       </td>
@@ -84,7 +85,7 @@
     <tr class="no_stripe">
       <td>
         <%#= f.text_area :description, :rows => 6, :cols => 80 %>
-        <%= f.text_area :description, :id => "describe", :class => "span-15 charcount maxchar500" %>
+        <%= f.text_area :description, :id => "describe", :class => textboxclass %>
       </td>
       <td>
         <span id="describe_ct" class="span-4 small ctpad"></span>
@@ -107,7 +108,7 @@
     </tr>
     <tr class="no_stripe">
       <td>
-        <%= f.text_area :businessplan, :id => "business", :class => "span-15 charcount maxchar500" %>
+        <%= f.text_area :businessplan, :id => "business", :class => textboxclass %>
       </td>
       <td class="nomargin"><span id="business_ct" class="span-4 small ctpad"></span>
       </td>
@@ -120,7 +121,7 @@
     <tr class="no_stripe">
       <td>
         <%#= f.text_area :competition, :rows => 6, :cols => 80 %>
-        <%= f.text_area :competition, :id => "comp", :class => "span-15 charcount maxchar500" %>
+        <%= f.text_area :competition, :id => "comp", :class => textboxclass %>
       </td>
       <td class="nomargin"><span id="comp_ct" class="span-4 small ctpad"></span>
       </td>
@@ -132,7 +133,7 @@
     </tr>
     <tr class="no_stripe">
       <td>
-        <%= f.text_area :other, :id => "other", :class => "span-15 charcount maxchar500" %>
+        <%= f.text_area :other, :id => "other", :class => textboxclass %>
       </td>
       <td class="nomargin"><span id="other_ct" class="span-4 small ctpad"></span>
       </td>
@@ -144,7 +145,7 @@
     </tr>
     <tr class="no_stripe">
       <td>
-        <%= f.text_area :invest, :id => "invest", :class => "span-15 charcount maxchar500" %>
+        <%= f.text_area :invest, :id => "invest", :class => textboxclass %>
       </td>
       <td class="nomargin"><span id="invest_ct" class="span-4 small ctpad"></span>
       </td>
@@ -156,7 +157,7 @@
     </tr>
     <tr class="no_stripe">
       <td>
-        <%= f.text_area :advisor, :id => "advisor", :class => "span-15 charcount maxchar500" %>
+        <%= f.text_area :advisor, :id => "advisor", :class => textboxclass %>
       </td>
       <td class="nomargin"><span id="advisor_ct" class="span-4 small ctpad"></span>
       </td>

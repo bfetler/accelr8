@@ -3,6 +3,8 @@ class Questionnaire < ActiveRecord::Base
   has_many :qfounders, :dependent => :destroy
   belongs_to :user
 
+  MAXLEN = 500
+
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   attr_accessible :firstname, :lastname, :email, :companyname, :website, :webvideo, :description, :businessplan, :team, :competition, :other, :invest, :advisor
@@ -13,13 +15,13 @@ class Questionnaire < ActiveRecord::Base
 # validates :website, 		:format => /http/
 # validates :webvideo, 		:format => /http/
   validates :description, 	:presence => true, 
-				:length => { :maximum => 500 }
-  validates :businessplan, 	:length => { :maximum => 500 }
-  validates :competition, 	:length => { :maximum => 500 }
-  validates :team, 		:length => { :maximum => 500 }
-  validates :other, 		:length => { :maximum => 500 }
-  validates :invest, 		:length => { :maximum => 500 }
-  validates :advisor, 		:length => { :maximum => 500 }
+				:length => { :maximum => MAXLEN }
+  validates :businessplan, 	:length => { :maximum => MAXLEN }
+  validates :competition, 	:length => { :maximum => MAXLEN }
+  validates :team, 		:length => { :maximum => MAXLEN }
+  validates :other, 		:length => { :maximum => MAXLEN }
+  validates :invest, 		:length => { :maximum => MAXLEN }
+  validates :advisor, 		:length => { :maximum => MAXLEN }
 
 # validates_numericality_of :qfounder_ids, :greater_than => 0
 # validates :qfounder_ids, 	:length => { :minimum => 1 }
@@ -37,6 +39,10 @@ class Questionnaire < ActiveRecord::Base
 #     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
 # accepts_nested_attributes_for :ac_registrations, :allow_destroy => :true,
 #     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
+
+  def Questionnaire.getmaxlen   # used in _form.html.erb view
+    return MAXLEN.to_s
+  end
 
   def has_a_qfounder
     qs = ''
