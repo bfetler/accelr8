@@ -34,7 +34,11 @@ class AcceleratorsController < ApplicationController
   end    # setsortorder
 
   def home
-    render :layout => false
+    if user_signed_in?
+      redirect_to accelerators_path
+    else
+      render :layout => false
+    end
   end
 
   # GET /accelerators/1
