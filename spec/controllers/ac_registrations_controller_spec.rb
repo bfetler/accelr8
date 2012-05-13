@@ -10,6 +10,12 @@ describe AcRegistrationsController do
 
   before { sign_in user }
 
+  describe "User Sign In" do
+    it "should have a current user" do
+      subject.current_user.should_not be_nil
+    end
+  end
+
   describe "GET 'index'" do
     it "should be successful" do
       get 'index'
