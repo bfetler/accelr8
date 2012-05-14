@@ -9,3 +9,4 @@ doc/app
 NOTES
 public/acfile*
 public/acc_file*
+webrat.log
