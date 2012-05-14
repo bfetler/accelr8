@@ -158,10 +158,9 @@ class AcRegistrationsController < ApplicationController
 
 # flash[:notice] = rstr
 # flash debug messages
-    if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
-      flash[:notice] += " BX count " + params['bx'].count.to_s + " " + params['bx'].inspect
-
-    end   # if !params['bx'].nil?
+#   if (!params['bx'].nil? && params['bx'].any? && params['quid'] != '-1' )
+#     flash[:notice] += " BX count " + params['bx'].count.to_s + " " + params['bx'].inspect
+#   end   # if !params['bx'].nil?
 #   end  # is_admin
 
   end  # def createbatch
