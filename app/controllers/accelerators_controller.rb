@@ -1,13 +1,15 @@
 class AcceleratorsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:setsortorder, :home]
-  before_filter :authenticate_accelerator_user!, :except => [:index, :setsortorder, :home]
+  before_filter :authenticate_user!, :except => [:home]
+  before_filter :authenticate_accelerator_user!, :except => [:index, :home]
 # before_filter is_admin?
 
   # GET /accelerators
   # GET /accelerators.xml
   def index
 
-    setsortorder()      # sort columns by param
+    @sortcolumn = params[:column] ||= "startdate"
+    @sortorder = params[:order] ||= "ASC"
+    # sort columns by param
     @accelerators = Accelerator.where("izzaproved = ?", "yEs").order(@sortcolumn+" "+@sortorder)
     @userquest = Questionnaire.where(["user_id = ?", current_user]).last
 #   @userquest is nil if Questionnaire not yet created for this user
@@ -18,20 +20,6 @@ class AcceleratorsController < ApplicationController
       format.xml  { render :xml => @accelerators }
     end
   end
-
-# utility to set column sort order by param
-  def setsortorder  # default sort by ASC startdate
-    if params[:column].nil?
-      @sortcolumn = "startdate"
-    else
-      @sortcolumn = params[:column]
-    end
-    if params[:order].nil?
-      @sortorder = "ASC"
-    else
-      @sortorder = params[:order]
-    end
-  end    # setsortorder
 
   def home
     if user_signed_in?
