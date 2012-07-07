@@ -1,5 +1,5 @@
 class QuestionnairesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:qfounders_params_any?, :fdr_any?]
+  before_filter :authenticate_user!
 
   # GET /questionnaires
   # GET /questionnaires.xml
@@ -74,7 +74,7 @@ class QuestionnairesController < ApplicationController
 #   @questionnaire.user_id = User.find(?)
     @questionnaire.user_id = current_user.id
 
-    if !qfounders_params_any?(params['qfounder'])
+    if !Qfounder.params_any?(params['qfounder'])
       saveerr = 2    # no params['qfounder']
     else
 # Paul suggests: ques.save only after qfounders parsed w/ no errors
@@ -83,17 +83,17 @@ class QuestionnairesController < ApplicationController
       else
 # no save errors for questionnaire, try saving qfounders
         params['qfounder'].each { |i, fdr|
-          if fdr_any?(fdr)
-#           if ! @questionnaire.qfounders.create(fdr) ...
-            @qfdr = Qfounder.new(fdr)
-            @qfdr.questionnaire_id = @questionnaire.id
-            if ! @qfdr.save
+          if Qfounder.is_a_fdr?(fdr)
+##          if ! @questionnaire.qfounders.create(fdr) ...
+            qfdr = Qfounder.new(fdr)
+            qfdr.questionnaire_id = @questionnaire.id
+            if ! qfdr.save
               saveerr = 0  # saveerr = 1 or 2?
             end
-          end  # if fdr_any
+          end  # if is_a_fdr?
         }
       end
-    end  # if-else qfounders_params_any
+    end  # if-else Qfounder.params_any
 
     respond_to do |format|
       if saveerr.nil?    # no errors saving questionnaire
@@ -112,35 +112,6 @@ class QuestionnairesController < ApplicationController
     end
   end
 
-# utility methods
-  def qfounders_params_any?(paramq)
-# usually paramq = params['qfounder']
-    if ! paramq.nil?
-      if paramq.any?
-        paramq.each { |i, fdr|
-#         if fdr_any?(fdr)
-          fdr.each { |j, fval|
-# j=='willcode', fval='' or '1'  exclude?
-            if fval != ""   # check if any value is non-empty
-              return true
-            end
-          }
-        }
-      end
-    end
-    return false
-  end
-
-  def fdr_any?(fdr)
-    fdr.each { |j, fval|
-# j=='willcode', fval='' or '1'  exclude?
-      if fval != ""   # check if any value is non-empty
-        return true
-      end
-    }
-    return false
-  end
-
   # PUT /questionnaires/1
   # PUT /questionnaires/1.xml
   def update
@@ -154,7 +125,7 @@ class QuestionnairesController < ApplicationController
 
 # no save errors for questionnaire, try saving qfounders
 # test qfounders before or after updating questionnaire?
-      if !qfounders_params_any?(params['qfounder'])
+      if !Qfounder.params_any?(params['qfounder'])
         saveerr = 2    # no params['qfounder']
       else
 
@@ -166,7 +137,7 @@ class QuestionnairesController < ApplicationController
         end
 # create/update new qfounders
         params['qfounder'].each { |i, fdr|
-          if fdr_any?(fdr)
+          if Qfounder.is_a_fdr?(fdr)
             oqf = oldlist.first
             if ! oqf.nil?   # update old founder
               if ! oqf.update_attributes(fdr)
@@ -174,20 +145,20 @@ class QuestionnairesController < ApplicationController
               end
               oldlist.delete(oqf)
             else            # create new founder
-              @qfdr = Qfounder.new(fdr)
-              @qfdr.questionnaire_id = @questionnaire.id
-              if ! @qfdr.save
+              qfdr = Qfounder.new(fdr)
+              qfdr.questionnaire_id = @questionnaire.id
+              if ! qfdr.save
                 saveerr = 0  # saveerr = 1 or 2?
               end
             end
-          end   # if fdr_any
+          end   # if is_a_fdr?
         }
         oldlist.each do |qf|
           qf.destroy   # delete any remaining old founders
         end
 # end method
 
-      end  # if-else qfounders_params_any
+      end  # if-else Qfounder.params_any
     end
 
     respond_to do |format|
