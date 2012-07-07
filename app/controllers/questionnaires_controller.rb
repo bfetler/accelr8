@@ -1,5 +1,5 @@
 class QuestionnairesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:qfounders_params_any, :fdr_any]
+  before_filter :authenticate_user!, :except => [:qfounders_params_any?, :fdr_any?]
 
   # GET /questionnaires
   # GET /questionnaires.xml
@@ -74,17 +74,15 @@ class QuestionnairesController < ApplicationController
 #   @questionnaire.user_id = User.find(?)
     @questionnaire.user_id = current_user.id
 
-#   if qfounders_params_any(params['qfounder']) == :false
     if !qfounders_params_any?(params['qfounder'])
       saveerr = 2    # no params['qfounder']
     else
-# Paul says: ques.save only after qfounders parsed w/ no errors
+# Paul suggests: ques.save only after qfounders parsed w/ no errors
       if ! @questionnaire.save
         saveerr = 0
       else
 # no save errors for questionnaire, try saving qfounders
         params['qfounder'].each { |i, fdr|
-#         if fdr_any(fdr) == :true
           if fdr_any?(fdr)
 #           if ! @questionnaire.qfounders.create(fdr) ...
             @qfdr = Qfounder.new(fdr)
@@ -100,8 +98,8 @@ class QuestionnairesController < ApplicationController
     respond_to do |format|
       if saveerr.nil?    # no errors saving questionnaire
 #       format.html { redirect_to(@questionnaire, :notice => 'Accelerator Application was successfully created.') }
-#       format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
-        format.html { render :action => "show" }
+        format.html { redirect_to(@questionnaire) }
+#       format.html { render :action => "show" }
         format.xml  { render :xml => @questionnaire, :status => :created, :location => @questionnaire }
       else
         format.html { render :action => "new" }
@@ -117,7 +115,6 @@ class QuestionnairesController < ApplicationController
 # utility methods
   def qfounders_params_any?(paramq)
 # usually paramq = params['qfounder']
-puts "qf_params_any? " + paramq.inspect
     if ! paramq.nil?
       if paramq.any?
         paramq.each { |i, fdr|
@@ -134,26 +131,7 @@ puts "qf_params_any? " + paramq.inspect
     return false
   end
 
-  def qfounders_params_any(paramq)
-# usually paramq = params['qfounder']
-    if ! paramq.nil?
-      if paramq.any?
-        paramq.each { |i, fdr|
-#         if fdr_any(fdr) == :true
-          fdr.each { |j, fval|
-# j=='willcode', fval='' or '1'  exclude?
-            if fval != ""   # check if any value is non-empty
-              return :true
-            end
-          }
-        }
-      end
-    end
-    return :false
-  end
-
   def fdr_any?(fdr)
-puts "fdr_any? " + fdr.inspect
     fdr.each { |j, fval|
 # j=='willcode', fval='' or '1'  exclude?
       if fval != ""   # check if any value is non-empty
@@ -161,16 +139,6 @@ puts "fdr_any? " + fdr.inspect
       end
     }
     return false
-  end
-
-  def fdr_any(fdr)
-    fdr.each { |j, fval|
-# j=='willcode', fval='' or '1'  exclude?
-      if fval != ""   # check if any value is non-empty
-        return :true
-      end
-    }
-    return :false
   end
 
   # PUT /questionnaires/1
@@ -186,7 +154,6 @@ puts "fdr_any? " + fdr.inspect
 
 # no save errors for questionnaire, try saving qfounders
 # test qfounders before or after updating questionnaire?
-#     if qfounders_params_any(params['qfounder']) == :false
       if !qfounders_params_any?(params['qfounder'])
         saveerr = 2    # no params['qfounder']
       else
@@ -199,7 +166,6 @@ puts "fdr_any? " + fdr.inspect
         end
 # create/update new qfounders
         params['qfounder'].each { |i, fdr|
-#         if fdr_any(fdr) == :true
           if fdr_any?(fdr)
             oqf = oldlist.first
             if ! oqf.nil?   # update old founder
@@ -217,17 +183,12 @@ puts "fdr_any? " + fdr.inspect
           end   # if fdr_any
         }
         oldlist.each do |qf|
-#         qf.questionnaire_id = nil  # doesn't fix it
           qf.destroy   # delete any remaining old founders
         end
 # end method
 
       end  # if-else qfounders_params_any
     end
-
-puts "saved qfounders: "
-@questionnaire.qfounders.each { |q| puts q.inspect }
-# old qfounders not destroyed by the time view executes?
 
     respond_to do |format|
       if saveerr.nil?    # no errors saving questionnaire
