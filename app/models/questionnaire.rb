@@ -49,8 +49,10 @@ class Questionnaire < ActiveRecord::Base
     qs += qfounders.size.to_s
 #   errors.add("Need", " at least one Founder "+qs) if
 #     qfounders.count < 1
-    if qfounders.size < 1
-      errors.add("Need", " at least one Founder "+qs)
+#   if qfounders.size < 1
+    if self.qfounders.size < 1
+#     errors.add("Need", " at least one Founder "+qs)
+      errors.add("Need", " at least one Founder")
     end
   end
 

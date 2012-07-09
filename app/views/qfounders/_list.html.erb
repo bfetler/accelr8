@@ -8,7 +8,7 @@
       <th>Linked-In Page / Web Site (if any)</th>
     </tr>
     <%# for qfounder in @questionnaire.qfounders.order("lastname") do %>
-    <% for qfounder in @questionnaire.qfounders do %>
+    <% @questionnaire.qfounders(true).each do |qfounder| %>
       <tr class="nomargin no_stripe">
         <td><%= qfounder.firstname %> <%= qfounder.lastname %></td>
         <td><%= qfounder.role %></td>
