@@ -157,7 +157,7 @@ puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
         }
 #     end
       if ! @questionnaire.save  # saves associated founders? nope
-#       saveerr = 0
+        saveerr = 0
       end
     end  # if-else Qfounder.params_any
 puts "q2 errors: " + @questionnaire.errors.inspect
