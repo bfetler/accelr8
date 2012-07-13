@@ -142,7 +142,7 @@ puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
 #       saveerr = 0
 #     else
 # no save errors for questionnaire, try saving qfounders
-        params['qfounder'].each { |i, fdr|
+        params['qfounder'].each { |k, fdr|
 #         if Qfounder.is_a_fdr?(fdr)
 #         qfdr = Qfounder.new(fdr)
 #         if qfdr.valid?
@@ -187,6 +187,60 @@ puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
   # PUT /questionnaires/1
   # PUT /questionnaires/1.xml
   def update
+    @questionnaire = Questionnaire.find(params[:id])
+#   @questionnaire.update_attributes(params[:questionnaire])
+puts "PARAMS PARAMS UPDATE: " + params.inspect
+
+    oldhash = @questionnaire.qfounders
+    @questionnaire.qfounders.delete(oldhash)
+
+    if !params['qfounder'].nil? && params['qfounder'].any?
+#       oldlist = []
+puts "old qfounders: " + @questionnaire.qfounders.inspect
+#       @questionnaire.qfounders.each { |qf|
+#         oldlist << qf
+#         @questionnaire.qfounders.delete(qf)
+#       }
+#       oldhash = @questionnaire.qfounders
+#       @questionnaire.qfounders.delete(oldhash)
+
+        params['qfounder'].each { |k, fdr|
+#         oqf = oldlist.first
+#         if ! oqf.nil?   # delete old founder
+#           oldlist.delete(oqf)
+#         end
+#         qfdr = Qfounder.new(fdr)
+#         if qfdr.valid?
+          if Qfounder.new(fdr).valid?
+            @questionnaire.qfounders.build(fdr)
+          end  # if is_a_fdr?
+        }
+#       oldlist.each do |qf|
+#         qf.destroy   # delete any remaining old founders
+#       end
+    end
+
+puts "ques valid? " + @questionnaire.valid?.to_s
+
+    respond_to do |format|
+#     if saveerr.nil?    # no errors saving questionnaire
+      if @questionnaire.update_attributes(params[:questionnaire])
+#       format.html { redirect_to(@questionnaire, :notice => 'Application was successfully updated.') }
+#       format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
+        format.html { render :action => "show" }
+        format.xml  { head :ok }
+      else
+#       format.html { redirect_to :back }
+#       format.html { redirect_to edit_questionnaire_path(@questionnaire) }
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /questionnaires/1
+  # PUT /questionnaires/1.xml
+  def update_old
 #   flash[:notice] = "flash update: "
     saveerr = nil
 
