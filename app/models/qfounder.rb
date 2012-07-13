@@ -35,7 +35,7 @@ class Qfounder < ActiveRecord::Base
   def has_name
 puts "Qfounders has_name: "+self.lastname+", "+self.firstname
     if self.lastname.empty? && self.firstname.empty?
-      errors.add("Founder", " has no name")
+      errors.add("Founder", "has no name")
     end
   end
 

@@ -33,7 +33,7 @@ class Questionnaire < ActiveRecord::Base
 # validates_associated  :qfounders
 # validates_associated  :qfounders,	:presence => :true
 
-# validate :has_a_qfounder
+  validate :has_a_qfounder
 
 # accepts_nested_attributes_for :qfounders, :allow_destroy => :true,
 #     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
@@ -54,7 +54,8 @@ class Questionnaire < ActiveRecord::Base
 #   if qfounders.size < 1
     if self.qfounders.size < 1
 #     errors.add("Need", " at least one Founder "+qs)
-      errors.add("Need", " at least one Founder")
+      errors.add("Need", "at least one Founder with first or last name")
+#     errors.add("Founders", "must have at least one entry with first or last name")
     end
   end
 
@@ -67,7 +68,7 @@ class Questionnaire < ActiveRecord::Base
         end
       }
     end
-    errors.add("Founders", "must have at least one entry with first or last name")
+#   errors.add("Founders", "must have at least one entry with first or last name")
     return false
   end
 

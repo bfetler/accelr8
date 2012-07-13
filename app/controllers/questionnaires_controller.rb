@@ -125,16 +125,17 @@ puts "PARAMS PARAMS CREATE: " + params.inspect
 
 puts "PARAMS PARAMS CREATE: " + params.inspect
 puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
-    @questionnaire.valid?
+#   @questionnaire.valid?
 puts "q1 errors: " + @questionnaire.errors.inspect
 puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
 #   @questionnaire.qfounders_any?(params['qfounder'])
 
 #   if !Qfounder.params_any?(params['qfounder'])
-    if ! @questionnaire.qfounders_any?(params['qfounder'])
+#   if @questionnaire.qfounders_any?(params['qfounder'])
+    if !params['qfounder'].nil? && params['qfounder'].any?
 #     saveerr = 2    # no params['qfounder']
-      saveerr = 0    # no params['qfounder']
-    else
+#     saveerr = 0    # no params['qfounder']
+#   else
 
 # Paul suggests: ques.save only after qfounders parsed w/ no errors
 #     if ! @questionnaire.save
@@ -143,29 +144,34 @@ puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
 # no save errors for questionnaire, try saving qfounders
         params['qfounder'].each { |i, fdr|
 #         if Qfounder.is_a_fdr?(fdr)
-          qfdr = Qfounder.new(fdr)
-          if qfdr.valid?
+#         qfdr = Qfounder.new(fdr)
+#         if qfdr.valid?
+          if Qfounder.new(fdr).valid?
 ##          if ! @questionnaire.qfounders.create(fdr) ...
 #           qfdr.questionnaire_id = @questionnaire.id
-            qfdr.questionnaire = @questionnaire
+#           qfdr.questionnaire = @questionnaire
 #           qqfdr = @questionnaire.build_qfounder(fdr)
-#           qqfdr = @questionnaire.qfounder.build(fdr)
-            if ! qfdr.save
-              saveerr = 0  # saveerr = 1 or 2?
-            end
+#           qfdr = @questionnaire.qfounders.build(fdr)
+            @questionnaire.qfounders.build(fdr)
+#           if ! qfdr.save
+#             saveerr = 0  # saveerr = 1 or 2?
+#           end
           end  # if is_a_fdr?
         }
 #     end
-      if ! @questionnaire.save  # saves associated founders? nope
-        saveerr = 0
-      end
+#     if ! @questionnaire.save
+# saves associated founders? yup, provided I use @ques.qf.build()
+# save may fail on callbacks as well as validation
+#       saveerr = 0
+#     end
     end  # if-else Qfounder.params_any
 puts "q2 errors: " + @questionnaire.errors.inspect
 puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
 
     respond_to do |format|
-      if saveerr.nil?    # no errors saving questionnaire
+#     if saveerr.nil?    # no errors saving questionnaire
 #     if @questionnaire.errors.empty?
+      if @questionnaire.save
 #       format.html { redirect_to(@questionnaire, :notice => 'Accelerator Application was successfully created.') }
         format.html { redirect_to(@questionnaire) }
 #       format.html { render :action => "show" }
