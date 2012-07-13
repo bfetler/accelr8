@@ -64,15 +64,17 @@ class QuestionnairesController < ApplicationController
 # Paul V. comment on create:
 #   Can't validate qfounders on questionnaire if ques not created yet.
 #   Is there a way to model.validate without calling model.save?
-#   Well, there is model.valid
+#   Well, there is model.valid?
 
   # POST /questionnaires
   # POST /questionnaires.xml
-  def create
+  def create_old
     saveerr = nil
     @questionnaire = Questionnaire.new(params[:questionnaire])
 #   @questionnaire.user_id = User.find(?)
     @questionnaire.user_id = current_user.id
+
+puts "PARAMS PARAMS CREATE: " + params.inspect
 
     if !Qfounder.params_any?(params['qfounder'])
       saveerr = 2    # no params['qfounder']
@@ -83,7 +85,8 @@ class QuestionnairesController < ApplicationController
       else
 # no save errors for questionnaire, try saving qfounders
         params['qfounder'].each { |i, fdr|
-          if Qfounder.is_a_fdr?(fdr)
+#         if Qfounder.is_a_fdr?(fdr)
+          if Qfounder.new(fdr).valid?
 ##          if ! @questionnaire.qfounders.create(fdr) ...
             qfdr = Qfounder.new(fdr)
             qfdr.questionnaire_id = @questionnaire.id
@@ -108,6 +111,69 @@ class QuestionnairesController < ApplicationController
         if saveerr == 2
           flash[:notice] = '1 error prohibited this application from being saved:  Enter at least one Founder.'
         end
+      end
+    end
+  end
+
+  # POST /questionnaires
+  # POST /questionnaires.xml
+  def create
+#   saveerr = nil
+    @questionnaire = Questionnaire.new(params[:questionnaire])
+#   @questionnaire.user_id = User.find(?)
+    @questionnaire.user_id = current_user.id
+
+puts "PARAMS PARAMS CREATE: " + params.inspect
+puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
+    @questionnaire.valid?
+puts "q1 errors: " + @questionnaire.errors.inspect
+puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
+#   @questionnaire.qfounders_any?(params['qfounder'])
+
+#   if !Qfounder.params_any?(params['qfounder'])
+    if ! @questionnaire.qfounders_any?(params['qfounder'])
+#     saveerr = 2    # no params['qfounder']
+      saveerr = 0    # no params['qfounder']
+    else
+
+# Paul suggests: ques.save only after qfounders parsed w/ no errors
+#     if ! @questionnaire.save
+#       saveerr = 0
+#     else
+# no save errors for questionnaire, try saving qfounders
+        params['qfounder'].each { |i, fdr|
+#         if Qfounder.is_a_fdr?(fdr)
+          qfdr = Qfounder.new(fdr)
+          if qfdr.valid?
+##          if ! @questionnaire.qfounders.create(fdr) ...
+#           qfdr.questionnaire_id = @questionnaire.id
+            qfdr.questionnaire = @questionnaire
+#           qqfdr = @questionnaire.build_qfounder(fdr)
+#           qqfdr = @questionnaire.qfounder.build(fdr)
+            if ! qfdr.save
+              saveerr = 0  # saveerr = 1 or 2?
+            end
+          end  # if is_a_fdr?
+        }
+#     end
+      if ! @questionnaire.save  # saves associated founders? nope
+#       saveerr = 0
+      end
+    end  # if-else Qfounder.params_any
+puts "q2 errors: " + @questionnaire.errors.inspect
+puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
+
+    respond_to do |format|
+      if saveerr.nil?    # no errors saving questionnaire
+#     if @questionnaire.errors.empty?
+#       format.html { redirect_to(@questionnaire, :notice => 'Accelerator Application was successfully created.') }
+        format.html { redirect_to(@questionnaire) }
+#       format.html { render :action => "show" }
+        format.xml  { render :xml => @questionnaire, :status => :created, :location => @questionnaire }
+      else
+        format.html { render :action => "new" }
+#       format.html { redirect_to new_questionnaire_path(@questionnaire) }
+        format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -137,15 +203,27 @@ class QuestionnairesController < ApplicationController
         end
 # create/update new qfounders
         params['qfounder'].each { |i, fdr|
-          if Qfounder.is_a_fdr?(fdr)
+#         if Qfounder.is_a_fdr?(fdr)
+          if Qfounder.new(fdr).valid?
             oqf = oldlist.first
             if ! oqf.nil?   # update old founder
+#             qfdr = Qfounder.new(fdr)  # test
+#             if qfdr.valid?            # test
+#               puts "Qfounder valid"       # test
+#             else
+#               puts "Qfounder not valid"
+#             end
               if ! oqf.update_attributes(fdr)
                 saveerr = 0  # saveerr = 1 or 2?
               end
               oldlist.delete(oqf)
             else            # create new founder
               qfdr = Qfounder.new(fdr)
+#             if qfdr.valid?
+#               puts "Qfounder valid"       # test
+#             else
+#               puts "Qfounder not valid"
+#             end
               qfdr.questionnaire_id = @questionnaire.id
               if ! qfdr.save
                 saveerr = 0  # saveerr = 1 or 2?

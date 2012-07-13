@@ -1,6 +1,6 @@
 class Questionnaire < ActiveRecord::Base
   has_many :ac_registrations, :dependent => :destroy
-  has_many :qfounders, :dependent => :destroy
+  has_many :qfounders, :dependent => :destroy  # :autosave => true
   belongs_to :user
 
   MAXLEN = 500
@@ -45,6 +45,8 @@ class Questionnaire < ActiveRecord::Base
   end
 
   def has_a_qfounder
+# if self.qfounder.nil?  # tests if any associated objects
+# end
     qs = ''
     qs += qfounders.size.to_s
 #   errors.add("Need", " at least one Founder "+qs) if
@@ -54,6 +56,19 @@ class Questionnaire < ActiveRecord::Base
 #     errors.add("Need", " at least one Founder "+qs)
       errors.add("Need", " at least one Founder")
     end
+  end
+
+  def qfounders_any?(paramq)  # paramq = params['qfounder']
+    if !paramq.nil? && paramq.any?
+      paramq.each { |i, fdr|
+#       if Qfounder.is_a_fdr?(fdr)
+        if Qfounder.new(fdr).valid?
+          return true
+        end
+      }
+    end
+    errors.add("Founders", "must have at least one entry with first or last name")
+    return false
   end
 
   def to_s

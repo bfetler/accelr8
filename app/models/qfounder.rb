@@ -10,7 +10,8 @@ class Qfounder < ActiveRecord::Base
   def Qfounder.params_any?(paramq)  # paramq = params['qfounder']
     if !paramq.nil? && paramq.any?
       paramq.each { |i, fdr|
-        if Qfounder.is_a_fdr?(fdr)
+#       if Qfounder.is_a_fdr?(fdr)
+        if Qfounder.new(fdr).valid?
           return true
         end
       }
@@ -29,9 +30,10 @@ class Qfounder < ActiveRecord::Base
   end
 
 # validates :lastname, :presence => true
-# validate :has_name
+  validate :has_name
 
   def has_name
+puts "Qfounders has_name: "+self.lastname+", "+self.firstname
     if self.lastname.empty? && self.firstname.empty?
       errors.add("Founder", " has no name")
     end
