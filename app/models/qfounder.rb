@@ -2,7 +2,7 @@ class Qfounder < ActiveRecord::Base
   belongs_to :questionnaire
 
   def to_s
-    self.lastname
+    self.firstname + " " + self.lastname
   end
 
 # param utility methods
@@ -29,12 +29,25 @@ class Qfounder < ActiveRecord::Base
     return false
   end
 
+  def member_of(qf_array)
+#    qf_array contains qfounders w/ other elmts: id, timestamps
+    member = qf_array.select { |qf|
+      self.firstname == qf.firstname &&
+      self.lastname  == qf.lastname &&
+      self.role      == qf.role &&
+      self.willcode  == qf.willcode &&
+      self.weblink   == qf.weblink
+    }
+    member[0]
+  end
+
 # validates :lastname, :presence => true
   validate :has_name
 
   def has_name
 puts "Qfounders has_name: "+self.lastname+", "+self.firstname
     if self.lastname.empty? && self.firstname.empty?
+#   if self.to_s == " "
       errors.add("Founder", "has no name")
     end
   end

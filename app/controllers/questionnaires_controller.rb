@@ -186,41 +186,86 @@ puts "ques errors empty? " + @questionnaire.errors.empty?.to_s
 
   # PUT /questionnaires/1
   # PUT /questionnaires/1.xml
+  def update_too_simple
+    @questionnaire = Questionnaire.find(params[:id])
+
+    respond_to do |format|
+      if @questionnaire.update_attributes(params[:questionnaire])
+        format.html { render :action => "show" }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /questionnaires/1
+  # PUT /questionnaires/1.xml
   def update
     @questionnaire = Questionnaire.find(params[:id])
 #   @questionnaire.update_attributes(params[:questionnaire])
 puts "PARAMS PARAMS UPDATE: " + params.inspect
 
-    oldhash = @questionnaire.qfounders
-    @questionnaire.qfounders.delete(oldhash)
+#   oldfounders = @questionnaire.qfounders  # dynamic memory, build adds to it
+    oldfounders = []
+    @questionnaire.qfounders.each { |qf|
+      oldfounders << qf  # not dynamic memory
+    }
 
+#   ids = @questionnaire.qfounder_ids
+  puts "oldfounders: " + oldfounders.inspect
+# puts "ids: " + ids.inspect
+
+#   @questionnaire.qfounders.delete(oldfounders) # delete all oldf
+
+# parse params['qfounder'], remove duplicates ?
+#   if @questionnaire.qfounders_any?(params['qfounder'])
     if !params['qfounder'].nil? && params['qfounder'].any?
-#       oldlist = []
-puts "old qfounders: " + @questionnaire.qfounders.inspect
-#       @questionnaire.qfounders.each { |qf|
-#         oldlist << qf
-#         @questionnaire.qfounders.delete(qf)
-#       }
-#       oldhash = @questionnaire.qfounders
-#       @questionnaire.qfounders.delete(oldhash)
-
-        params['qfounder'].each { |k, fdr|
-#         oqf = oldlist.first
-#         if ! oqf.nil?   # delete old founder
-#           oldlist.delete(oqf)
+#     newfounders = []
+#     ids = @questionnaire.qfounder_ids
+      params['qfounder'].each { |k, fdr|
+        qfdr = Qfounder.new(fdr)
+        if qfdr.valid?
+#         newfounders << qfdr
+# puts      "new qfdr.to_s " + qfdr.to_s
+#       if Qfounder.new(fdr).valid?
+#         qid = qfdr.is_a_member_of(oldfounders)
+#         if !qid.nil?
+# use array.select to find correct element
+#         oqf = oldfounders.first
+#         if ! oqf.nil?   # update fdr, delete old founder
+# puts "oqf update " + oqf.to_s + "; to new " + qfdr.to_s
+#           oqf.update_attributes(fdr)  # fails validation
+#           oqf.questionnaire_id = @questionnaire.id
+#           oldfounders.delete(oqf)
+#         else
+# puts "qf build " + qfdr.to_s
+# Hash h.update(other_hash) => hsh
+#           sel = oldfounders.select { |f| f == qfdr }
+            ffdr = qfdr.member_of(oldfounders)
+# puts "ffdr " + ffdr.nil?.to_s + " " + ffdr.inspect
+            if !ffdr.nil?
+              oldfounders.delete(ffdr)
+puts "ffdr delete: " + ffdr.inspect
+#             @questionnaire.qfounders.build(fdr)
+            else
+puts "fdr build: " + fdr.inspect
+# only build if fdr params changed
+              @questionnaire.qfounders.build(fdr)
+            end
 #         end
-#         qfdr = Qfounder.new(fdr)
-#         if qfdr.valid?
-          if Qfounder.new(fdr).valid?
-            @questionnaire.qfounders.build(fdr)
-          end  # if is_a_fdr?
-        }
-#       oldlist.each do |qf|
-#         qf.destroy   # delete any remaining old founders
-#       end
-    end
+        end  # if qfdr.valid?
+      }  # params['q'].each
+#     @questionnaire.qfounders = newfounders
+#     @questionnaire.qfounder_ids = ids
+    end    # !params['q'].nil?
 
-puts "ques valid? " + @questionnaire.valid?.to_s
+#   delete any remaining oldfounders
+  puts "ques delete " + oldfounders.inspect
+    @questionnaire.qfounders.delete(oldfounders) # delete all oldf
+
+# puts "ques valid? " + @questionnaire.valid?.to_s
 
     respond_to do |format|
 #     if saveerr.nil?    # no errors saving questionnaire
