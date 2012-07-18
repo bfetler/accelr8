@@ -35,41 +35,16 @@ class Questionnaire < ActiveRecord::Base
 
   validate :has_a_qfounder
 
-# accepts_nested_attributes_for :qfounders, :allow_destroy => :true,
-#     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
-# accepts_nested_attributes_for :ac_registrations, :allow_destroy => :true,
-#     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
-
-  def Questionnaire.getmaxlen   # used in _form.html.erb view
-    return MAXLEN.to_s
-  end
-
   def has_a_qfounder
-# if self.qfounder.nil?  # tests if any associated objects
-# end
-    qs = ''
-    qs += qfounders.size.to_s
-#   errors.add("Need", " at least one Founder "+qs) if
-#     qfounders.count < 1
-#   if qfounders.size < 1
+#   if self.qfounder.nil?  # tests if any associated objects
     if self.qfounders.size < 1
-#     errors.add("Need", " at least one Founder "+qs)
       errors.add("Need", "at least one Founder with first or last name")
 #     errors.add("Founders", "must have at least one entry with first or last name")
     end
   end
 
-  def qfounders_any?(paramq)  # paramq = params['qfounder']
-    if !paramq.nil? && paramq.any?
-      paramq.each { |i, fdr|
-#       if Qfounder.is_a_fdr?(fdr)
-        if Qfounder.new(fdr).valid?
-          return true
-        end
-      }
-    end
-#   errors.add("Founders", "must have at least one entry with first or last name")
-    return false
+  def Questionnaire.getmaxlen   # used in _form.html.erb view
+    return MAXLEN.to_s
   end
 
   def to_s
