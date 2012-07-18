@@ -61,53 +61,33 @@ class QuestionnairesController < ApplicationController
     @questionnaire = Questionnaire.find(params[:id])
   end
 
-# Paul V. comment on create:
-#   Can't validate qfounders on questionnaire if ques not created yet.
-#   Is there a way to model.validate without calling model.save?
-#   Well, there is model.valid
-
   # POST /questionnaires
   # POST /questionnaires.xml
   def create
-    saveerr = nil
     @questionnaire = Questionnaire.new(params[:questionnaire])
 #   @questionnaire.user_id = User.find(?)
     @questionnaire.user_id = current_user.id
 
-    if !Qfounder.params_any?(params['qfounder'])
-      saveerr = 2    # no params['qfounder']
-    else
-# Paul suggests: ques.save only after qfounders parsed w/ no errors
-      if ! @questionnaire.save
-        saveerr = 0
-      else
-# no save errors for questionnaire, try saving qfounders
-        params['qfounder'].each { |i, fdr|
-          if Qfounder.is_a_fdr?(fdr)
-##          if ! @questionnaire.qfounders.create(fdr) ...
-            qfdr = Qfounder.new(fdr)
-            qfdr.questionnaire_id = @questionnaire.id
-            if ! qfdr.save
-              saveerr = 0  # saveerr = 1 or 2?
-            end
-          end  # if is_a_fdr?
-        }
-      end
-    end  # if-else Qfounder.params_any
+#   if !Qfounder.params_any?(params['qfounder'])
+    if !params['qfounder'].nil? && params['qfounder'].any?
+      params['qfounder'].each { |k, fdr|
+        if Qfounder.new(fdr).valid?
+          @questionnaire.qfounders.build(fdr)
+        end
+      }
+    end  # !params['q'].nil?
 
     respond_to do |format|
-      if saveerr.nil?    # no errors saving questionnaire
-#       format.html { redirect_to(@questionnaire, :notice => 'Accelerator Application was successfully created.') }
+#     @questionnaire.valid?
+#     if @questionnaire.errors.empty?
+      if @questionnaire.save  # also saves qfounders using build()
         format.html { redirect_to(@questionnaire) }
+#       flash[:notice] = 'Accelerator Application was successfully created.'
 #       format.html { render :action => "show" }
         format.xml  { render :xml => @questionnaire, :status => :created, :location => @questionnaire }
       else
         format.html { render :action => "new" }
-#       format.html { redirect_to new_questionnaire_path(@questionnaire) }
         format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
-        if saveerr == 2
-          flash[:notice] = '1 error prohibited this application from being saved:  Enter at least one Founder.'
-        end
       end
     end
   end
@@ -115,87 +95,55 @@ class QuestionnairesController < ApplicationController
   # PUT /questionnaires/1
   # PUT /questionnaires/1.xml
   def update
-#   flash[:notice] = "flash update: "
-    saveerr = nil
-
     @questionnaire = Questionnaire.find(params[:id])
-    if ! @questionnaire.update_attributes(params[:questionnaire])
-      saveerr = 0
-    else
 
-# no save errors for questionnaire, try saving qfounders
-# test qfounders before or after updating questionnaire?
-      if !Qfounder.params_any?(params['qfounder'])
-        saveerr = 2    # no params['qfounder']
-      else
+#   oldfounders = @questionnaire.qfounders  # dynamic memory, build adds to it
+    oldfounders = []
+    @questionnaire.qfounders.each { |f| oldfounders << f } # not dynamic memory
 
-# method works okay
-# set all previous qfounders into oldlist
-        oldlist = []
-        @questionnaire.qfounders.each do |qf|
-          oldlist << qf
-        end
-# create/update new qfounders
-        params['qfounder'].each { |i, fdr|
-          if Qfounder.is_a_fdr?(fdr)
-            oqf = oldlist.first
-            if ! oqf.nil?   # update old founder
-              if ! oqf.update_attributes(fdr)
-                saveerr = 0  # saveerr = 1 or 2?
-              end
-              oldlist.delete(oqf)
-            else            # create new founder
-              qfdr = Qfounder.new(fdr)
-              qfdr.questionnaire_id = @questionnaire.id
-              if ! qfdr.save
-                saveerr = 0  # saveerr = 1 or 2?
-              end
-            end
-          end   # if is_a_fdr?
-        }
-        oldlist.each do |qf|
-          qf.destroy   # delete any remaining old founders
-        end
-# end method
+#   if !Qfounder.params_any?(params['qfounder'])
+    if !params['qfounder'].nil? && params['qfounder'].any?
+      params['qfounder'].each { |k, fdr|
+#       if Qfounder.has_params?(fdr)
+        qfdr = Qfounder.new(fdr)
+        if qfdr.valid?
+          ffdr = qfdr.member_of(oldfounders)
+          if !ffdr.nil?  # rm from oldfounders if already exists
+            oldfounders.delete(ffdr)
+          else  # build only if fdr params changed
+            @questionnaire.qfounders.build(fdr)
+          end
+        end  # qfdr.valid?
+      }    # params['q'].each
+    end  # !params['q'].nil?
 
-      end  # if-else Qfounder.params_any
-    end
+#   delete remaining oldfounders
+    @questionnaire.qfounders.delete(oldfounders)
 
     respond_to do |format|
-      if saveerr.nil?    # no errors saving questionnaire
-#       format.html { redirect_to(@questionnaire, :notice => 'Application was successfully updated.') }
+      if @questionnaire.update_attributes(params[:questionnaire])
+#       flash[:notice] = 'Application was successfully updated.'
 #       format.html { redirect_to(apply_questionnaire_path(@questionnaire)) }
         format.html { render :action => "show" }
         format.xml  { head :ok }
       else
-#       format.html { redirect_to :back }
-        format.html { redirect_to edit_questionnaire_path(@questionnaire) }
-#       format.html { render :action => "edit" }
-
-        if saveerr == 2
-          flash[:notice] = '1 error prohibited this application from being saved:  Enter at least one Founder.'
-        end
+        format.html { render :action => "edit" }
         format.xml  { render :xml => @questionnaire.errors, :status => :unprocessable_entity }
       end
     end
-
   end
-
 
   # DELETE /questionnaires/1
   # DELETE /questionnaires/1.xml
   def destroy
     @questionnaire = Questionnaire.find(params[:id])
-    @questionnaire.destroy
-# also destroys qfounders
+    @questionnaire.destroy  # also destroys associated qfounders
 
-# flips to index.html, should flip to new.html?
+# flips to accel index.html, should flip to ques new.html?
     respond_to do |format|
-#     format.html { redirect_to(questionnaires_url) }
 #     format.html { redirect_to new_questionnaire_path }
       format.html { redirect_to accelerators_path }
       format.xml  { head :ok }
     end
-#   flash[:notice] = "try destroy questionnaire"
   end
 end

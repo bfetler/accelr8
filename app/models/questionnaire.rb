@@ -1,6 +1,6 @@
 class Questionnaire < ActiveRecord::Base
   has_many :ac_registrations, :dependent => :destroy
-  has_many :qfounders, :dependent => :destroy
+  has_many :qfounders, :dependent => :destroy  # :autosave => true
   belongs_to :user
 
   MAXLEN = 500
@@ -33,27 +33,18 @@ class Questionnaire < ActiveRecord::Base
 # validates_associated  :qfounders
 # validates_associated  :qfounders,	:presence => :true
 
-# validate :has_a_qfounder
+  validate :has_a_qfounder
 
-# accepts_nested_attributes_for :qfounders, :allow_destroy => :true,
-#     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
-# accepts_nested_attributes_for :ac_registrations, :allow_destroy => :true,
-#     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
+  def has_a_qfounder
+#   if self.qfounder.nil?  # tests if any associated objects
+    if self.qfounders.size < 1
+      errors.add("Need", "at least one Founder with first or last name")
+#     errors.add("Founders", "must have at least one entry with first or last name")
+    end
+  end
 
   def Questionnaire.getmaxlen   # used in _form.html.erb view
     return MAXLEN.to_s
-  end
-
-  def has_a_qfounder
-    qs = ''
-    qs += qfounders.size.to_s
-#   errors.add("Need", " at least one Founder "+qs) if
-#     qfounders.count < 1
-#   if qfounders.size < 1
-    if self.qfounders.size < 1
-#     errors.add("Need", " at least one Founder "+qs)
-      errors.add("Need", " at least one Founder")
-    end
   end
 
   def to_s
