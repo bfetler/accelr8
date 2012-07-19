@@ -16,19 +16,44 @@ describe Questionnaire do
               :other        => "Fred won chef of the year, 4014 BC.",
               :invest       => "Mr. Slate is in for 100 clams.",
               :advisor      => "Mr. Slate.",
-              :qfounder     => { "0" => { "firstname" => "Fred", 
-				  "lastname" => "Flintstone",
-				  "willcode" => "",
-				  "role"     => "chef",
-				  "weblink"  => "http://www.linkedin.com/fred"
-				} }
+#             :qfounder     => { "0" => { "firstname" => "Fred", 
+#				  "lastname" => "Flintstone",
+#				  "willcode" => "",
+#				  "role"     => "chef",
+#				  "weblink"  => "http://www.linkedin.com/fred"
+#				} }
             }
+	@fdr =  { "firstname" => "Fred", 
+		  "lastname" => "Flintstone",
+		  "willcode" => "",
+		  "role"     => "chef",
+		  "weblink"  => "http://www.linkedin.com/fred"
+		}
   end
 
-  let(:qfounder1) { FactoryGirl.create(:qfounder) }
+# let(:qfounder1) { FactoryGirl.create(:qfounder) }
 
   it "should create questionnaire" do
-    Questionnaire.create!(@attr)
+#   Questionnaire.create!(@attr)
+    q = Questionnaire.new(@attr)
+    q.qfounders.build(@fdr)
+    q.save!
+  end
+
+  it "should add one questionnaire to db" do
+#   lambda do
+    expect do
+      q = Questionnaire.new(@attr)
+      q.qfounders.build(@fdr)
+      q.save!
+    end.should change(Questionnaire, :count).by(1)
+  end
+
+  it "should not create questionnaire without qfounder" do
+    q = Questionnaire.new(@attr)
+#   q.qfounders.build(@fdr)
+    q.valid?.should be_false
+    q.errors.size.should == 1
   end
 
   it "should require a lastname" do
@@ -83,8 +108,12 @@ describe Questionnaire do
 
   it "should accept duplicate emails" do
 #   ok for development, probably not okay for production
-    Questionnaire.create!(@attr)
+#   Questionnaire.create!(@attr)
+    q = Questionnaire.new(@attr)
+    q.qfounders.build(@fdr)
+    q.save!
     dup_email_ques = Questionnaire.new(@attr)
+    dup_email_ques.qfounders.build(@fdr)
     dup_email_ques.should be_valid
   end
 
@@ -92,6 +121,7 @@ describe Questionnaire do
     emails = %w[user@foo.com The_User@foo.bar.org first.last@foo.jp]
     emails.each do |em|
       valid_email_ques = Questionnaire.new(@attr.merge(:email => em))
+      valid_email_ques.qfounders.build(@fdr)
       valid_email_ques.should be_valid
     end
   end

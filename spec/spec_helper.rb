@@ -33,4 +33,6 @@ RSpec.configure do |config|
   # Add for devise.  # Already in support/
 # config.include Devise::TestHelpers, :type => :controller
 
+# config.include FactoryGirl::DSL  # fails
+
 end
