@@ -31,6 +31,14 @@ FactoryGirl.define do
 # missing qfounder
   end
 
+  factory :qfounder do
+    sequence(:firstname)   { |n| "George #{n}" }
+    sequence(:lastname)    { |n| "Jetson #{n}" }
+    sequence(:weblink)     { |n| "http://www.name.com/Jetson#{n}"}
+    role                   "sales"
+    willcode               ""
+  end
+
   factory :accelerator do
     sequence(:name)  { |n| "Person #{n}" }
     sequence(:email) { |n| "accelerator#{n}@example.com"}

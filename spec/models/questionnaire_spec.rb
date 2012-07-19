@@ -15,9 +15,17 @@ describe Questionnaire do
               :competition  => "Rocky's Oyster Bar.",
               :other        => "Fred won chef of the year, 4014 BC.",
               :invest       => "Mr. Slate is in for 100 clams.",
-              :advisor      => "Mr. Slate."
+              :advisor      => "Mr. Slate.",
+              :qfounder     => { "0" => { "firstname" => "Fred", 
+				  "lastname" => "Flintstone",
+				  "willcode" => "",
+				  "role"     => "chef",
+				  "weblink"  => "http://www.linkedin.com/fred"
+				} }
             }
   end
+
+  let(:qfounder1) { FactoryGirl.create(:qfounder) }
 
   it "should create questionnaire" do
     Questionnaire.create!(@attr)
