@@ -43,12 +43,12 @@ describe AcceleratorsController do
 #     end
     end
 
-#   describe "GET 'home'" do
-#     it "should be successful" do
-#       get 'home'
-#       response.should be_success
-#     end
-#   end
+    describe "GET 'home'" do
+      it "should not be successful if a user is logged in" do
+        get 'home'
+        response.should_not be_success
+      end
+    end
 
     describe "POST 'terms'" do
       it "should be successful" do
