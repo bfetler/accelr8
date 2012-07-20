@@ -43,10 +43,6 @@ class Questionnaire < ActiveRecord::Base
     end
   end
 
-  def Questionnaire.getmaxlen   # used in _form.html.erb view
-    return MAXLEN.to_s
-  end
-
   def to_s
     self.companyname
   end

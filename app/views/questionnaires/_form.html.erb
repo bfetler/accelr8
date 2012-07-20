@@ -57,7 +57,7 @@
 
   <br/>
   <%= render :partial => 'qfounders/form', :locals => {:form => f} %>
-  <% textboxclass = "span-15 charcount maxchar" + Questionnaire.getmaxlen %>
+  <% textboxclass = "span-15 charcount maxchar" + Questionnaire::MAXLEN.to_s %>
 
 <fieldset class="accel-form nomargin clear span-22 last">
 <legend>Questionnaire</legend>
