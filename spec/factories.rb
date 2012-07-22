@@ -28,7 +28,6 @@ FactoryGirl.define do
     other        "Other projects."
     invest       "Investors."
     advisor      "Advisors."
-# missing qfounder
   end
 
   factory :qfounder do

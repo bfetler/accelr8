@@ -5,7 +5,8 @@ describe AcRegistrationsController do
   render_views
 
   let(:user) { FactoryGirl.create(:user) }
-  let(:questionnaire) { FactoryGirl.create(:questionnaire) }
+# let(:questionnaire) { FactoryGirl.create(:questionnaire) }
+  let(:questionnaire) { FactoryGirl.build(:questionnaire) }
   let(:accelerators) { 3.times.each.map { FactoryGirl.create(:accelerator) } }
 
   before { sign_in user }
@@ -30,6 +31,8 @@ describe AcRegistrationsController do
           bhash = Hash.new{ |h, k| h[k] = "" }
           accelerators.each { |a| bhash[a.id.to_s] }
 #         bhash = Hash[* accelerators.map { |a| [ a.id.to_s, "" ] }.flatten ]
+          questionnaire.qfounders << Factory.build(:qfounder, :questionnaire => questionnaire)
+          questionnaire.save!
 #         redirect_to :back fails without HTTP_REFERER
           @request.env['HTTP_REFERER'] = 'http://0.0.0.0:3000/'
           post :createbatch, 'quid' => questionnaire.to_param, 'bx' => bhash
@@ -52,6 +55,8 @@ describe AcRegistrationsController do
       it "should fail to create registrations" do
         lambda do
           @request.env['HTTP_REFERER'] = 'http://0.0.0.0:3000/'
+          questionnaire.qfounders << Factory.build(:qfounder, :questionnaire => questionnaire)
+          questionnaire.save!
           post :createbatch, 'quid' => questionnaire.to_param
         end.should_not change(AcRegistration, :count)
       end
