@@ -6,7 +6,7 @@ describe AcceleratorsController do
 
 # @request.env["devise.mapping"] = Devise.mappings[:accelerator_user]
   let(:accelerator_user) { FactoryGirl.create(:accelerator_user) }
-  let(:accelerator) { FactoryGirl.create(:accelerator) }
+  let(:accelerator) { FactoryGirl.create(:accelerator, :accelerator_user => accelerator_user) }
 
   describe "User Sign In" do
     it "should have a current user" do
@@ -34,12 +34,11 @@ describe AcceleratorsController do
       it "should be successful" do
         get 'new'
         response.should render_template('new')
-#       response.should be_success
       end
 
-#     it "should have correct title div" do   # fails
+#     it "should have correct title div" do   # needs render_views
 #       get 'new'
-#       response.should have_selector("div>div", :class => "span-6 bigfont bigmargin last", :content => "Create New Accelerator")
+#       response.should have_selector("div", :class => "span-6 bigfont bigmargin last", :content => "Create New Accelerator")
 #     end
     end
 
@@ -69,26 +68,26 @@ describe AcceleratorsController do
       end
     end
 
-    describe "POST 'create'" do
-#     describe "should not create an accelerator" do  # already done in model
-#       before(:each) do
-#         @bad_attr = { :name => "", :email => "", :description => "" }
-#       end
-
-#       it "should not create an accelerator" do
-#         lambda do
-#           post :create, :accelerator => @bad_attr
-#         end.should_not change(Accelerator, :count)
-#       end
-#     end
-
-#     describe "success" do
-#       it "should create a user" do
-#       end
-#     end
+    describe "GET 'edit'" do
+      it "should be successful" do
+        get 'edit', :id => accelerator
+        response.should render_template('edit')
+      end
     end
 
-# to do: edit create update destroy
+#   describe "PUT 'update'" do
+#     it "should be successful" do
+#       put 'update', :id => accelerator
+#       response.should render_template('index')
+#     end
+#   end
+
+#   describe "DELETE 'destroy'" do
+#     it "should be successful" do
+#       delete 'destroy', :id => accelerator
+#       response.should render_template('index')
+#     end
+#   end
 
   end  # With Accelerator User
 
