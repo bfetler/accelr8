@@ -1,11 +1,10 @@
 require 'spec_helper'
 
+# controller specs similar to Hartl - use Factory models, render_template
+
 describe AcRegistrationsController do
 
-  render_views
-
   let(:user) { FactoryGirl.create(:user) }
-# let(:questionnaire) { FactoryGirl.create(:questionnaire) }
   let(:questionnaire) { FactoryGirl.build(:questionnaire) }
   let(:accelerators) { 3.times.each.map { FactoryGirl.create(:accelerator) } }
 

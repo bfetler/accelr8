@@ -5,7 +5,7 @@ describe "Integration: Users" do
   describe "Create User" do
     describe "failure" do
       it "should not create a new user" do
-        lambda do
+        expect do
           visit 'users/sign_in'
           click_link "Create New User"
           fill_in "Email",      :with => ""

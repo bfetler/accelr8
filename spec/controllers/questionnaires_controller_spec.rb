@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+# controller specs similar to Hartl - use Factory models, render_template
+
 describe QuestionnairesController do
 
   let(:user) { FactoryGirl.create(:user) }

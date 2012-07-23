@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+# controller specs similar to Hartl - use Factory models, render_template 
+
 describe AcceleratorsController do
 
   before { sign_in FactoryGirl.create(:user) }
