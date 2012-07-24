@@ -23,6 +23,7 @@ group :test do
   gem 'sqlite3-ruby', '1.2.5'
   gem 'rspec', '2.9.0'
   gem 'webrat', '0.7.3'
+  gem 'launchy'
   gem 'factory_girl_rails', '1.4.0'
 end
 
