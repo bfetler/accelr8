@@ -10,10 +10,10 @@
       <li>
         <h3>Site</h3>
         <ul style='padding-left: 0px !important;'>
-          <li><a class='footer_desc' href="<%= root_path %>">Home</a></li>
-          <li><a class='footer_desc' href="/about">About Us</a></li>
-          <li><a class='footer_desc' href="/about">How It Works</a></li>
-          <li><a class='footer_desc' href="/about#contact">Contact Us</a></li>
+          <li><%= link_to "Home", root_path, :class => 'footer_desc' %></li>
+          <li><%= link_to "About Us", about_path, :class => 'footer_desc' %></li>
+          <li><%= link_to "Beta Test", beta_path, :class => 'footer_desc' %></li>
+          <li><%= link_to "Contact Us", about_path+"#contact", :class => 'footer_desc' %></li>
         </ul>
       </li>
       

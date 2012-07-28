@@ -26,7 +26,7 @@
                 <li><%= link_to "Edit User", edit_user_registration_path %></li>
               <% end %>
               <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
-              <li><%= link_to "About", "#" %></li>
+              <li><%= link_to "About", about_path %></li>
             </ul>
           </td>
         </tr>
@@ -36,7 +36,7 @@
       <ul>
         <li><%= link_to "User Sign In", new_user_session_path %></li>
         <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "About", "#" %></li>
+        <li><%= link_to "About", about_path %></li>
       </ul>
     <% end %>
   </nav>

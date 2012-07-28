@@ -1,0 +1,29 @@
+<% if ENV['RAILS_ENV'] == 'development' %>
+  <strong>THIS IS DEV VERSION</strong>
+  <%= Time.now.to_s %>
+  <br/>
+  <br/>
+<% end %>
+
+<div style="clear:both;"></div>
+
+<a name='about'></a>
+<h4 style='font-weight: bold;'>About FoundersHookup</h4>
+<div style='clear: both;'></div>
+<p>FoundersHookup's beta test goal is to test the user interfacec.  Connect you with GREAT people to seed high quality DNA into your venture from Day One. We screen applicants and only present the highest caliber Internet founder prospects. We also prioritize connections based on a residency-match system. You rank the other co-founders, they rank you, and the lowest matched pairs get connected first. You can meet / chat on your own schedule, and also are invited to weekly forums (currently in the SF Bay Area) especially arranged for FoundersHookup speed dates</p>
+
+<a name='feedback'></a>
+<h4 style='font-weight: bold;'>Beta Test Feedback</h4>
+<p>This is an iterative work-in-progress. We welcome your feedback! <br/>
+   Please email us at
+<%= mail_to 'bfetler@gmail.com', "bfetler\@gmail.com" %><br/> or
+<%= mail_to 'support@foundershookup.com', "support\@foundershookup.com" %><br/>
+</p>
+
+<a name='contact'></a>
+<h4 style='font-weight: bold;'>Contact Info</h4>
+Email is the best way to reach us. <br/>
+Please send all inquiries to: <%= mail_to 'support@foundershookup.com', "support\@foundershookup.com" %>
+<br/>
+<br/>
+

@@ -1,0 +1,46 @@
+<% if ENV['RAILS_ENV'] == 'development' %>
+  <strong>THIS IS DEV VERSION</strong>
+  <%= Time.now.to_s %>
+<% end %>
+<blockquote style="position:relative;background:#ffffff;border:2px solid #FFFFFF; -moz-border-radius: 15px; -webkit-border-radius: 15px;padding:10px;color:#9ba98e; margin: 5px 0 0 0;">
+<p>
+"The most important thing to be successful in business is to have the right people."
+</p>
+<p><em style="float:none;color:#9ba98e; font-style: none;">
+- William Sahlman<br/>
+Harvard Business School Professor of Entrepreneurship</em></p>
+</blockquote>
+<div style="clear:both;"></div>
+
+<a name='about'></a>
+<h4 style='font-weight: bold;'>About FoundersHookup</h4>
+<div style='clear: both;'></div>
+<p>FoundersHookup's goal is to connect you with GREAT people to seed high quality DNA into your venture from Day One. We screen applicants and only present the highest caliber Internet founder prospects. We also prioritize connections based on a residency-match system. You rank the other co-founders, they rank you, and the lowest matched pairs get connected first. You can meet / chat on your own schedule, and also are invited to weekly forums (currently in the SF Bay Area) especially arranged for FoundersHookup speed dates</p>
+
+<a name='match'></a>
+<h4 style='font-weight: bold;'>Please see the official <%= link_to "Founders Hookup", "http://www.foundershookup.com", :target => "_blank" %> web site for further details.</h4>
+
+<a name='feedback'></a>
+<h4 style='font-weight: bold;'>Feedback</h4>
+<p>This is an iterative work-in-progress. We welcome your feedback! <br/>
+   Please email us at
+<%= mail_to 'support@foundershookup.com', "support\@foundershookup.com" %><br/>
+<% if @logged_in %>
+  Or fill out a <%= link_to "feedback form here", new_feedback_path %>
+<% end %>
+</p>
+
+<a name='contact'></a>
+<h4 style='font-weight: bold;'>Contact Info</h4>
+Email is the best way to reach us. <br/>
+Please send all inquiries to: <%= mail_to 'support@foundershookup.com', "support\@foundershookup.com" %>
+<br/>
+<br/>
+
+<p>
+FoundersHookup, Inc. <br/>
+660 4th Street #487 <br/>
+San Francisco, CA 94107 <br/>
+Phone: +1-415-309-8860 <br/>
+</p>
+

@@ -167,10 +167,10 @@ ul li.nostyle
 a.header_link {
   font-weight: bold;
   font-style: italic;
-  color: white;
+  color: #abd;
 }
 a.header_link:visited {
-  color: white;
+  color: #abd;
 }
 a.header_link:hover {
   text-decoration: underline;

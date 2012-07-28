@@ -18,6 +18,9 @@ Accelr8::Application.routes.draw do
   match '/user_root', :to => 'accelerators#index'
 # match '/accelerators' => 'accelerators#index', :as => :user_root
 
+  match '/about' => 'acpages#about', :as => 'about'
+  match '/beta' => 'acpages#beta', :as => 'beta'
+
   resources :questionnaires do
     resources :qfounders
     member do
