@@ -26,7 +26,7 @@
                 <li><%= link_to "Edit User", edit_user_registration_path %></li>
               <% end %>
               <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
-              <li><%= link_to "About", "#" %></li>
+              <li><%= link_to "About", about_path %></li>
             </ul>
           </td>
         </tr>
@@ -36,16 +36,14 @@
       <ul>
         <li><%= link_to "User Sign In", new_user_session_path %></li>
         <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "About", "#" %></li>
+        <li><%= link_to "About", about_path %></li>
       </ul>
     <% end %>
   </nav>
 
-  <h2 class="header_test">Accelerator Test</h2>
-  <h5 class="header_note">
-    <%= link_to "Click here", "http://www.foundershookup.com", :target => "_blank", :class => "header_link" %>
-    to go to the official Founders Hookup site.
-  </h5>
+  <h2 class="header_test">
+    <%= link_to "Accelerator Beta Test", beta_path, :class => "header_test" %>
+  </h2>
 
   </div> 
 </header>

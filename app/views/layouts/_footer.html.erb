@@ -3,28 +3,30 @@
     <ul>
       <li>
         <h3>Founders<span class='dblue'>Hookup</span></h3>
+        <p><%= link_to "Click here", "http://www.foundershookup.com", :target => "_blank", :class => "footer_link" %>
+            to go to the official Founders Hookup web site.
+        </p>
         <p> &copy; 2011 FoundersHookup.Inc. <br/>
         All rights reserved.  <br/>
+        </p>
       </li>
 
       <li>
         <h3>Site</h3>
         <ul style='padding-left: 0px !important;'>
-          <li><a class='footer_desc' href="<%= root_path %>">Home</a></li>
-          <li><a class='footer_desc' href="/about">About Us</a></li>
-          <li><a class='footer_desc' href="/about">How It Works</a></li>
-          <li><a class='footer_desc' href="/about#contact">Contact Us</a></li>
+          <li><%= link_to "Home", root_path, :class => 'footer_desc' %></li>
+          <li><%= link_to "About Us", about_path, :class => 'footer_desc' %></li>
+          <li><%= link_to "Beta Test", beta_path, :class => 'footer_desc' %></li>
+          <li><%= link_to "Contact Us", about_path+"#contact", :class => 'footer_desc' %></li>
         </ul>
       </li>
       
       <li>
         <h3>Follow Us</h3>
-        <a target='_new' href='http://www.facebook.com/pages/FoundersHookup/166692863384506'>
+        <p href='#'>
           <img src="images/ideaware/icn/icn_fb.png" alt="Facebook" />
-        </a>
-        <a target='_new' href='http://twitter.com/FoundersHookup'>
           <img src="images/ideaware/icn/icn_tw.png" alt="Twitter" />
-        </a>
+        </p>
         <br/>
       </li>
 				
