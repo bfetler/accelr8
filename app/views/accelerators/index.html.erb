@@ -24,23 +24,23 @@
 <table class="accel">
   <tr>
     <th class="index">
-      <%= link_to 'Name', { :action => "index", :column => "name", :order => col=="name" ? order : "ASC" }, :method => :get %>
+      <%= link_to 'Name', { :action => "index", :column => "name", :order => col=="name" ? order : "ASC" }, :method => :get, :class => col=="name" ? "hilite" : "" %>
     </th>
     <th class="index">
-      <%= link_to 'Location', { :action => "index", :column => "city", :order => col=="city" ? order : "ASC" }, :method => :get %>
+      <%= link_to 'Location', { :action => "index", :column => "city", :order => col=="city" ? order : "ASC" }, :method => :get, :class => col=="city" ? "hilite" : "" %>
     </th>
     <th class="index">
-      <%= link_to 'Start Date', { :action => "index", :column => "startdate", :order => col=="startdate" ? order : "ASC" }, :method => :get %>
+      <%= link_to 'Start Date', { :action => "index", :column => "startdate", :order => col=="startdate" ? order : "ASC" }, :method => :get, :class => col=="startdate" ? "hilite" : "" %>
     </th>
     <th class="index">
-      <%= link_to 'Length', { :action => "index", :column => "length", :order => col=="length" ? order : "ASC" }, :method => :get %>
+      <%= link_to 'Length', { :action => "index", :column => "length", :order => col=="length" ? order : "ASC" }, :method => :get, :class => col=="length" ? "hilite" : "" %>
     </th>
     <th class="index">Description</th>
     <th class="index center">
-      <%= link_to 'Application Due Date', { :action => "index", :column => "duedate", :order => col=="duedate" ? order : "ASC" } %>
+      <%= link_to 'Application Due Date', { :action => "index", :column => "duedate", :order => col=="duedate" ? order : "ASC" }, :method => :get, :class => col=="duedate" ? "hilite" : "" %>
     </th>
     <th class="index center">
-      <%= link_to 'Accept Late Applications', { :action => "index", :column => "acceptlate", :order => col=="acceptlate" ? order : "ASC"  } %>
+      <%= link_to 'Accept Late Applications', { :action => "index", :column => "acceptlate", :order => col=="acceptlate" ? order : "ASC" }, :method => :get, :class => col=="acceptlate" ? "hilite" : "" %>
     </th>
     <!--th class="index center nowrap">
       <%#= link_to 'Accept Founders', { :action => "index", :column => "acceptapp"} %><br/>

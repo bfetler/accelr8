@@ -8,45 +8,59 @@
 <div style="clear:both;"></div>
 
 <a name='about'></a>
+<div class="right">
+  <%= link_to 'Back to Accelerators', accelerators_path %>
+</div>
 <h4 style='font-weight: bold;'>FoundersHookup Accelerator Beta Test</h4>
 <div style='clear: both;'></div>
-<div class="">
 <p>The goal of the FoundersHookup Accelerator beta test is to test the Accelerators portion of the web site.  We welcome feedback on all aspects of the web site, but particularly on the features of the <em>Accelerators</em> tab.  To get started, try the following.
 </p>
 <ul class="left_margin">
-  <li>Click the <em>User Sign In</em> link at top.</li>
+  <li>Click the <em>User Sign In</em> link.</li>
   <br/>
   <li>On the User Sign In page, create a new user account.
     <ul>
       <li class="nostyle">- Click the <em>Create New User</em> link on the right.</li>
       <li class="nostyle">- Enter an email address and password.</li>
       <li class="nostyle">- Click the <em>Create New User</em> button.</li>
-      <li class="nostyle">Note: Any email address will do, even an invalid one.  No email will be sent to this address.</li>
-      <li class="nostyle left_margin">You may delete the User Account at any time by clicking on the <em>Edit User</em> link.</li>
+      <li class="nostyle left_margin beta_hilite">Note: Any email address will do, even an invalid one.  No email will be sent to this address.</li>
+      <li class="nostyle left_margin beta_hilite">You may delete the User Account at any time by clicking the <em>Edit User</em> link.</li>
     </ul>
   </li>
   <br/>
-  <li>You should now see the Accelerators page, and a series of tabs at top.  The Accelerators page has a sortable list of Accelerators, which are angel funds for company founders to apply to.  The Accelerators listed are dummy accounts for testing purposes only.  <br/>To return to the Accelerator page at any time, click the <em>Accelerators</em> tab at top.</li>
+  <li>You should now see the Accelerators page, and a series of tabs at top.  The Accelerators page has a sortable list of Accelerators, which are Angel funds for company founders to apply to.  The Accelerators listed are dummy accounts for testing purposes only.  <br/>To return to the Accelerators page at any time, click the <em>Accelerators</em> tab.</li>
   <br/>
-  <li>Click the <em>Apply to Accelerators</em> button to start an application for applying to accelerators.  If you previously started an application, it will show it.  The questionnaire contains information about the company you and your co-founders would like to start.  </li>
-  <li class="nostyle left_margin">Note: Any questionnaire information will do, although some fields are required.</li>
-  <li class="nostyle left_margin"><em>* For the beta test, we are particularly interested in if the questions on the application are appropriate.  </em></li>
+  <li>Click the <em>Apply to Accelerators</em> button to start an application for applying to accelerators.  If you previously saved an application, it will be shown.  The application contains information about the company you and your co-founders would like to start.  </li>
+  <li class="nostyle left_margin beta_hilite">Note: The application information does not have to be for a real company.  Some fields are required.</li>
+  <li class="nostyle left_margin beta_hilite"><em beta_hilite>* For the beta test, we are particularly interested if the application questions are appropriate.  </em></li>
   <br/>
-  <li>After you fill in the questionnaire, click <em>Create New Accelerator Application</em> to save the application.
+  <li>After you fill in the application, click <em>Create New Accelerator Application</em> to save it.
   </li>
   <br/>
-  <li>Once the questionnaire is complete, you may click <em>Test Email</em> to send a test message to the email address you entered on the application.  The test email contains the same information as would be sent to an accelerator you apply to.  </li>
+  <li>Once the application is complete, you may click <em>Test Email</em> to send a test message to the email address you entered on the application.  The test email contains the same information as would be sent to an accelerator.  </li>
   <br/>
   <li>Click <em>Apply to Accelerators</em> to show a list of dummy accelerators to apply to.  </li>
   <br/>
   <li>To apply to accelerators, select the <em>Apply Now</em> check boxes on the right side of the list, and click <em>Submit Application</em>.  </li>
-  <li class="nostyle">Note: This will send an application to the questionnaire email address, and to a software developer email account.  No actual applications will be submitted to any accelerators.
-  </li>
-  <br/>
-  <li>If you're feeling ambitious, you may also try creating an Accelerator account.  At the bottom of the Accelerators list, click on the <em>Accelerator Login</em> link.  This opens a window to create an accelerator user account, similar to the User account.  Click on the <em>Create New Accelerator</em> button to open a questionnaire, similar to the Application questionnaire.
+  <li class="nostyle beta_hilite left_margin">Note: This will send an application to the email address you entered on the application, and to a software developer email account.  No actual applications will be submitted to any accelerators.
   </li>
 </ul>
-</div>
+
+<p class="left_margin"><strong><em>This concludes the steps most founders will take to apply to accelerators.</em></strong>
+</p>
+
+<h4 style='font-weight: bold;'>Extra Tests to Create Accelerators</h4>
+<ul class="left_margin">
+  <li>If you're feeling ambitious, you may also try creating an Accelerator account as follows.  
+    <ul>
+      <li class="nostyle">- At the bottom of the Accelerators list, click the <em>Accelerator Login</em> link.</li>
+      <li class="nostyle">- Click <em>Create New Accelerator Login</em> to create an Accelerator account, similar to a User account.</li>
+      <li class="nostyle">- Click the <em>Create New Accelerator</em> button on the Accelerators page.</li>
+      <li class="nostyle">- Fill in the fields as appropriate, and click <em>Create Accelerator</em> to save it.</li>
+      <li class="nostyle left_margin beta_hilite">Note: The new accelerator should appear on the Accelerators page.</li>
+    </ul>
+  </li>
+</ul>
 
 <a name='feedback'></a>
 <h4 style='font-weight: bold;'>Beta Test Feedback</h4>
@@ -58,6 +72,9 @@
 
 <a name='contact'></a>
 <h4 style='font-weight: bold;'>Contact Info</h4>
+<div class="right">
+  <%= link_to 'Back to Accelerators', accelerators_path %>
+</div>
 Email is the best way to reach us. <br/>
 Please send all inquiries to: <%= mail_to 'support@foundershookup.com', "support\@foundershookup.com" %>
 <br/>

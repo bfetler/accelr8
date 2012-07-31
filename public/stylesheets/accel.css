@@ -153,7 +153,7 @@ ul li.nostyle
   font-style: italic;
   color: white;
   margin: auto;
-  padding-left: 100px;
+  padding-left: 20px;
   padding-top: 20px;
   width:250px;
 }
@@ -164,16 +164,35 @@ ul li.nostyle
   padding-top: 0px;
   width:300px;
 }
-a.header_link {
+a.header_test {
+# font-weight: bold;
+  font-style: italic;
+  color: white;
+}
+a.header_test:visited {
+  color: white;
+}
+a.footer_link {
+  color:#abd;
   font-weight: bold;
   font-style: italic;
-  color: #abd;
+# font-size:1.5em;
 }
-a.header_link:visited {
-  color: #abd;
+a.footer_link:visited {
+  color:#abd;
 }
 a.header_link:hover {
   text-decoration: underline;
+}
+a.hilite
+{
+  color: #439;
+# font-style: italic;
+}
+.beta_hilite
+{
+# color: #09c;
+  color: #53a;
 }
 .applybox {
   padding:10px;
