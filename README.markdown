@@ -1,30 +1,32 @@
 ## Founders Hookup Accelerator
 
-This is a sandbox for the [*Accelerator Directory*](http://fh-accelerator.herokuapp.com) tab in [*Founders Hookup*](http://www.foundershookup.com/).  Founders Hookup matches high caliber, Internet co-founder prospects together.  
+This is a sandbox for the [*Accelerator Directory*](http://fh-accelerator.herokuapp.com) tab for the [*Founders Hookup*](http://www.foundershookup.com/) web site.  
+
+<em>"Founders Hookup matches high caliber, Internet co-founder prospects together."</em>
 
 #### Features:
 
 * Hosting on heroku:
-
   * Accelerator tab at http://fh-accelerator.herokuapp.com
 
   * Founders Hookup web site at http://www.foundershookup.com
+
 
 * <em>Devise</em> authentication for users and accelerators.  
 
 * An accelerator may post information about their program.
 
 * A user is an accelerator applicant and usually one of the founders.
-
   * A user fills out an interactive questionnaire using <em>jQuery</em>.  It includes a short video.  
 
   * A user may select which accelerator programs to apply to.  
+
 
 * Applications are emailed to accelerators using <em>SendGrid</em>.  A copy of the questionnaire is also emailed to the user.
 
 ## Beta Test
 
-The Founders Hookup Accelerator tab is currently in beta test.  Instructions are given at [beta test](http://fh-accelerator.herokuapp.com/beta).
+The Founders Hookup Accelerator feature is currently in beta test.  Instructions are given [here](http://fh-accelerator.herokuapp.com/beta).
 
 ## Software Testing
 
