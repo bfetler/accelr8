@@ -9,7 +9,7 @@ This project is a sandbox for the [*Accelerator Directory tab*](http://fh-accele
 * Hosting on heroku:
   * Accelerator tab beta test site at http://fh-accelerator.herokuapp.com
   * Founders Hookup web site at http://www.foundershookup.com
-<span style="margin-bottom:20px;"/>
+<div style="margin-bottom:20px;"/>
 
 * <em>Devise</em> authentication for users and accelerators.  
 
@@ -18,7 +18,7 @@ This project is a sandbox for the [*Accelerator Directory tab*](http://fh-accele
 * A user is an accelerator applicant and usually one of the founders.
   * A user fills out an interactive questionnaire using <em>jQuery</em>.  It includes a short video.  
   * A user may select which accelerator programs to apply to.  
-<span style="margin-bottom:20px;"/>
+<div style="margin-bottom:20px;"/>
 
 * Applications are emailed to accelerators using <em>SendGrid</em>.  A copy of the questionnaire is also emailed to the user.
 
