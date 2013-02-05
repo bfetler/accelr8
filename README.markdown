@@ -7,7 +7,7 @@ This project is a sandbox for the [*Accelerator Directory tab*](http://fh-accele
 #### Features:
 
 * Hosting on heroku:
-  * Accelerator tab beta test site at http://fh-accelerator.herokuapp.com
+  * Accelerator tab beta test site at http://fh-accelerator.herokuapp.com.  
   * Founders Hookup web site at <a href="http://www.foundershookup.com">http://www.foundershookup.com</a>.  
 <br/>
 * <em>Devise</em> authentication for users and accelerators.  
