@@ -1,22 +1,24 @@
 == Founders Hookup Accelerator
 
-This is a sandbox for the [*Accelerator Directory*](fh-accelerator.herokuapp.com) tab in [*Founders Hookup*](http://www.foundershookup.com/).  Founders Hookup matches high caliber, Internet co-founder prospects together.  
+This is a sandbox for the [*Accelerator Directory*](http://fh-accelerator.herokuapp.com) tab in [*Founders Hookup*](http://www.foundershookup.com/).  Founders Hookup matches high caliber, Internet co-founder prospects together.  
 
 Features:
 
-* Hosting on heroku at http://fh-accelerator.herokuapp.com
+* Hosting on heroku:
 
-* Founders Hookup web site is hosted on heroku at http://www.foundershookup.com
+  * Accelerator tab at http://fh-accelerator.herokuapp.com
+
+  * Founders Hookup web site at http://www.foundershookup.com
 
 * <em>Devise</em> authentication for users and accelerators.  
 
-* A user is an accelerator applicant and usually one of the founders.
-
 * An accelerator may post information about their program.
 
-* A user fills out a questionnaire, including a short video.  The questionnaire interactively uses <em>jQuery</em>.
+* A user is an accelerator applicant and usually one of the founders.
 
-* A user may select which accelerator programs to apply to.  
+  * A user fills out an interactive questionnaire using <em>jQuery</em>.  It includes a short video.  
+
+  * A user may select which accelerator programs to apply to.  
 
 * Applications are emailed to accelerators using <em>SendGrid</em>.  A copy of the questionnaire is also emailed to the user.
 
@@ -32,6 +34,4 @@ Software tests are done using <em>RSpec</em>.
 
 This is a <b><em>Birch Forest Systems</em></b> project.
 Please contact us at <em>bfetler@gmail.com</em> for further details.
-
-
 
