@@ -1,8 +1,8 @@
 ## Founders Hookup Accelerator
 
-This is a sandbox for the [*Accelerator Directory*](http://fh-accelerator.herokuapp.com) tab for the [*Founders Hookup*](http://www.foundershookup.com/) web site.  
-
 <em>"Founders Hookup matches high caliber, Internet co-founder prospects together."</em>
+
+This project is a sandbox for the [*Accelerator Directory tab*](http://fh-accelerator.herokuapp.com) on the [*Founders Hookup*](http://www.foundershookup.com/) web site.  
 
 #### Features:
 
@@ -11,7 +11,7 @@ This is a sandbox for the [*Accelerator Directory*](http://fh-accelerator.heroku
 
   * Founders Hookup web site at http://www.foundershookup.com
 
-
+<br/>
 * <em>Devise</em> authentication for users and accelerators.  
 
 * An accelerator may post information about their program.
@@ -21,7 +21,7 @@ This is a sandbox for the [*Accelerator Directory*](http://fh-accelerator.heroku
 
   * A user may select which accelerator programs to apply to.  
 
-
+<br/>
 * Applications are emailed to accelerators using <em>SendGrid</em>.  A copy of the questionnaire is also emailed to the user.
 
 ## Beta Test
