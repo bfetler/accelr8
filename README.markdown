@@ -11,8 +11,6 @@ This project is a sandbox for the [*Accelerator Directory tab*](http://fh-accele
   * Founders Hookup web site at http://www.foundershookup.com
 
 <br/>
-<br/>
-
 * <em>Devise</em> authentication for users and accelerators.  
 
 * An accelerator may post information about their program.
@@ -22,7 +20,6 @@ This project is a sandbox for the [*Accelerator Directory tab*](http://fh-accele
   * A user may select which accelerator programs to apply to.  
 
 <br/>
-
 * Applications are emailed to accelerators using <em>SendGrid</em>.  A copy of the questionnaire is also emailed to the user.
 
 ## Beta Test
